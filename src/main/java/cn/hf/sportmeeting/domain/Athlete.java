@@ -7,6 +7,8 @@ public class Athlete {
 
     private Boolean gender;
 
+    private String genderStr;
+
     private Integer age;
 
     private Double weight;
@@ -24,6 +26,24 @@ public class Athlete {
     private Integer userId;
 
     private Boolean active;
+
+    public String getGenderStr() {
+        if(gender != null)
+        {
+            if(gender == false)
+            {
+                genderStr = "男";
+            }else
+            {
+                genderStr = "女";
+            }
+        }
+        return genderStr;
+    }
+
+    public void setGenderStr(String genderStr) {
+        this.genderStr = genderStr;
+    }
 
     public Integer getId() {
         return id;

@@ -59,7 +59,6 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
-
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -80,115 +79,126 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                比赛管理 <small>比赛列表</small>
+                比赛管理 <small>比赛详情</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li>比赛管理</li>
-                <li class="active">比赛列表</li>
+                <li class="active">比赛详情</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
 
         <!-- 正文区域 -->
         <section class="content">
+            <div class="tab-pane active" id="tab-label">
+                <div class="row data-type">
+                    <div class="col-md-2 title">比赛名称</div>
+                    <div class="col-md-4 data text">
+                        ${project.name}
+                    </div>
+                    <div class="col-md-2 title">单位</div>
+                    <div class="col-md-4 data text">
+                        ${project.unit}
+                    </div>
+                    <div class="col-md-2 title">排序</div>
+                    <div class="col-md-4 data text">
+                        ${project.sortStr}
+                    </div>
 
-            <!-- .box-body -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">列表</h3>
+                    <div class="col-md-2 title">性别限制</div>
+                    <div class="col-md-4 data text">
+                        ${project.genderStr}
+                    </div>
+                    <div class="col-md-2 title">比赛地点</div>
+                    <div class="col-md-4 data text">
+                        ${project.place}
+                    </div>
+                    <div class="col-md-2 title">比赛类型</div>
+                    <div class="col-md-4 data text">
+                        ${project.typeStr}
+                    </div>
+                    <div class="col-md-2 title">比赛日期</div>
+                    <div class="col-md-10 data text">
+                        ${project.dateStr}
+                    </div>
+                    <div class="col-md-2 title rowHeight2x">描述</div>
+                    <div class="col-md-10 data rowHeight2x">
+                        <textarea class="form-control" rows="3" disabled="disabled">${project.description}</textarea>
+                    </div>
                 </div>
+                <br>
+                <br>
 
-                <div class="box-body">
+                <!-- 参赛人员列表 -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-cube"></i>
+                        <h3 class="box-title">参赛人员列表</h3>
+                    </div>
 
-                    <!-- 数据表格 -->
-                    <div class="table-box">
-
+                    <div class="box-body">
                         <!--工具栏-->
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"
-                                            onclick="location.href='${pageContext.request.contextPath}/pages/project-add.jsp'">
-                                        <i class="fa fa-file-o"></i> 新建
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="删除" id="delSelected">
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="开启">
-                                        <i class="fa fa-check"></i> 开启
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
+                                    <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新建</button>
+                                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                                    <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
                                 </div>
                             </div>
                         </div>
                         <!--工具栏/-->
-                        <form id="selection" action="${pageContext.request.contextPath}/project/deleteByIds.do" method="post">
-                        <!--数据列表-->
-                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
-                            <thead>
-                            <tr>
-                                <th class="sorting_asc_disabled" style="padding-right: 0px;"><input
-                                        id="selall" type="checkbox" class="icheckbox_square-blue">
-                                </th>
-                                <th style="text-align: center">ID</th>
-                                <th style="text-align: center">比赛名称</th>
-                                <th style="text-align: center">单位</th>
-                                <th style="text-align: center">排序</th>
-                                <th style="text-align: center">性别限制</th>
-                                <th style="text-align: center">比赛地点</th>
-                                <th style="text-align: center">比赛日期</th>
-                                <th style="text-align: center">比赛时长</th>
-                                <th style="text-align: center">比赛类型</th>
-                                <th style="text-align: center">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <!-- 数据表格 -->
+                        <div class="table-box">
 
-                            <c:forEach items="${projectList}" var="project" varStatus="status">
-
+                            <!--数据列表-->
+                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable" >
+                                <thead>
                                 <tr>
-                                    <td><input name="ids" type="checkbox" value="${project.id}"></td>
-                                    <td>${status.index+1}</td>
-                                    <td>${project.name}</td>
-                                    <td>${project.unit}</td>
-                                    <td>${project.sortStr}</td>
-                                    <td>${project.genderStr}</td>
-                                    <td>${project.place}</td>
-                                    <td>${project.dateStr}</td>
-                                    <td>${project.duration}</td>
-                                    <td>${project.typeStr}</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/project/findDetailsById.do?id=${project.id}'">
-                                            详情
-                                        </button>
-
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="javascript:deleteProject(${project.id})">
-                                            删除
-                                        </button>
-
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/project/update.do?id=${project.id}'">
-                                            修改
-                                        </button>
-                                    </td>
+                                    <th class="" style="padding-right:0px;">
+                                        <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                                    </th>
+                                    <th class="">ID</th>
+                                    <th class="">姓名</th>
+                                    <th class="">性别</th>
+                                    <th class="">年龄</th>
+                                    <th class="">团队</th>
+                                    <th class="">运动员号码</th>
+                                    <th class="text-center">操作</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        </form>
+                                </thead>
+                                <tbody>
 
+                                <c:forEach items="${athleteList}" varStatus="vs" var="athlete">
+                                    <tr>
+                                        <td><input name="ids" type="checkbox"></td>
+                                        <td>${vs.index+1}</td>
+
+                                        <td>${athlete.name}</td>
+                                        <td>${athlete.genderStr}</td>
+                                        <td>${athlete.age}</td>
+                                        <td>${athlete.teamId}</td>
+                                        <td>${athlete.playerNum}</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>编辑</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <!--数据列表/-->
+
+                        </div>
+                        <!-- 数据表格 /-->
                     </div>
-                    <!-- 数据表格 /-->
-
+                    <!-- /.box-body -->
 
                 </div>
-                <!-- /.box-body -->
+
+
             </div>
+
 
         </section>
         <!-- 正文区域 /-->
@@ -288,23 +298,6 @@
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
 
-    function deleteProject(id)
-    {
-        if(confirm("您确定要删除吗？"))
-        {
-            location.href='${pageContext.request.contextPath}/project/deleteByIds.do?ids='+id;
-        }
-    }
-
-    document.getElementById("delSelected").onclick = function () {
-        if(confirm("你确定要删除选中条目吗"));
-        {
-            document.getElementById("selection").submit();
-        }
-    }
-
-
-
     $(function() {
         $('#dataList').DataTable({
             "paging": false,
@@ -313,16 +306,6 @@
             "ordering": true,
             "info": false,
             "autoWidth": true
-        });
-    });
-
-    $(document).ready(function () {
-        // 选择框
-        $(".select2").select2();
-
-        // WYSIHTML5编辑器
-        $(".textarea").wysihtml5({
-            locale: 'zh-CN'
         });
     });
 

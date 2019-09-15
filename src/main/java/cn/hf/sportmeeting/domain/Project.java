@@ -1,6 +1,7 @@
 package cn.hf.sportmeeting.domain;
 
 import cn.hf.sportmeeting.utils.DateUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class Project {
 
     private String place;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date;
 
     private String dateStr;
