@@ -43,4 +43,10 @@ public interface IProjectService {
      * @param ids
      */
     public void deleteByIds(Integer[] ids);
+
+    /**
+     * 修改项目
+     * @param project
+     */
+    public Integer update(Project project);
 }

@@ -1,6 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,6 +60,15 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
 
+    <script>
+        function deleteProject(id)
+        {
+            if(confirm("您确定要删除吗？"))
+            {
+                location.href='${pageContext.request.contextPath}/project/deleteByIds.do?ids='+id;
+            }
+        }
+    </script>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -72,6 +81,8 @@
 
     <!-- 导航侧栏 -->
     <jsp:include page="aside.jsp"></jsp:include>
+    <!-- 导航侧栏 /-->
+    <
     <!-- 导航侧栏 /-->
 
     <!-- 内容区域 -->
@@ -139,45 +150,14 @@
                                 <th style="text-align: center">排序</th>
                                 <th style="text-align: center">性别限制</th>
                                 <th style="text-align: center">比赛地点</th>
-                                <th style="text-align: center">比赛日期</th>
-                                <th style="text-align: center">比赛时长</th>
+                                <th style="text-align: center">开始时间</th>
+                                <th style="text-align: center">结束时间</th>
                                 <th style="text-align: center">比赛类型</th>
                                 <th style="text-align: center">操作</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="projectList">
 
-                            <c:forEach items="${projectList}" var="project" varStatus="status">
-
-                                <tr>
-                                    <td><input name="ids" type="checkbox" value="${project.id}"></td>
-                                    <td>${status.index+1}</td>
-                                    <td>${project.name}</td>
-                                    <td>${project.unit}</td>
-                                    <td>${project.sortStr}</td>
-                                    <td>${project.genderStr}</td>
-                                    <td>${project.place}</td>
-                                    <td>${project.dateStr}</td>
-                                    <td>${project.duration}</td>
-                                    <td>${project.typeStr}</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/project/findDetailsById.do?id=${project.id}'">
-                                            详情
-                                        </button>
-
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="javascript:deleteProject(${project.id})">
-                                            删除
-                                        </button>
-
-                                        <button type="button" class="btn bg-olive btn-xs"
-                                                onclick="location.href='${pageContext.request.contextPath}/project/update.do?id=${project.id}'">
-                                            修改
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
                             </tbody>
                         </table>
                         </form>
@@ -287,75 +267,95 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
+    $(function () {
+        var url = "http://localhost:8080/sportsmeeting_war_exploded/project/findAll";
+        $.get(url,function (data) {
+            console.log(data);
+            var html = "";
+            for(var i = 0; i< data.length; i++)
+            {
+                html += "<tr>"+
+                    "<td><input name=\"ids\" type=\"checkbox\" value="+data[i].id +"></td>"+
+                    "<td>"+ (i+1) +"</td>"+
+                    "<td>"+ data[i].name +"</td>"+
+                    "<td>"+ data[i].unitStr +"</td>"+
+                    "<td>"+ data[i].sortStr +"</td>"+
+                    "<td>"+ data[i].genderStr +"</td>"+
+                    "<td>"+ data[i].place +"</td>"+
+                    "<td>"+ data[i].startTimeStr +"</td>"+
+                    "<td>"+ data[i].endTimeStr +"</td>"+
+                    "<td>"+ data[i].typeStr +"</td>"+
+                    "<td class=\"text-center\">\n" +
+                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
 
-    function deleteProject(id)
-    {
-        if(confirm("您确定要删除吗？"))
-        {
-            location.href='${pageContext.request.contextPath}/project/deleteByIds.do?ids='+id;
-        }
-    }
-
-    document.getElementById("delSelected").onclick = function () {
-        if(confirm("你确定要删除选中条目吗"));
-        {
-            document.getElementById("selection").submit();
-        }
-    }
-
-
-
-    $(function() {
-        $('#dataList').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": false,
-            "autoWidth": true
-        });
-    });
-
-    $(document).ready(function () {
-        // 选择框
-        $(".select2").select2();
-
-        // WYSIHTML5编辑器
-        $(".textarea").wysihtml5({
-            locale: 'zh-CN'
-        });
-    });
-
-    // 设置激活菜单
-    function setSidebarActive(tagUri) {
-        var liObj = $("#" + tagUri);
-        if (liObj.length > 0) {
-            liObj.parent().parent().addClass("active");
-            liObj.addClass("active");
-        }
-    }
-
-    $(document).ready(function() {
-
-        // 激活导航位置
-        setSidebarActive("order-manage");
-
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            increaseArea: '20%'
-        });
-        // 全选操作
-        $("#selall").click(function() {
-            var clicks = $(this).is(':checked');
-            if (!clicks) {
-                $("#dataList td input[type='checkbox']").iCheck("uncheck");
-            } else {
-                $("#dataList td input[type='checkbox']").iCheck("check");
+                    "onclick=\"location.href='../project/findDetailsById?id="+data[i].id +"\'\">\n" +
+                    "详情\n" +
+                    "</button>\n" +
+                    "\n" +
+                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
+                    "onclick=\"javascript:deleteProject("+ data[i].id+")\">\n" +
+                    "删除\n" +
+                    " </button>\n" +
+                    "\n" +
+                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
+                    "onclick=\"location.href='../project/toUpdate?id="+data[i].id +"'\">\n" +
+                    "修改\n" +
+                    "</button>\n" +
+                    "</td>"
+                    +"</tr>";
             }
-            $(this).data("clicks", !clicks);
+            $("#projectList").html(html);
+
         });
-    });
+
+        document.getElementById("delSelected").onclick = function () {
+            if(confirm("你确定要删除选中条目吗"));
+            {
+                document.getElementById("selection").submit();
+            }
+        }
+
+        $(document).ready(function () {
+            // 选择框
+            $(".select2").select2();
+
+            // WYSIHTML5编辑器
+            $(".textarea").wysihtml5({
+                locale: 'zh-CN'
+            });
+        });
+
+        // 设置激活菜单
+        function setSidebarActive(tagUri) {
+            var liObj = $("#" + tagUri);
+            if (liObj.length > 0) {
+                liObj.parent().parent().addClass("active");
+                liObj.addClass("active");
+            }
+        }
+
+        $(document).ready(function() {
+
+            // 激活导航位置
+            setSidebarActive("order-manage");
+
+            // 列表按钮
+            $("#dataList td input[type='checkbox']").iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                increaseArea: '20%'
+            });
+            // 全选操作
+            $("#selall").click(function() {
+                var clicks = $(this).is(':checked');
+                if (!clicks) {
+                    $("#dataList td input[type='checkbox']").iCheck("uncheck");
+                } else {
+                    $("#dataList td input[type='checkbox']").iCheck("check");
+                }
+                $(this).data("clicks", !clicks);
+            });
+        });
+    })
 </script>
 </body>
 

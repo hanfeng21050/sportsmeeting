@@ -57,7 +57,6 @@ public class ProjectServiceImpl implements IProjectService {
                 athleteList.add(athlete);
             }
         }
-
         return athleteList;
     }
 
@@ -74,5 +73,10 @@ public class ProjectServiceImpl implements IProjectService {
                 projectMapper.deleteByPrimaryKey(id);
             }
         }
+    }
+
+    @Override
+    public Integer update(Project project) {
+        return projectMapper.updateByPrimaryKeySelective(project);
     }
 }

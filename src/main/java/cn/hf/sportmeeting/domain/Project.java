@@ -10,34 +10,136 @@ public class Project {
 
     private String name;
 
-    private String unit;
+    private Boolean unit;
+    private String unitStr;
 
     private Boolean sort;
-
     private String sortStr;
 
     private Boolean gender;
-
     private String genderStr;
 
     private String place;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date startTime;
+    private String startTimeStr;
 
-    private String dateStr;
-
-    private Double duration;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date endTime;
+    private String endTimeStr;
 
     private Integer num;
 
     private Boolean type;
-
     private String typeStr;
 
     private String description;
 
     private Boolean active;
+
+
+    public Boolean getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Boolean unit) {
+        this.unit = unit;
+    }
+
+    public String getUnitStr() {
+        if(unit != null)
+        {
+            if(unit == true)
+            {
+                unitStr = "米";
+            }else
+            {
+                unitStr = "秒";
+            }
+        }
+        return unitStr;
+    }
+
+    public void setUnitStr(String unitStr) {
+        this.unitStr = unitStr;
+    }
+
+    public String getSortStr() {
+        if(sort != null)
+        {
+            if(sort == false)
+            {
+                sortStr = "正序";
+            }else {
+                sortStr = "倒序";
+            }
+        }
+        return sortStr;
+    }
+
+    public void setSortStr(String sortStr) {
+        this.sortStr = sortStr;
+    }
+
+    public String getGenderStr() {
+        if(gender != null)
+        {
+            if(gender == false)
+            {
+                genderStr = "男";
+            }else
+            {
+                genderStr = "女";
+            }
+        }
+        return genderStr;
+    }
+
+    public void setGenderStr(String genderStr) {
+        this.genderStr = genderStr;
+    }
+
+    public String getStartTimeStr() {
+        if(startTime != null)
+        {
+            startTimeStr = DateUtil.date2String(startTime,"yyyy-MM-dd HH:mm");
+        }
+        return startTimeStr;
+    }
+
+    public void setStartTimeStr(String startTimeStr) {
+        this.startTimeStr = startTimeStr;
+    }
+
+    public String getEndTimeStr() {
+        if(endTime != null)
+        {
+            endTimeStr = DateUtil.date2String(endTime,"yyyy-MM-dd HH:mm");
+        }
+        return endTimeStr;
+    }
+
+    public void setEndTimeStr(String endTimeStr) {
+        this.endTimeStr = endTimeStr;
+    }
+
+    public String getTypeStr() {
+        if(type != null)
+        {
+            if(type == false)
+            {
+                typeStr = "个人比赛";
+            }else {
+                typeStr = "团体比赛";
+            }
+        }
+        return typeStr;
+    }
+
+    public void setTypeStr(String typeStr) {
+        this.typeStr = typeStr;
+    }
 
     public Integer getId() {
         return id;
@@ -55,13 +157,6 @@ public class Project {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit == null ? null : unit.trim();
-    }
 
     public Boolean getSort() {
         return sort;
@@ -87,20 +182,20 @@ public class Project {
         this.place = place == null ? null : place.trim();
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Double getDuration() {
-        return duration;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setDuration(Double duration) {
-        this.duration = duration;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getNum() {
@@ -135,70 +230,27 @@ public class Project {
         this.active = active;
     }
 
-    public String getGenderStr() {
-        if(gender != null)
-        {
-            if(gender == false)
-            {
-                genderStr = "男";
-            }else
-            {
-                genderStr = "女";
-            }
-        }
-
-        return genderStr;
-    }
-
-    public void setGenderStr(String genderStr) {
-        this.genderStr = genderStr;
-    }
-
-    public String getDateStr() {
-        if(date != null)
-        {
-            dateStr = DateUtil.date2String(date,"yyyy-MM-dd");
-        }
-
-        return dateStr;
-    }
-
-    public void setDateStr(String dateStr) {
-        this.dateStr = dateStr;
-    }
-
-    public String getTypeStr() {
-        if(type != null)
-        {
-            if(type == false)
-            {
-                typeStr = "个人比赛";
-            }else {
-                typeStr = "团体比赛";
-            }
-        }
-
-        return typeStr;
-    }
-
-    public void setTypeStr(String typeStr) {
-        this.typeStr = typeStr;
-    }
-
-    public String getSortStr() {
-        if(sort != null)
-        {
-            if(sort == false)
-            {
-                sortStr = "正序";
-            }else {
-                sortStr = "倒序";
-            }
-        }
-        return sortStr;
-    }
-
-    public void setSortStr(String sortStr) {
-        this.sortStr = sortStr;
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", unit=" + unit +
+                ", unitStr='" + unitStr + '\'' +
+                ", sort=" + sort +
+                ", sortStr='" + sortStr + '\'' +
+                ", gender=" + gender +
+                ", genderStr='" + genderStr + '\'' +
+                ", place='" + place + '\'' +
+                ", startTime=" + startTime +
+                ", startTimeStr='" + startTimeStr + '\'' +
+                ", endTime=" + endTime +
+                ", endTimeStr='" + endTimeStr + '\'' +
+                ", num=" + num +
+                ", type=" + type +
+                ", typeStr='" + typeStr + '\'' +
+                ", description='" + description + '\'' +
+                ", active=" + active +
+                '}';
     }
 }

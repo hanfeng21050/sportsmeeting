@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-2 title">单位</div>
                     <div class="col-md-4 data text">
-                        ${project.unit}
+                        ${project.unitStr}
                     </div>
                     <div class="col-md-2 title">排序</div>
                     <div class="col-md-4 data text">
@@ -118,9 +118,13 @@
                     <div class="col-md-4 data text">
                         ${project.typeStr}
                     </div>
-                    <div class="col-md-2 title">比赛日期</div>
-                    <div class="col-md-10 data text">
-                        ${project.dateStr}
+                    <div class="col-md-2 title">开始时间</div>
+                    <div class="col-md-4 data text">
+                        ${project.startTimeStr}
+                    </div>
+                    <div class="col-md-2 title">结束时间</div>
+                    <div class="col-md-4 data text">
+                        ${project.endTimeStr}
                     </div>
                     <div class="col-md-2 title rowHeight2x">描述</div>
                     <div class="col-md-10 data rowHeight2x">

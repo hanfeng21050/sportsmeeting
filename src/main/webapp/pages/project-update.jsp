@@ -139,142 +139,108 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                比赛管理 <small>新建比赛</small>
+                比赛管理 <small>比赛详情</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a>
-                </li>
+                <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li>比赛管理</li>
-                <li class="active">新建比赛</li>
+                <li class="active">比赛详情</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
 
+        <%--todo 将原项目信息显示在页面上--%>
         <!-- 正文区域 -->
-        <form action="${pageContext.request.contextPath}/project/save" method="post">
-            <!--tab内容-->
-            <div class="content">
-
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="center" style="margin: 0 auto;width: 40%;">
-                            <!--基础控件-->
-                            <div class="row data-type">
-                                <div class="col-md-3 title">比赛名称</div>
-                                <div class="col-md-9 data">
-                                    <input type="text" class="form-control" placeholder="比赛名称" name="name" required="required">
-                                </div>
-
-                                <div class="col-md-3 title">单位</div>
-                                <div class="col-md-9 data">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" name="unit">
-                                            <option selected="selected" value="0">秒</option>
-                                            <option value="1">米</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 title">排序</div>
-                                <div class="col-md-9 data">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" name="sort">
-                                            <option selected="selected" value="0">正序</option>
-                                            <option value="1">倒序</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 title">性别限制</div>
-                                <div class="col-md-9 data">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" name="gender">
-                                            <option selected="selected" value="0">男</option>
-                                            <option value="1">女</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-3 title">比赛地点</div>
-                                <div class="col-md-9 data">
-                                    <input type="text" class="form-control" placeholder="比赛地点" name="place" required="required">
-                                </div>
-
-                               <%-- <div class="col-md-3 title">比赛时间</div>
-                                <div class="col-md-9 data">
-                                    <div class="form-group">
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="datepicker" name="date" required="required">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>--%>
-
-                                <div class="col-md-3 title">开始时间</div>
-                                <div class="col-md-9 data">
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" id="start_time" name="startTime" required="required">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 title">结束时间</div>
-                                <div class="col-md-9 data">
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" id="end_time" name="endTime" required="required">
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="col-md-3 title">比赛人数</div>
-                                <div class="col-md-9 data">
-                                    <input type="number" class="form-control" placeholder="比赛人数" name="num" min="1" max="50" required="required">
-                                </div>
-
-                                <div class="col-md-3 title">比赛类型</div>
-                                <div class="col-md-9 data">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" name="type">
-                                            <option selected="selected" value="0">个人比赛</option>
-                                            <option value="1">团体比赛</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 title rowHeight2x">描述</div>
-                                <div class="col-md-9 data rowHeight2x">
-                                    <textarea class="form-control" rows="3" placeholder="输入 ..." name="description"></textarea>
-                                </div>
+        <form action="${pageContext.request.contextPath}/project/update" method="post">
+            <section class="content">
+                <div class="tab-pane active" id="tab-label">
+                    <input type="hidden" value="${project.id}" name="id">
+                    <div class="row data-type">
+                        <div class="col-md-2 title">比赛名称</div>
+                        <div class="col-md-4 data text">
+                            <input type="text" class="form-control" placeholder="比赛名称" name="name" required="required" value="${project.name}">
+                        </div>
+                        <div class="col-md-2 title">单位</div>
+                        <div class="col-md-4 data text">
+                            <div class="form-group">
+                                <select class="form-control select2" style="width: 100%;" name="unit" id="unit">
+                                    <option value="0" <c:if test="${project.unit == false}">selected="selected"</c:if>>秒</option>
+                                    <option value="1" <c:if test="${project.unit == true}">selected="selected"</c:if>>米</option>
+                                </select>
                             </div>
-
+                        </div>
+                        <div class="col-md-2 title">排序</div>
+                        <div class="col-md-4 data text">
+                            <div class="form-group">
+                                <select class="form-control select2" style="width: 100%;" name="sort" id="sort">
+                                    <option value="0" <c:if test="${project.sort == false}">selected="selected"</c:if>>正序</option>
+                                    <option value="1" <c:if test="${project.sort == true}">selected="selected"</c:if>>倒序</option>
+                                </select>
+                            </div>
                         </div>
 
+                        <div class="col-md-2 title">性别限制</div>
+                        <div class="col-md-4 data text">
+                            <div class="form-group">
+                                <select class="form-control select2" style="width: 100%;" name="gender" id="gender">
+                                    <option value="0" <c:if test="${project.gender == false}">selected="selected"</c:if>> 男</option>
+                                    <option value="1" <c:if test="${project.gender == true}">selected="selected"</c:if>>女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 title">比赛地点</div>
+                        <div class="col-md-4 data text">
+                            <input type="text" class="form-control" placeholder="比赛地点" name="place" required="required" value="${project.place}">
+                        </div>
+                        <div class="col-md-2 title">比赛类型</div>
+                        <div class="col-md-4 data text">
+                            <div class="form-group">
+                                <select class="form-control select2" style="width: 100%;" name="type" id="type">
+                                    <option value="0" <c:if test="${project.type == false}">selected="selected"</c:if>>个人比赛</option>
+                                    <option value="1" <c:if test="${project.type == true}">selected="selected"</c:if>>团体比赛</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 title">开始时间</div>
+                        <div class="col-md-4 data text">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="start_time" name="startTime" required="required" value="${project.startTimeStr}">
+                            </div>
+                        </div>
+                        <div class="col-md-2 title">结束时间</div>
+                        <div class="col-md-4 data text">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="end_time" name="endTime" required="required" value="${project.endTimeStr}">
+                            </div>
+                        </div>
+                        <div class="col-md-2 title rowHeight2x">描述</div>
+                        <div class="col-md-10 data rowHeight2x">
+                            <textarea class="form-control" rows="3" name="description">${project.description}</textarea>
+                        </div>
                     </div>
-                    <!-- /.box-body -->
+                    <br>
+                    <br>
+                    <div class="box-tools text-center">
+                        <button type="submit" class="btn bg-maroon">保存</button>
+                        <button type="button" class="btn bg-default"
+                                onclick="history.back(-1);">返回
+                        </button>
+                    </div>
+
                 </div>
-                <!--订单信息/--> <!--工具栏-->
-                <div class="box-tools text-center">
-                    <button type="submit" class="btn bg-maroon">保存</button>
-                    <button type="button" class="btn bg-default"
-                            onclick="history.back(-1);">返回
-                    </button>
-                </div>
-            </div>
+
+
+            </section>
+
         </form>
-
-
         <!-- 正文区域 /-->
+
 
     </div>
     <!-- @@close -->
@@ -285,7 +251,6 @@
     <!-- 底部导航 /-->
 
 </div>
-
 
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -386,16 +351,16 @@
 
         // datetime picker
         $('#start_time').datetimepicker({
-            format: "mm/dd/yyyy hh:ii",
-            autoclose: true,
+            format: "yyyy-mm-dd hh:ii",
+            autoclose: false,
             todayBtn: true,
             language: 'zh-CN'
         });
 
         // datetime picker
         $('#end_time').datetimepicker({
-            format: "mm/dd/yyyy hh:ii",
-            autoclose: true,
+            format: "yyyy-mm-dd hh:ii",
+            autoclose: false,
             todayBtn: true,
             language: 'zh-CN'
         });
@@ -502,8 +467,6 @@
 
     });
 </script>
-
-
 </body>
 
 </html>

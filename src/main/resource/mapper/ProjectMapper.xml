@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.Project">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit" jdbcType="BIT" property="unit" />
     <result column="sort" jdbcType="BIT" property="sort" />
     <result column="gender" jdbcType="BIT" property="gender" />
     <result column="place" jdbcType="VARCHAR" property="place" />
-    <result column="date" jdbcType="DATE" property="date" />
-    <result column="duration" jdbcType="DOUBLE" property="duration" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="type" jdbcType="BIT" property="type" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -74,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, unit, sort, gender, place, date, duration, num, type, description, active
+    id, name, unit, sort, gender, place, start_time, end_time, num, type, description, 
+    active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.ProjectExample" resultMap="BaseResultMap">
     select
@@ -107,13 +108,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Project">
-    insert into project (id, name, unit, 
-      sort, gender, place, date, 
-      duration, num, type, description, 
+    insert into project (id, name, unit, sort, 
+      gender, place, start_time, 
+      end_time, num, type, description, 
       active)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=BIT}, #{gender,jdbcType=BIT}, #{place,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
-      #{duration,jdbcType=DOUBLE}, #{num,jdbcType=INTEGER}, #{type,jdbcType=BIT}, #{description,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{unit,jdbcType=BIT}, #{sort,jdbcType=BIT}, 
+      #{gender,jdbcType=BIT}, #{place,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{num,jdbcType=INTEGER}, #{type,jdbcType=BIT}, #{description,jdbcType=VARCHAR}, 
       #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Project">
@@ -137,11 +138,11 @@
       <if test="place != null">
         place,
       </if>
-      <if test="date != null">
-        date,
+      <if test="startTime != null">
+        start_time,
       </if>
-      <if test="duration != null">
-        duration,
+      <if test="endTime != null">
+        end_time,
       </if>
       <if test="num != null">
         num,
@@ -164,7 +165,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="unit != null">
-        #{unit,jdbcType=VARCHAR},
+        #{unit,jdbcType=BIT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=BIT},
@@ -175,11 +176,11 @@
       <if test="place != null">
         #{place,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        #{date,jdbcType=DATE},
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="duration != null">
-        #{duration,jdbcType=DOUBLE},
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="num != null">
         #{num,jdbcType=INTEGER},
@@ -211,7 +212,7 @@
         name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.unit != null">
-        unit = #{record.unit,jdbcType=VARCHAR},
+        unit = #{record.unit,jdbcType=BIT},
       </if>
       <if test="record.sort != null">
         sort = #{record.sort,jdbcType=BIT},
@@ -222,11 +223,11 @@
       <if test="record.place != null">
         place = #{record.place,jdbcType=VARCHAR},
       </if>
-      <if test="record.date != null">
-        date = #{record.date,jdbcType=DATE},
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.duration != null">
-        duration = #{record.duration,jdbcType=DOUBLE},
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.num != null">
         num = #{record.num,jdbcType=INTEGER},
@@ -249,12 +250,12 @@
     update project
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      unit = #{record.unit,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=BIT},
       sort = #{record.sort,jdbcType=BIT},
       gender = #{record.gender,jdbcType=BIT},
       place = #{record.place,jdbcType=VARCHAR},
-      date = #{record.date,jdbcType=DATE},
-      duration = #{record.duration,jdbcType=DOUBLE},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
       num = #{record.num,jdbcType=INTEGER},
       type = #{record.type,jdbcType=BIT},
       description = #{record.description,jdbcType=VARCHAR},
@@ -270,7 +271,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="unit != null">
-        unit = #{unit,jdbcType=VARCHAR},
+        unit = #{unit,jdbcType=BIT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=BIT},
@@ -281,11 +282,11 @@
       <if test="place != null">
         place = #{place,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        date = #{date,jdbcType=DATE},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="duration != null">
-        duration = #{duration,jdbcType=DOUBLE},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="num != null">
         num = #{num,jdbcType=INTEGER},
@@ -305,12 +306,12 @@
   <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.Project">
     update project
     set name = #{name,jdbcType=VARCHAR},
-      unit = #{unit,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=BIT},
       sort = #{sort,jdbcType=BIT},
       gender = #{gender,jdbcType=BIT},
       place = #{place,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
-      duration = #{duration,jdbcType=DOUBLE},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
       num = #{num,jdbcType=INTEGER},
       type = #{type,jdbcType=BIT},
       description = #{description,jdbcType=VARCHAR},

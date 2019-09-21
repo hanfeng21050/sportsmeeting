@@ -36,7 +36,7 @@
 
                     <li id="system-setting">
                             <a
-                                    href="${pageContext.request.contextPath}/project/findAll.do"> <i
+                                    href="${pageContext.request.contextPath}/pages/project-list.jsp"> <i
                                     class="fa fa-circle-o"></i> 比赛列表
                             </a>
                     </li>

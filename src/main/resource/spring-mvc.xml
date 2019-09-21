@@ -27,6 +27,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+
 	<!-- 设置静态资源不过滤 -->
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/img/" mapping="/img/**" />
@@ -34,8 +35,15 @@
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
 
 	<!-- 开启对SpringMVC注解的支持 -->
-	<mvc:annotation-driven />
-
+	<mvc:annotation-driven>
+		<!--配置@ResponseBody由fastjson解析-->
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="defaultCharset" value="UTF-8"/>
+			</bean>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	<!-- 
 		支持AOP的注解支持，AOP底层使用代理技术
 		JDK动态代理，要求必须有接口
