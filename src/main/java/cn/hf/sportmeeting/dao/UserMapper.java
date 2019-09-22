@@ -1,9 +1,10 @@
 package cn.hf.sportmeeting.dao;
 
-import cn.hf.sportmeeting.domain.User;
+import cn.hf.sportmeeting.domain.UserInfo;
 import cn.hf.sportmeeting.domain.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -12,19 +13,19 @@ public interface UserMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(UserInfo record);
 
-    int insertSelective(User record);
+    int insertSelective(UserInfo record);
 
-    List<User> selectByExample(UserExample example);
+    List<UserInfo> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(Integer id);
+    UserInfo selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExampleSelective(@Param("record") UserInfo record, @Param("example") UserExample example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExample(@Param("record") UserInfo record, @Param("example") UserExample example);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(UserInfo record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(UserInfo record);
 }

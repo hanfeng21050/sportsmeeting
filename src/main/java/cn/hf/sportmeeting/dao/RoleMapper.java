@@ -2,8 +2,9 @@ package cn.hf.sportmeeting.dao;
 
 import cn.hf.sportmeeting.domain.Role;
 import cn.hf.sportmeeting.domain.RoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface RoleMapper {
     long countByExample(RoleExample example);

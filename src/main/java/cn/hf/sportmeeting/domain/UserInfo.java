@@ -1,9 +1,10 @@
 package cn.hf.sportmeeting.domain;
 
-public class User {
+/**
+ * @author 韩锋
+ */
+public class UserInfo {
     private Integer id;
-
-    private Integer roleId;
 
     private String username;
 
@@ -25,14 +26,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public String getUsername() {

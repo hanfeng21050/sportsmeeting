@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hf.sportmeeting.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.User">
+  <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="gender" jdbcType="BIT" property="gender" />
@@ -71,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_id, username, password, gender, age, tel, email, active
+    id, username, password, gender, age, tel, email, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.UserExample" resultMap="BaseResultMap">
     select
@@ -103,22 +102,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.hf.sportmeeting.domain.User">
-    insert into user (id, role_id, username, 
-      password, gender, age, 
-      tel, email, active)
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, 
-      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{active,jdbcType=BIT})
+  <insert id="insert" parameterType="cn.hf.sportmeeting.domain.UserInfo">
+    insert into user (id, username, password, 
+      gender, age, tel, email, 
+      active)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{active,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.User">
+  <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.UserInfo">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="roleId != null">
-        role_id,
       </if>
       <if test="username != null">
         username,
@@ -145,9 +141,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
@@ -184,9 +177,6 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
-      </if>
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
@@ -216,7 +206,6 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      role_id = #{record.roleId,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=BIT},
@@ -228,12 +217,9 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.hf.sportmeeting.domain.User">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hf.sportmeeting.domain.UserInfo">
     update user
     <set>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
-      </if>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -258,10 +244,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.User">
+  <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.UserInfo">
     update user
-    set role_id = #{roleId,jdbcType=INTEGER},
-      username = #{username,jdbcType=VARCHAR},
+    set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=BIT},
       age = #{age,jdbcType=INTEGER},

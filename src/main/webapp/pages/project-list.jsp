@@ -126,10 +126,7 @@ pageEncoding="UTF-8"%>
                                     <button type="button" class="btn btn-default" title="删除" id="delSelected">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </button>
-                                    <button type="button" class="btn btn-default" title="开启">
-                                        <i class="fa fa-check"></i> 开启
-                                    </button>
-                                    <button type="button" class="btn btn-default" title="刷新">
+                                    <button type="button" class="btn btn-default" title="刷新" id="refresh">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
                                 </div>
@@ -267,7 +264,10 @@ pageEncoding="UTF-8"%>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
+
+
     $(function () {
+        //请求项目列表
         var url = "http://localhost:8080/sportsmeeting_war_exploded/project/findAll";
         $.get(url,function (data) {
             console.log(data);
@@ -306,6 +306,10 @@ pageEncoding="UTF-8"%>
             }
             $("#projectList").html(html);
 
+        });
+
+        $("#refresh").click(function () {
+            window.location.reload(true);
         });
 
         document.getElementById("delSelected").onclick = function () {

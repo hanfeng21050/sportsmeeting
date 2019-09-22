@@ -42,11 +42,11 @@
                     </li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/role/findAll.do"> <i
-                            class="fa fa-circle-o"></i> XXX
+                            class="fa fa-circle-o"></i> 运动员列表
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/permission/findAll.do">
-                        <i class="fa fa-circle-o"></i> XXX
+                        <i class="fa fa-circle-o"></i>XXX
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/sysLog/findAll.do"> <i
