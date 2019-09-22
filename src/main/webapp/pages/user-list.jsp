@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 
@@ -8,14 +9,51 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>数据 - AdminLTE2定制版</title>
-<meta name="description" content="AdminLTE2定制版">
-<meta name="keywords" content="AdminLTE2定制版">
+
+
+
+<title>田径运动会管理系统</title>
+<meta name="description" content="管理系统">
+<meta name="keywords" content="管理系统">
+
+
+
 
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
 	name="viewport">
+<!-- Bootstrap 3.3.6 -->
+<!-- Font Awesome -->
+<!-- Ionicons -->
+<!-- iCheck -->
+<!-- Morris chart -->
+<!-- jvectormap -->
+<!-- Date Picker -->
+<!-- Daterange picker -->
+<!-- Bootstrap time Picker -->
+<!--<link rel="stylesheet" href="${pageContext.request.contextPath}/${pageContext.request.contextPath}/${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">-->
+<!-- bootstrap wysihtml5 - text editor -->
+<!--数据表格-->
+<!-- 表格树 -->
+<!-- select2 -->
+<!-- Bootstrap Color Picker -->
+<!-- bootstrap wysihtml5 - text editor -->
+<!--bootstrap-markdown-->
+<!-- Theme style -->
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<!-- Ion Slider -->
+<!-- ion slider Nice -->
+<!-- bootstrap slider -->
+<!-- bootstrap-datetimepicker -->
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
 
 
@@ -59,6 +97,7 @@
 <!-- Morris.js charts -->
 <!-- Ion Slider -->
 <!-- Bootstrap slider -->
+<!-- bootstrap-datetimepicker -->
 <!-- 页面meta /-->
 
 <link rel="stylesheet"
@@ -103,6 +142,8 @@
 	href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -110,51 +151,174 @@
 	<div class="wrapper">
 
 		<!-- 页面头部 -->
-		<jsp:include page="/pages/header.jsp"></jsp:include>
+		<jsp:include page="header.jsp"></jsp:include>
 		<!-- 页面头部 /-->
-
 		<!-- 导航侧栏 -->
-		<jsp:include page="/pages/aside.jsp"></jsp:include>
+		<jsp:include page="aside.jsp"></jsp:include>
 		<!-- 导航侧栏 /-->
 
 		<!-- 内容区域 -->
+		<!-- @@master = admin-layout.html-->
+		<!-- @@block = content -->
+
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
+
+			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>登录失败 页面</h1>
-
+				<h1>
+					用户管理 <small>用户列表</small>
+				</h1>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.request.contextPath}/index.jsp"><i
-							class="fa fa-dashboard"></i> 首页</a></li>
-					<li class="active">登录失败</li>
+					<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+					<li><a href="#">用户管理</a></li>
+					<li class="active">用户列表</li>
 				</ol>
-
 			</section>
+			<!-- 内容头部 /-->
 
-			<!-- Main content -->
+			<!-- 正文区域 -->
 			<section class="content">
-				<div class="error-page">
-				
 
-					<div class="error-content">
-						
-						<p>
-							登录失败 , 你可以 <a href="${pageContext.request.contextPath}/login.jsp">返回到登录页面</a>
-							重新登录
-						</p>
-
-						
+				<!-- .box-body -->
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">列表</h3>
 					</div>
-					<!-- /.error-content -->
+
+					<div class="box-body">
+
+						<!-- 数据表格 -->
+						<div class="table-box">
+
+							<!--工具栏-->
+							<div class="pull-left">
+								<div class="form-group form-inline">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" title="新建"
+											onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
+											<i class="fa fa-file-o"></i> 新建
+										</button>
+										<button type="button" class="btn btn-default" title="删除" id="delSelected">
+											<i class="fa fa-trash-o"></i> 删除
+										</button>
+										<button type="button" class="btn btn-default" title="刷新">
+											<i class="fa fa-refresh"></i> 刷新
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+									<input type="text" class="form-control input-sm"
+										placeholder="搜索"> <span
+										class="glyphicon glyphicon-search form-control-feedback"></span>
+								</div>
+							</div>
+							<!--工具栏/-->
+
+							<!--数据列表-->
+							<form id="selection" action="${pageContext.request.contextPath}/user/deleteByIds" method="post">
+								<table id="dataList"
+									   class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
+									<thead>
+									<tr>
+										<th class="" style="padding-right: 0px;text-align: center"><input
+												id="selall" type="checkbox" class="icheckbox_square-blue">
+										</th>
+										<th style="text-align: center">ID</th>
+										<th style="text-align: center">用户名</th>
+										<th style="text-align: center">性别</th>
+										<th style="text-align: center">年龄</th>
+										<th style="text-align: center">电话号码</th>
+										<th style="text-align: center">邮箱地址</th>
+										<th style="text-align: center">操作</th>
+									</tr>
+									</thead>
+									<tbody>
+
+
+									<c:forEach items="${pageInfo.list}" var="user" varStatus="status">
+
+										<tr>
+											<td><input name="ids" type="checkbox" value="${user.id}"></td>
+											<td>${status.index+1}</td>
+											<td>${user.username}</td>
+											<td>${user.gender == false? "男":"女"}</td>
+											<td>${user.age}</td>
+											<td>${user.tel}</td>
+											<td>${user.email}</td>
+											<td>
+												<button type="button" class="btn bg-olive btn-xs">详情</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
+												<button type="button" class="btn bg-olive btn-xs">角色管理</button>
+											</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+					<!-- /.box-body -->
+
+					<!-- .box-footer-->
+                <div class="box-footer">
+                    <div class="pull-left">
+                        <div class="form-group form-inline">
+                            总共${pageInfo.pages}页，共${pageInfo.total}条数据。 每页
+                            <select id="selectSize" class="form-control" onchange="changePageSize()">
+                                <option selected="selected">--</option>
+								<option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                                <option value="60">60</option>
+                                <option value="75">75</option>
+								<option value="100">100</option>
+                            </select> 条
+                        </div>
+                    </div>
+
+                    <div class="box-tools pull-right">
+                        <ul class="pagination">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findByPage?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
+
+							<c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+								<li><a href="${pageContext.request.contextPath}/user/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
+							</c:forEach>
+
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageNum}" aria-label="Next">尾页</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.box-footer-->
+
+
+
 				</div>
-				<!-- /.error-page -->
+
 			</section>
-			<!-- /.content -->
+			<!-- 正文区域 /-->
+
 		</div>
+		<!-- @@close -->
 		<!-- 内容区域 /-->
 
 		<!-- 底部导航 -->
-		<jsp:include page="pages/foot.jsp"></jsp:include>
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 1.0.8
+			</div>
+			<strong>Copyright &copy; 2014-2017 <a
+				href="http://www.itcast.cn">研究院研发部</a>.
+			</strong> All rights reserved.
+		</footer>
 		<!-- 底部导航 /-->
 
 	</div>
@@ -243,8 +407,36 @@
 		src="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+
+		function deleteProject(id)
+		{
+			if(confirm("您确定要删除吗？"))
+			{
+				location.href='${pageContext.request.contextPath}/user/deleteByIds?ids='+id;
+			}
+		}
+
+		document.getElementById("delSelected").onclick = function () {
+			if(confirm("你确定要删除选中条目吗"));
+			{
+				document.getElementById("selection").submit();
+			}
+		}
+
+		function changePageSize() {
+			//获取下拉框的值
+			var size = $("#selectSize").val();
+			//向服务器发送请求，改变没页显示条数
+			location.href = "${pageContext.request.contextPath}/user/findByPage?page=1&size="+size;
+		}
+
 		$(document).ready(function() {
+
 			// 选择框
 			$(".select2").select2();
 
@@ -264,7 +456,25 @@
 		}
 
 		$(document).ready(function() {
-			setSidebarActive("admin-500");
+
+			// 激活导航位置
+			setSidebarActive("admin-datalist");
+
+			// 列表按钮 
+			$("#dataList td input[type='checkbox']").iCheck({
+				checkboxClass : 'icheckbox_square-blue',
+				increaseArea : '20%'
+			});
+			// 全选操作 
+			$("#selall").click(function() {
+				var clicks = $(this).is(':checked');
+				if (!clicks) {
+					$("#dataList td input[type='checkbox']").iCheck("uncheck");
+				} else {
+					$("#dataList td input[type='checkbox']").iCheck("check");
+				}
+				$(this).data("clicks", !clicks);
+			});
 		});
 	</script>
 </body>

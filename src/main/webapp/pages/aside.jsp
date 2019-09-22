@@ -12,7 +12,7 @@
             </div>
             <div class="pull-left info">
                 <p>
-<%--                    <security:authentication property="principal.username"></security:authentication>--%>
+                    <security:authentication property="principal.username"></security:authentication>
                 </p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
@@ -35,14 +35,16 @@
                 <ul class="treeview-menu">
 
                     <li id="system-setting">
+                        <security:authorize access="hasRole('ADMIN')">
                             <a
                                     href="${pageContext.request.contextPath}/pages/project-list.jsp"> <i
                                     class="fa fa-circle-o"></i> 比赛列表
                             </a>
+                        </security:authorize>
                     </li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/role/findAll.do"> <i
-                            class="fa fa-circle-o"></i> 运动员列表
+                            class="fa fa-circle-o"></i> XXX
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/permission/findAll.do">
@@ -55,15 +57,15 @@
                 </ul>
             </li>
             <li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
-                <span>基础数据</span> <span class="pull-right-container"> <i
+                <span>用户管理</span> <span class="pull-right-container"> <i
                         class="fa fa-angle-left pull-right"></i>
 				</span>
             </a>
                 <ul class="treeview-menu">
 
                     <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/product/findAll.do">
-                        <i class="fa fa-circle-o"></i> XXX
+                            href="${pageContext.request.contextPath}/user/findByPage">
+                        <i class="fa fa-circle-o"></i> 用户列表
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/orders/findAll.do?page=1&size=5"> <i

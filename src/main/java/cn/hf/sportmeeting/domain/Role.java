@@ -3,8 +3,6 @@ package cn.hf.sportmeeting.domain;
 public class Role {
     private Integer id;
 
-    private Integer userId;
-
     private String name;
 
     private String description;
@@ -17,14 +15,6 @@ public class Role {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getName() {

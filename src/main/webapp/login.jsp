@@ -47,11 +47,11 @@
 
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="用户名" name="username">
+                    <input autocomplete="off" type="text" class="form-control" placeholder="用户名" name="username">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="密码" name="password">
+                    <input autocomplete="off" type="password" class="form-control" placeholder="密码" name="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">

@@ -220,7 +220,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control pull-right" id="start_time" name="startTime" required="required">
+                                        <input autocomplete="off" type="text" class="form-control pull-right" id="start_time" name="startTime" required="required">
                                     </div>
                                 </div>
 
@@ -230,7 +230,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control pull-right" id="end_time" name="endTime" required="required">
+                                        <input autocomplete="off" type="text" class="form-control pull-right" id="end_time" name="endTime" required="required">
                                     </div>
                                 </div>
 
@@ -254,7 +254,7 @@
 
                                 <div class="col-md-3 title rowHeight2x">描述</div>
                                 <div class="col-md-9 data rowHeight2x">
-                                    <textarea class="form-control" rows="3" placeholder="输入 ..." name="description"></textarea>
+                                    <textarea  class="form-control" rows="3" placeholder="输入 ..." name="description"></textarea>
                                 </div>
                             </div>
 

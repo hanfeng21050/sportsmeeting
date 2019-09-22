@@ -32,14 +32,14 @@
 				login-processing-url="/login"
 				default-target-url="/index.jsp"
 				authentication-failure-url="/failer.jsp"
-				authentication-success-forward-url="/index.jsp"
+				authentication-success-forward-url="/pages/main.jsp"
 		/>
 
 		<!-- 关闭跨域请求 -->
 		<security:csrf disabled="true"/>
 
 		<!-- 退出 -->
-		<security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/login.jsp" />
+		<security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/login.jsp" />
 
 	</security:http>
 

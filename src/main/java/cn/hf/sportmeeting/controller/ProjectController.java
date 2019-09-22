@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
  */
 
 @RequestMapping("/project")
+@RolesAllowed("ADMIN")
 @Controller
 public class ProjectController {
     @Autowired
@@ -55,7 +57,7 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/save")
-    public String save(Project project){
+    public String save(Project project) {
         Integer rtn = projectService.save(project);
         if(rtn == 1)
         {

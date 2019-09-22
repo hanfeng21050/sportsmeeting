@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.hf.sportmeeting.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.UserInfo">
+<mapper namespace="cn.hf.sportmeeting.dao.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.UserRole">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="gender" jdbcType="BIT" property="gender" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="active" jdbcType="BIT" property="active" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, gender, age, tel, email, active
+    id, user_id, role_id, active
   </sql>
-  <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.UserRoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,50 +85,36 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from user_role
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.hf.sportmeeting.domain.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="cn.hf.sportmeeting.domain.UserRoleExample">
+    delete from user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.hf.sportmeeting.domain.UserInfo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    insert into user (id, username, password, 
-      gender, age, tel, email, 
+  <insert id="insert" parameterType="cn.hf.sportmeeting.domain.UserRole">
+    insert into user_role (id, user_id, role_id, 
       active)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{active,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.UserInfo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    insert into user
+  <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.UserRole">
+    insert into user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="userId != null">
+        user_id,
       </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="gender != null">
-        gender,
-      </if>
-      <if test="age != null">
-        age,
-      </if>
-      <if test="tel != null">
-        tel,
-      </if>
-      <if test="email != null">
-        email,
+      <if test="roleId != null">
+        role_id,
       </if>
       <if test="active != null">
         active,
@@ -142,58 +124,34 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=BIT},
-      </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
-      </if>
-      <if test="tel != null">
-        #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
       <if test="active != null">
         #{active,jdbcType=BIT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.hf.sportmeeting.domain.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="cn.hf.sportmeeting.domain.UserRoleExample" resultType="java.lang.Long">
+    select count(*) from user_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update user_role
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=BIT},
-      </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
-      </if>
-      <if test="record.tel != null">
-        tel = #{record.tel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
       <if test="record.active != null">
         active = #{record.active,jdbcType=BIT},
@@ -204,39 +162,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update user_role
     set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=BIT},
-      age = #{record.age,jdbcType=INTEGER},
-      tel = #{record.tel,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
       active = #{record.active,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.hf.sportmeeting.domain.UserInfo">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="cn.hf.sportmeeting.domain.UserRole">
+    update user_role
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=BIT},
-      </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
-      </if>
-      <if test="tel != null">
-        tel = #{tel,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
       <if test="active != null">
         active = #{active,jdbcType=BIT},
@@ -244,14 +186,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.UserInfo">
-    update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=BIT},
-      age = #{age,jdbcType=INTEGER},
-      tel = #{tel,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.UserRole">
+    update user_role
+    set user_id = #{userId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

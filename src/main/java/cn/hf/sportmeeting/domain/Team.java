@@ -7,6 +7,10 @@ public class Team {
 
     private Integer projectId;
 
+    private Double score;
+
+    private Integer rank;
+
     private Boolean active;
 
     public Integer getId() {
@@ -31,6 +35,22 @@ public class Team {
 
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     public Boolean getActive() {

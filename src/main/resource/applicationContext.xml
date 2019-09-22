@@ -20,11 +20,6 @@
     </context:component-scan>
 
 
-    <!-- 配置加密类 -->
-        <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
-
-
     <context:property-placeholder location="classpath:db.properties"/>
     <!-- 配置连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

@@ -133,29 +133,28 @@ pageEncoding="UTF-8"%>
                             </div>
                         </div>
                         <!--工具栏/-->
-                        <form id="selection" action="${pageContext.request.contextPath}/project/deleteByIds.do" method="post">
+                        <form id="selection" action="${pageContext.request.contextPath}/project/deleteByIds" method="post">
                         <!--数据列表-->
                             <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
                             <thead>
-                            <tr>
-                                <th class="sorting_asc_disabled" style="padding-right: 0px;"><input
-                                        id="selall" type="checkbox" class="icheckbox_square-blue">
-                                </th>
-                                <th style="text-align: center">ID</th>
-                                <th style="text-align: center">比赛名称</th>
-                                <th style="text-align: center">单位</th>
-                                <th style="text-align: center">排序</th>
-                                <th style="text-align: center">性别限制</th>
-                                <th style="text-align: center">比赛地点</th>
-                                <th style="text-align: center">开始时间</th>
-                                <th style="text-align: center">结束时间</th>
-                                <th style="text-align: center">比赛类型</th>
-                                <th style="text-align: center">操作</th>
-                            </tr>
+                                <tr>
+                                    <th class="sorting_asc_disabled" style="padding-right: 0px;"><input
+                                            id="selall" type="checkbox" class="icheckbox_square-blue">
+                                    </th>
+                                    <th style="text-align: center">ID</th>
+                                    <th style="text-align: center">比赛名称</th>
+                                    <th style="text-align: center">单位</th>
+                                    <th style="text-align: center">排序</th>
+                                    <th style="text-align: center">性别限制</th>
+                                    <th style="text-align: center">比赛地点</th>
+                                    <th style="text-align: center">开始时间</th>
+                                    <th style="text-align: center">结束时间</th>
+                                    <th style="text-align: center">比赛类型</th>
+                                    <th style="text-align: center">操作</th>
+                                </tr>
+                                <tbody id="projectList"></tbody>
                             </thead>
-                            <tbody id="projectList">
 
-                            </tbody>
                         </table>
                         </form>
 
@@ -268,7 +267,7 @@ pageEncoding="UTF-8"%>
 
     $(function () {
         //请求项目列表
-        var url = "http://localhost:8080/sportsmeeting_war_exploded/project/findAll";
+        var url = "${pageContext.request.contextPath}/project/findAll";
         $.get(url,function (data) {
             console.log(data);
             var html = "";

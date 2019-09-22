@@ -3,7 +3,6 @@
 <mapper namespace="cn.hf.sportmeeting.dao.RoleMapper">
   <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.Role">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="active" jdbcType="BIT" property="active" />
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, name, description, active
+    id, name, description, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.RoleExample" resultMap="BaseResultMap">
     select
@@ -100,19 +99,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Role">
-    insert into role (id, user_id, name, 
-      description, active)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{active,jdbcType=BIT})
+    insert into role (id, name, description, 
+      active)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Role">
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="userId != null">
-        user_id,
       </if>
       <if test="name != null">
         name,
@@ -127,9 +123,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -154,9 +147,6 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -174,7 +164,6 @@
   <update id="updateByExample" parameterType="map">
     update role
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       active = #{record.active,jdbcType=BIT}
@@ -185,9 +174,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.hf.sportmeeting.domain.Role">
     update role
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -202,8 +188,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.Role">
     update role
-    set user_id = #{userId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}

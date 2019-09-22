@@ -1,8 +1,5 @@
 package cn.hf.sportmeeting.domain;
 
-/**
- * @author 韩锋
- */
 public class UserInfo {
     private Integer id;
 

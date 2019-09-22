@@ -5,6 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
     <result column="active" jdbcType="BIT" property="active" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, project_id, active
+    id, name, project_id, score, rank, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.TeamExample" resultMap="BaseResultMap">
     select
@@ -100,9 +102,9 @@
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Team">
     insert into team (id, name, project_id, 
-      active)
+      score, rank, active)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
-      #{active,jdbcType=BIT})
+      #{score,jdbcType=DOUBLE}, #{rank,jdbcType=INTEGER}, #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Team">
     insert into team
@@ -115,6 +117,12 @@
       </if>
       <if test="projectId != null">
         project_id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="rank != null">
+        rank,
       </if>
       <if test="active != null">
         active,
@@ -129,6 +137,12 @@
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
       </if>
       <if test="active != null">
         #{active,jdbcType=BIT},
@@ -153,6 +167,12 @@
       <if test="record.projectId != null">
         project_id = #{record.projectId,jdbcType=INTEGER},
       </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=DOUBLE},
+      </if>
+      <if test="record.rank != null">
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
       <if test="record.active != null">
         active = #{record.active,jdbcType=BIT},
       </if>
@@ -166,6 +186,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       project_id = #{record.projectId,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=DOUBLE},
+      rank = #{record.rank,jdbcType=INTEGER},
       active = #{record.active,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,6 +202,12 @@
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
+      <if test="score != null">
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
       <if test="active != null">
         active = #{active,jdbcType=BIT},
       </if>
@@ -190,6 +218,8 @@
     update team
     set name = #{name,jdbcType=VARCHAR},
       project_id = #{projectId,jdbcType=INTEGER},
+      score = #{score,jdbcType=DOUBLE},
+      rank = #{rank,jdbcType=INTEGER},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

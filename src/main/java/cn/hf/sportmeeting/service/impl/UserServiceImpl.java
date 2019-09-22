@@ -2,16 +2,16 @@ package cn.hf.sportmeeting.service.impl;
 
 import cn.hf.sportmeeting.dao.RoleMapper;
 import cn.hf.sportmeeting.dao.UserMapper;
-import cn.hf.sportmeeting.domain.Role;
-import cn.hf.sportmeeting.domain.RoleExample;
-import cn.hf.sportmeeting.domain.UserExample;
-import cn.hf.sportmeeting.domain.UserInfo;
+import cn.hf.sportmeeting.dao.UserRoleMapper;
+import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.IUserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +25,20 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserInfo u = null;
         try {
             UserExample example = new UserExample();
+            example.createCriteria().andUsernameEqualTo(s);
             List<UserInfo> userInfos = userMapper.selectByExample(example);
             if(userInfos!= null && userInfos.size()!=0)
             {
@@ -50,15 +57,62 @@ public class UserServiceImpl implements IUserService {
     public List<SimpleGrantedAuthority> getAuthority(Integer userId)
     {
         List<SimpleGrantedAuthority> list = new ArrayList<SimpleGrantedAuthority>();
-        RoleExample example = new RoleExample();
+        //查询中间表
+        UserRoleExample example = new UserRoleExample();
         example.createCriteria().andUserIdEqualTo(userId);
-        List<Role> roles = roleMapper.selectByExample(example);
-        if(roles != null && roles.size()!=0)
+        List<UserRole> userRoles = userRoleMapper.selectByExample(example);
+
+        if(userRoles!= null && userRoles.size() != 0)
         {
-            for (Role role : roles) {
-                list.add( new SimpleGrantedAuthority("ROLE_"+role.getName()));
+            //查询role表
+            for (UserRole userRole : userRoles) {
+                Role role = roleMapper.selectByPrimaryKey(userRole.getRoleId());
+                list.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
+            }
+       }
+
+        return list;
+    }
+
+    @Override
+    public List<UserInfo> findByPage(Integer page, Integer size) {
+        UserExample example = new UserExample();
+        example.createCriteria().andActiveEqualTo(true);
+
+        PageHelper.startPage(page,size);
+        return userMapper.selectByExample(example);
+    }
+
+    @Override
+    public Integer deleteByIds(Integer[] ids) {
+        int count = 0;
+        if(ids != null && ids.length!=0)
+        {
+            for (Integer id : ids) {
+               count += userMapper.deleteByPrimaryKey(id);
             }
         }
-        return list;
+        return count;
+    }
+
+    @Override
+    public void save(UserInfo user,Integer[] roleIds) {
+        //将密码加密
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        //保存用户
+        userMapper.insert(user);
+        //返回保存成功的主键
+        UserRole userRole = new UserRole();
+
+        //在中间表保存
+        if(roleIds != null && roleIds .length !=0) {
+            userRole.setUserId(user.getId());
+            userRole.setActive(true);
+            for (Integer roleId : roleIds) {
+                userRole.setRoleId(roleId);
+                userRoleMapper.insert(userRole);
+            }
+        }
     }
 }

@@ -11,9 +11,9 @@
 
 
 
-    <title>数据 - AdminLTE2定制版</title>
-    <meta name="description" content="AdminLTE2定制版">
-    <meta name="keywords" content="AdminLTE2定制版">
+    <title>田径运动会</title>
+    <meta name="description" content="田径运动会">
+    <meta name="keywords" content="田径运动会">
 
 
 
@@ -139,108 +139,96 @@
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                比赛管理 <small>比赛详情</small>
+                用户管理 <small>新建用户</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li>比赛管理</li>
-                <li class="active">比赛详情</li>
+                <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li>用户管理</li>
+                <li class="active">新建用户</li>
             </ol>
         </section>
         <!-- 内容头部 /-->
 
-        <%--todo 将原项目信息显示在页面上--%>
         <!-- 正文区域 -->
-        <form action="${pageContext.request.contextPath}/project/update" method="post">
-            <section class="content">
-                <div class="tab-pane active" id="tab-label">
-                    <input type="hidden" value="${project.id}" name="id">
-                    <div class="row data-type">
-                        <div class="col-md-2 title">比赛名称</div>
-                        <div class="col-md-4 data text">
-                            <input type="text" class="form-control" placeholder="比赛名称" name="name" required="required" value="${project.name}">
-                        </div>
-                        <div class="col-md-2 title">单位</div>
-                        <div class="col-md-4 data text">
-                            <div class="form-group">
-                                <select class="form-control select2" style="width: 100%;" name="unit" id="unit">
-                                    <option value="0" <c:if test="${project.unit == false}">selected="selected"</c:if>>秒</option>
-                                    <option value="1" <c:if test="${project.unit == true}">selected="selected"</c:if>>米</option>
-                                </select>
+        <form action="${pageContext.request.contextPath}/user/save" method="post">
+            <!--tab内容-->
+            <div class="content">
+
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="center" style="margin: 0 auto;width: 40%;">
+                            <!--基础控件-->
+                            <div class="row data-type">
+                                <div class="col-md-3 title">用户名</div>
+                                <div class="col-md-9 data">
+                                    <input type="text" class="form-control" placeholder="用户名" name="username" required="required">
+                                </div>
+
+                                <div class="col-md-3 title">密码</div>
+                                <div class="col-md-9 data">
+                                    <input type="password" class="form-control" placeholder="密码" name="password" required="required" id="password">
+                                </div>
+
+                                <div class="col-md-3 title">密码</div>
+                                <div class="col-md-9 data">
+                                    <input type="password" class="form-control" placeholder="请再次输入密码" required="required" id="confirmPassword">
+                                </div>
+
+
+                                <div class="col-md-3 title">性别</div>
+                                <div class="col-md-9 data">
+                                    <div class="form-group">
+                                        <select class="form-control select2" style="width: 100%;" name="gender">
+                                            <option selected="selected" value="0">男</option>
+                                            <option value="1">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 title">年龄</div>
+                                <div class="col-md-9 data">
+                                    <input type="number" class="form-control" placeholder="年龄" name="age" min="1" max="100"  required="required">
+                                </div>
+
+
+                                <div class="col-md-3 title">电话</div>
+                                <div class="col-md-9 data">
+                                    <input type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11 name="tel" placeholder="请输入手机号码">
+
+                                </div>
+
+                                <div class="col-md-3 title">邮箱</div>
+                                <div class="col-md-9 data">
+                                    <input type="email" class="form-control" name="email" placeholder="请输入邮箱">
+
+                                </div>
+
+                                <div class="col-md-3 title">角色[多选]</div>
+                                <div class="col-md-9 data">
+                                    <select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2 title">排序</div>
-                        <div class="col-md-4 data text">
-                            <div class="form-group">
-                                <select class="form-control select2" style="width: 100%;" name="sort" id="sort">
-                                    <option value="0" <c:if test="${project.sort == false}">selected="selected"</c:if>>正序</option>
-                                    <option value="1" <c:if test="${project.sort == true}">selected="selected"</c:if>>倒序</option>
-                                </select>
-                            </div>
+
                         </div>
 
-                        <div class="col-md-2 title">性别限制</div>
-                        <div class="col-md-4 data text">
-                            <div class="form-group">
-                                <select class="form-control select2" style="width: 100%;" name="gender" id="gender">
-                                    <option value="0" <c:if test="${project.gender == false}">selected="selected"</c:if>> 男</option>
-                                    <option value="1" <c:if test="${project.gender == true}">selected="selected"</c:if>>女</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 title">比赛地点</div>
-                        <div class="col-md-4 data text">
-                            <input type="text" class="form-control" placeholder="比赛地点" name="place" required="required" value="${project.place}">
-                        </div>
-                        <div class="col-md-2 title">比赛类型</div>
-                        <div class="col-md-4 data text">
-                            <div class="form-group">
-                                <select class="form-control select2" style="width: 100%;" name="type" id="type">
-                                    <option value="0" <c:if test="${project.type == false}">selected="selected"</c:if>>个人比赛</option>
-                                    <option value="1" <c:if test="${project.type == true}">selected="selected"</c:if>>团体比赛</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 title">开始时间</div>
-                        <div class="col-md-4 data text">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input autocomplete="off" type="text" class="form-control pull-right" id="start_time" name="startTime" required="required" value="${project.startTimeStr}">
-                            </div>
-                        </div>
-                        <div class="col-md-2 title">结束时间</div>
-                        <div class="col-md-4 data text">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input autocomplete="off" type="text" class="form-control pull-right" id="end_time" name="endTime" required="required" value="${project.endTimeStr}">
-                            </div>
-                        </div>
-                        <div class="col-md-2 title rowHeight2x">描述</div>
-                        <div class="col-md-10 data rowHeight2x">
-                            <textarea class="form-control" rows="3" name="description">${project.description}</textarea>
-                        </div>
                     </div>
-                    <br>
-                    <br>
-                    <div class="box-tools text-center">
-                        <button type="submit" class="btn bg-maroon">保存</button>
-                        <button type="button" class="btn bg-default"
-                                onclick="history.back(-1);">返回
-                        </button>
-                    </div>
-
+                    <!-- /.box-body -->
                 </div>
-
-
-            </section>
-
+                <!--订单信息/--> <!--工具栏-->
+                <div class="box-tools text-center">
+                    <button type="submit" class="btn bg-maroon" id="save">保存</button>
+                    <button type="button" class="btn bg-default"
+                            onclick="history.back(-1);">返回
+                    </button>
+                </div>
+            </div>
         </form>
-        <!-- 正文区域 /-->
 
+
+        <!-- 正文区域 /-->
 
     </div>
     <!-- @@close -->
@@ -251,6 +239,7 @@
     <!-- 底部导航 /-->
 
 </div>
+
 
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -300,6 +289,38 @@
 
 
 <script>
+    $(function () {
+        //请求项目列表
+        var url = "${pageContext.request.contextPath}/role/findAll";
+        $.get(url,function (data) {
+            var html = "";
+            for(var i = 0; i< data.length; i++)
+            {
+                html += "<option value=\""+data[i].id +"\">"+ data[i].name+"</option>";
+            }
+            $("#roleSel").html(html);
+
+        });
+
+
+
+
+       $("#save").click(function () {
+           //验证两次密码输入是否一致
+           var password = document.getElementById("password").value;
+           var confirmPassword = document.getElementById("confirmPassword").value;
+
+           if(password != confirmPassword)
+           {
+               window.alert("两次密码不一致！");
+               return false;
+           }
+
+           return true;
+       });
+    });
+
+
     $(document).ready(function() {
         // 选择框
         $(".select2").select2();
@@ -351,16 +372,16 @@
 
         // datetime picker
         $('#start_time').datetimepicker({
-            format: "yyyy-mm-dd hh:ii",
-            autoclose: false,
+            format: "mm/dd/yyyy hh:ii",
+            autoclose: true,
             todayBtn: true,
             language: 'zh-CN'
         });
 
         // datetime picker
         $('#end_time').datetimepicker({
-            format: "yyyy-mm-dd hh:ii",
-            autoclose: false,
+            format: "mm/dd/yyyy hh:ii",
+            autoclose: true,
             todayBtn: true,
             language: 'zh-CN'
         });
@@ -467,6 +488,8 @@
 
     });
 </script>
+
+
 </body>
 
 </html>

@@ -2,8 +2,9 @@ package cn.hf.sportmeeting.dao;
 
 import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.domain.TeamExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TeamMapper {
     long countByExample(TeamExample example);
