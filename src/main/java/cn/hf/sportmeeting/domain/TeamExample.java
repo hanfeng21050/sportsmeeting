@@ -234,6 +234,76 @@ public class TeamExample {
             return (Criteria) this;
         }
 
+        public Criteria andTeamNumIsNull() {
+            addCriterion("team_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumIsNotNull() {
+            addCriterion("team_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumEqualTo(String value) {
+            addCriterion("team_num =", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumNotEqualTo(String value) {
+            addCriterion("team_num <>", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumGreaterThan(String value) {
+            addCriterion("team_num >", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumGreaterThanOrEqualTo(String value) {
+            addCriterion("team_num >=", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumLessThan(String value) {
+            addCriterion("team_num <", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumLessThanOrEqualTo(String value) {
+            addCriterion("team_num <=", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumLike(String value) {
+            addCriterion("team_num like", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumNotLike(String value) {
+            addCriterion("team_num not like", value, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumIn(List<String> values) {
+            addCriterion("team_num in", values, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumNotIn(List<String> values) {
+            addCriterion("team_num not in", values, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumBetween(String value1, String value2) {
+            addCriterion("team_num between", value1, value2, "teamNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andTeamNumNotBetween(String value1, String value2) {
+            addCriterion("team_num not between", value1, value2, "teamNum");
+            return (Criteria) this;
+        }
+
         public Criteria andProjectIdIsNull() {
             addCriterion("project_id is null");
             return (Criteria) this;

@@ -158,6 +158,9 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="center" style="margin: 0 auto;width: 40%;">
+                            <!--token 防止表单重复提交 -->
+                            <input type="hidden" name="formToken" value="${formToken}" />
+
                             <!--基础控件-->
                             <div class="row data-type">
                                 <div class="col-md-3 title">比赛名称</div>
@@ -179,8 +182,8 @@
                                 <div class="col-md-9 data">
                                     <div class="form-group">
                                         <select class="form-control select2" style="width: 100%;" name="sort">
-                                            <option selected="selected" value="0">正序</option>
-                                            <option value="1">倒序</option>
+                                            <option selected="selected" value="0">降序</option>
+                                            <option value="1">升序</option>
                                         </select>
                                     </div>
                                 </div>
@@ -386,7 +389,7 @@
 
         // datetime picker
         $('#start_time').datetimepicker({
-            format: "mm/dd/yyyy hh:ii",
+            format: "yyyy-mm-dd hh:ii",
             autoclose: true,
             todayBtn: true,
             language: 'zh-CN'
@@ -394,7 +397,7 @@
 
         // datetime picker
         $('#end_time').datetimepicker({
-            format: "mm/dd/yyyy hh:ii",
+            format: "yyyy-mm-dd hh:ii",
             autoclose: true,
             todayBtn: true,
             language: 'zh-CN'

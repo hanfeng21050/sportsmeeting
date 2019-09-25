@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -138,7 +139,7 @@ pageEncoding="UTF-8"%>
                             <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
                             <thead>
                                 <tr>
-                                    <th class="sorting_asc_disabled" style="padding-right: 0px;"><input
+                                    <th class="sorting_asc_disabled" style="vertical-align: middle;margin:auto; padding:10px" width="20px"><input
                                             id="selall" type="checkbox" class="icheckbox_square-blue">
                                     </th>
                                     <th style="text-align: center">ID</th>
@@ -152,7 +153,28 @@ pageEncoding="UTF-8"%>
                                     <th style="text-align: center">比赛类型</th>
                                     <th style="text-align: center">操作</th>
                                 </tr>
-                                <tbody id="projectList"></tbody>
+                                <tbody >
+                                    <c:forEach items="${projectList}" var="project" varStatus="status">
+                                        <tr>
+                                            <td><input name="ids" type="checkbox" value="${project.id}"></td>
+                                            <td>${status.index+1}</td>
+                                            <td>${project.name}</td>
+                                            <td>${project.unitStr}</td>
+                                            <td>${project.sortStr}</td>
+                                            <td>${project.genderStr}</td>
+                                            <td>${project.place}</td>
+                                            <td>${project.startTimeStr}</td>
+                                            <td>${project.endTimeStr}</td>
+                                            <td>${project.typeStr}</td>
+                                            <td>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/project/findDetailsById?id=${project.id}&type=${project.type}&sort=${project.sort}'">详情</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${project.id})">删除</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/project/toUpdate?id=${project.id}'">修改</button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </tbody>
                             </thead>
 
                         </table>
@@ -266,46 +288,6 @@ pageEncoding="UTF-8"%>
 
 
     $(function () {
-        //请求项目列表
-        var url = "${pageContext.request.contextPath}/project/findAll";
-        $.get(url,function (data) {
-            console.log(data);
-            var html = "";
-            for(var i = 0; i< data.length; i++)
-            {
-                html += "<tr>"+
-                    "<td><input name=\"ids\" type=\"checkbox\" value="+data[i].id +"></td>"+
-                    "<td>"+ (i+1) +"</td>"+
-                    "<td>"+ data[i].name +"</td>"+
-                    "<td>"+ data[i].unitStr +"</td>"+
-                    "<td>"+ data[i].sortStr +"</td>"+
-                    "<td>"+ data[i].genderStr +"</td>"+
-                    "<td>"+ data[i].place +"</td>"+
-                    "<td>"+ data[i].startTimeStr +"</td>"+
-                    "<td>"+ data[i].endTimeStr +"</td>"+
-                    "<td>"+ data[i].typeStr +"</td>"+
-                    "<td class=\"text-center\">\n" +
-                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
-
-                    "onclick=\"location.href='../project/findDetailsById?id="+data[i].id +"\'\">\n" +
-                    "详情\n" +
-                    "</button>\n" +
-                    "\n" +
-                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
-                    "onclick=\"javascript:deleteProject("+ data[i].id+")\">\n" +
-                    "删除\n" +
-                    " </button>\n" +
-                    "\n" +
-                    "<button type=\"button\" class=\"btn bg-olive btn-xs\"\n" +
-                    "onclick=\"location.href='../project/toUpdate?id="+data[i].id +"'\">\n" +
-                    "修改\n" +
-                    "</button>\n" +
-                    "</td>"
-                    +"</tr>";
-            }
-            $("#projectList").html(html);
-
-        });
 
         $("#refresh").click(function () {
             window.location.reload(true);

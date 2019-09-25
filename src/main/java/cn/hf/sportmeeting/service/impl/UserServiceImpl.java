@@ -13,13 +13,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * @author 韩锋
+ */
 @Service("userService")
-@Transactional(rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 30,rollbackFor = Exception.class)
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
@@ -89,7 +96,13 @@ public class UserServiceImpl implements IUserService {
         if(ids != null && ids.length!=0)
         {
             for (Integer id : ids) {
-               count += userMapper.deleteByPrimaryKey(id);
+            //先删除中间表
+                UserRoleExample example = new UserRoleExample();
+                example.createCriteria().andUserIdEqualTo(id);
+                userRoleMapper.deleteByExample(example);
+               // int i = 10/0;
+            //删除用户
+                count += userMapper.deleteByPrimaryKey(id);
             }
         }
         return count;
@@ -115,4 +128,5 @@ public class UserServiceImpl implements IUserService {
             }
         }
     }
+
 }

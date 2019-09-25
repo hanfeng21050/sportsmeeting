@@ -1,16 +1,13 @@
 package cn.hf.sportmeeting.domain;
 
-/**
- * @author 韩锋
- */
 public class Athlete {
     private Integer id;
 
     private String name;
 
-    private Boolean gender;
+    private String playerNum;
 
-    private String genderStr;
+    private Boolean gender;
 
     private Integer age;
 
@@ -22,30 +19,28 @@ public class Athlete {
 
     private String idNum;
 
-    private String playerNum;
-
-    private Integer teamId;
-
     private Integer userId;
 
     private Boolean active;
 
-    public String getGenderStr() {
-        if(gender != null)
-        {
-            if(gender == false)
-            {
-                genderStr = "男";
-            }else
-            {
-                genderStr = "女";
-            }
-        }
-        return genderStr;
+    private Double score;
+
+    private Integer rank;
+
+    public Double getScore() {
+        return score;
     }
 
-    public void setGenderStr(String genderStr) {
-        this.genderStr = genderStr;
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     public Integer getId() {
@@ -62,6 +57,14 @@ public class Athlete {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getPlayerNum() {
+        return playerNum;
+    }
+
+    public void setPlayerNum(String playerNum) {
+        this.playerNum = playerNum == null ? null : playerNum.trim();
     }
 
     public Boolean getGender() {
@@ -110,22 +113,6 @@ public class Athlete {
 
     public void setIdNum(String idNum) {
         this.idNum = idNum == null ? null : idNum.trim();
-    }
-
-    public String getPlayerNum() {
-        return playerNum;
-    }
-
-    public void setPlayerNum(String playerNum) {
-        this.playerNum = playerNum == null ? null : playerNum.trim();
-    }
-
-    public Integer getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
     }
 
     public Integer getUserId() {

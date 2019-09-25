@@ -25,7 +25,7 @@
                     href="${pageContext.request.contextPath}/pages/main.jsp"><i
                     class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
-            <li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
+            <li class="treeview"><a href="#"> <i class="fa fa-align-justify"></i>
                 <span>比赛管理</span> <span class="pull-right-container"> <i
                         class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -37,26 +37,26 @@
                     <li id="system-setting">
                         <security:authorize access="hasRole('ADMIN')">
                             <a
-                                    href="${pageContext.request.contextPath}/pages/project-list.jsp"> <i
+                                    href="${pageContext.request.contextPath}/project/findAll"> <i
                                     class="fa fa-circle-o"></i> 比赛列表
                             </a>
                         </security:authorize>
                     </li>
                     <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/role/findAll.do"> <i
+                            href="${pageContext.request.contextPath}/role/findAll"> <i
                             class="fa fa-circle-o"></i> XXX
                     </a></li>
                     <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/permission/findAll.do">
-                        <i class="fa fa-circle-o"></i>XXX
+                            href="${pageContext.request.contextPath}/permission/findAll">
+                        <i class="fa fa-circle-o"></i> XXX
                     </a></li>
                     <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/sysLog/findAll.do"> <i
+                            href="${pageContext.request.contextPath}/sysLog/findAll"> <i
                             class="fa fa-circle-o"></i> XXX
                     </a></li>
                 </ul>
             </li>
-            <li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
+            <li class="treeview"><a href="#"> <i class="fa fa-user"></i>
                 <span>用户管理</span> <span class="pull-right-container"> <i
                         class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -68,7 +68,26 @@
                         <i class="fa fa-circle-o"></i> 用户列表
                     </a></li>
                     <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/orders/findAll.do?page=1&size=5"> <i
+                            href="${pageContext.request.contextPath}/athlete/findByPage"> <i
+                            class="fa fa-circle-o"></i> 运动员列表
+                    </a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview"><a href="#"> <i class="fa fa-users"></i>
+                <span>团队管理</span> <span class="pull-right-container"> <i
+                        class="fa fa-angle-left pull-right"></i>
+				</span>
+            </a>
+                <ul class="treeview-menu">
+
+                    <li id="system-setting"><a
+                            href="">
+                        <i class="fa fa-circle-o"></i> 团队列表
+                    </a></li>
+                    <li id="system-setting"><a
+                            href=""> <i
                             class="fa fa-circle-o"></i> XXX
                     </a></li>
 

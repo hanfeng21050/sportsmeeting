@@ -27,7 +27,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-
+	<!--自定义拦截-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="cn.hf.sportmeeting.interceptor.impl.MyFormTokenInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
 	<!-- 设置静态资源不过滤 -->
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/img/" mapping="/img/**" />

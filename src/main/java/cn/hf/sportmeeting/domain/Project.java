@@ -3,9 +3,10 @@ package cn.hf.sportmeeting.domain;
 import cn.hf.sportmeeting.utils.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Project {
+public class Project implements Serializable {
     private Integer id;
 
     private String name;
@@ -70,9 +71,9 @@ public class Project {
         {
             if(sort == false)
             {
-                sortStr = "正序";
+                sortStr = "降序";
             }else {
-                sortStr = "倒序";
+                sortStr = "升序";
             }
         }
         return sortStr;

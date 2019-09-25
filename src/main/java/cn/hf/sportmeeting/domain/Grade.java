@@ -1,6 +1,8 @@
 package cn.hf.sportmeeting.domain;
 
-public class Grade {
+import java.io.Serializable;
+
+public class Grade implements Serializable {
     private Integer id;
 
     private Integer projectId;

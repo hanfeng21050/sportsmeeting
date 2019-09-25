@@ -173,8 +173,8 @@
                         <div class="col-md-4 data text">
                             <div class="form-group">
                                 <select class="form-control select2" style="width: 100%;" name="sort" id="sort">
-                                    <option value="0" <c:if test="${project.sort == false}">selected="selected"</c:if>>正序</option>
-                                    <option value="1" <c:if test="${project.sort == true}">selected="selected"</c:if>>倒序</option>
+                                    <option value="0" <c:if test="${project.sort == false}">selected="selected"</c:if>>降序</option>
+                                    <option value="1" <c:if test="${project.sort == true}">selected="selected"</c:if>>升序</option>
                                 </select>
                             </div>
                         </div>

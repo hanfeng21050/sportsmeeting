@@ -234,6 +234,76 @@ public class AthleteExample {
             return (Criteria) this;
         }
 
+        public Criteria andPlayerNumIsNull() {
+            addCriterion("player_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumIsNotNull() {
+            addCriterion("player_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumEqualTo(String value) {
+            addCriterion("player_num =", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumNotEqualTo(String value) {
+            addCriterion("player_num <>", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumGreaterThan(String value) {
+            addCriterion("player_num >", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumGreaterThanOrEqualTo(String value) {
+            addCriterion("player_num >=", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumLessThan(String value) {
+            addCriterion("player_num <", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumLessThanOrEqualTo(String value) {
+            addCriterion("player_num <=", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumLike(String value) {
+            addCriterion("player_num like", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumNotLike(String value) {
+            addCriterion("player_num not like", value, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumIn(List<String> values) {
+            addCriterion("player_num in", values, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumNotIn(List<String> values) {
+            addCriterion("player_num not in", values, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumBetween(String value1, String value2) {
+            addCriterion("player_num between", value1, value2, "playerNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlayerNumNotBetween(String value1, String value2) {
+            addCriterion("player_num not between", value1, value2, "playerNum");
+            return (Criteria) this;
+        }
+
         public Criteria andGenderIsNull() {
             addCriterion("gender is null");
             return (Criteria) this;
@@ -611,136 +681,6 @@ public class AthleteExample {
 
         public Criteria andIdNumNotBetween(String value1, String value2) {
             addCriterion("id_num not between", value1, value2, "idNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumIsNull() {
-            addCriterion("player_num is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumIsNotNull() {
-            addCriterion("player_num is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumEqualTo(String value) {
-            addCriterion("player_num =", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumNotEqualTo(String value) {
-            addCriterion("player_num <>", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumGreaterThan(String value) {
-            addCriterion("player_num >", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumGreaterThanOrEqualTo(String value) {
-            addCriterion("player_num >=", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumLessThan(String value) {
-            addCriterion("player_num <", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumLessThanOrEqualTo(String value) {
-            addCriterion("player_num <=", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumLike(String value) {
-            addCriterion("player_num like", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumNotLike(String value) {
-            addCriterion("player_num not like", value, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumIn(List<String> values) {
-            addCriterion("player_num in", values, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumNotIn(List<String> values) {
-            addCriterion("player_num not in", values, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumBetween(String value1, String value2) {
-            addCriterion("player_num between", value1, value2, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlayerNumNotBetween(String value1, String value2) {
-            addCriterion("player_num not between", value1, value2, "playerNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdIsNull() {
-            addCriterion("team_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdIsNotNull() {
-            addCriterion("team_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdEqualTo(Integer value) {
-            addCriterion("team_id =", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdNotEqualTo(Integer value) {
-            addCriterion("team_id <>", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdGreaterThan(Integer value) {
-            addCriterion("team_id >", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("team_id >=", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdLessThan(Integer value) {
-            addCriterion("team_id <", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdLessThanOrEqualTo(Integer value) {
-            addCriterion("team_id <=", value, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdIn(List<Integer> values) {
-            addCriterion("team_id in", values, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdNotIn(List<Integer> values) {
-            addCriterion("team_id not in", values, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdBetween(Integer value1, Integer value2) {
-            addCriterion("team_id between", value1, value2, "teamId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTeamIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("team_id not between", value1, value2, "teamId");
             return (Criteria) this;
         }
 

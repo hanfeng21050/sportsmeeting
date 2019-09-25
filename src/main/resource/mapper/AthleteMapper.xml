@@ -4,14 +4,13 @@
   <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.Athlete">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="player_num" jdbcType="VARCHAR" property="playerNum" />
     <result column="gender" jdbcType="BIT" property="gender" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="height" jdbcType="DOUBLE" property="height" />
     <result column="nation" jdbcType="VARCHAR" property="nation" />
     <result column="id_num" jdbcType="VARCHAR" property="idNum" />
-    <result column="player_num" jdbcType="VARCHAR" property="playerNum" />
-    <result column="team_id" jdbcType="INTEGER" property="teamId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="active" jdbcType="BIT" property="active" />
   </resultMap>
@@ -74,8 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, gender, age, weight, height, nation, id_num, player_num, team_id, user_id, 
-    active
+    id, name, player_num, gender, age, weight, height, nation, id_num, user_id, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.AthleteExample" resultMap="BaseResultMap">
     select
@@ -108,14 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Athlete">
-    insert into athlete (id, name, gender, 
-      age, weight, height, 
-      nation, id_num, player_num, 
-      team_id, user_id, active)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, 
-      #{age,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, 
-      #{nation,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{playerNum,jdbcType=VARCHAR}, 
-      #{teamId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{active,jdbcType=BIT})
+    insert into athlete (id, name, player_num, 
+      gender, age, weight, height, 
+      nation, id_num, user_id, 
+      active)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{playerNum,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, 
+      #{nation,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Athlete">
     insert into athlete
@@ -125,6 +123,9 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="playerNum != null">
+        player_num,
       </if>
       <if test="gender != null">
         gender,
@@ -144,12 +145,6 @@
       <if test="idNum != null">
         id_num,
       </if>
-      <if test="playerNum != null">
-        player_num,
-      </if>
-      <if test="teamId != null">
-        team_id,
-      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -163,6 +158,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="playerNum != null">
+        #{playerNum,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=BIT},
@@ -181,12 +179,6 @@
       </if>
       <if test="idNum != null">
         #{idNum,jdbcType=VARCHAR},
-      </if>
-      <if test="playerNum != null">
-        #{playerNum,jdbcType=VARCHAR},
-      </if>
-      <if test="teamId != null">
-        #{teamId,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
@@ -211,6 +203,9 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.playerNum != null">
+        player_num = #{record.playerNum,jdbcType=VARCHAR},
+      </if>
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=BIT},
       </if>
@@ -229,12 +224,6 @@
       <if test="record.idNum != null">
         id_num = #{record.idNum,jdbcType=VARCHAR},
       </if>
-      <if test="record.playerNum != null">
-        player_num = #{record.playerNum,jdbcType=VARCHAR},
-      </if>
-      <if test="record.teamId != null">
-        team_id = #{record.teamId,jdbcType=INTEGER},
-      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
@@ -250,14 +239,13 @@
     update athlete
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
+      player_num = #{record.playerNum,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=BIT},
       age = #{record.age,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=DOUBLE},
       height = #{record.height,jdbcType=DOUBLE},
       nation = #{record.nation,jdbcType=VARCHAR},
       id_num = #{record.idNum,jdbcType=VARCHAR},
-      player_num = #{record.playerNum,jdbcType=VARCHAR},
-      team_id = #{record.teamId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       active = #{record.active,jdbcType=BIT}
     <if test="_parameter != null">
@@ -269,6 +257,9 @@
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="playerNum != null">
+        player_num = #{playerNum,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=BIT},
@@ -288,12 +279,6 @@
       <if test="idNum != null">
         id_num = #{idNum,jdbcType=VARCHAR},
       </if>
-      <if test="playerNum != null">
-        player_num = #{playerNum,jdbcType=VARCHAR},
-      </if>
-      <if test="teamId != null">
-        team_id = #{teamId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
@@ -306,14 +291,13 @@
   <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.Athlete">
     update athlete
     set name = #{name,jdbcType=VARCHAR},
+      player_num = #{playerNum,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=BIT},
       age = #{age,jdbcType=INTEGER},
       weight = #{weight,jdbcType=DOUBLE},
       height = #{height,jdbcType=DOUBLE},
       nation = #{nation,jdbcType=VARCHAR},
       id_num = #{idNum,jdbcType=VARCHAR},
-      player_num = #{playerNum,jdbcType=VARCHAR},
-      team_id = #{teamId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}

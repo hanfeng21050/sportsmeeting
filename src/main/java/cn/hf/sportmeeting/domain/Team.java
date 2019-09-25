@@ -5,6 +5,8 @@ public class Team {
 
     private String name;
 
+    private String teamNum;
+
     private Integer projectId;
 
     private Double score;
@@ -27,6 +29,14 @@ public class Team {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getTeamNum() {
+        return teamNum;
+    }
+
+    public void setTeamNum(String teamNum) {
+        this.teamNum = teamNum == null ? null : teamNum.trim();
     }
 
     public Integer getProjectId() {

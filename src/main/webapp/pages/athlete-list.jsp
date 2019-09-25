@@ -166,12 +166,12 @@
 			<!-- 内容头部 -->
 			<section class="content-header">
 				<h1>
-					用户管理 <small>用户列表</small>
+					用户管理 <small>运动员列表</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
 					<li><a href="#">用户管理</a></li>
-					<li class="active">用户列表</li>
+					<li class="active">运动员列表</li>
 				</ol>
 			</section>
 			<!-- 内容头部 /-->
@@ -217,38 +217,45 @@
 							<!--工具栏/-->
 
 							<!--数据列表-->
-							<form id="selection" action="${pageContext.request.contextPath}/user/deleteByIds" method="post">
+							<form id="selection" action="${pageContext.request.contextPath}/athlete/deleteByIds" method="post">
 								<table id="dataList"
 									   class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
 									<thead>
 									<tr>
-										<th style="vertical-align: middle;margin:auto; padding:10px" width="20px"><input
+										<th class="" style="vertical-align: middle;margin:auto; padding:10px" width="20px"><input
 												id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
 										<th style="text-align: center">ID</th>
-										<th style="text-align: center">用户名</th>
+										<th style="text-align: center">姓名</th>
+										<th style="text-align: center">运动员编号</th>
 										<th style="text-align: center">性别</th>
 										<th style="text-align: center">年龄</th>
-										<th style="text-align: center">电话号码</th>
-										<th style="text-align: center">邮箱地址</th>
+										<th style="text-align: center">体重</th>
+										<th style="text-align: center">身高</th>
+										<th style="text-align: center">民族</th>
+										<th style="text-align: center">身份证号码</th>
 										<th style="text-align: center">操作</th>
+
 									</tr>
 									</thead>
 									<tbody>
 
 
-									<c:forEach items="${pageInfo.list}" var="user" varStatus="status">
+									<c:forEach items="${pageInfo.list}" var="athlete" varStatus="status">
 
 										<tr>
-											<td><input name="ids" type="checkbox" value="${user.id}"></td>
+											<td><input name="ids" type="checkbox" value="${athlete.id}"></td>
 											<td>${status.index+1}</td>
-											<td>${user.username}</td>
-											<td>${user.gender == false? "男":"女"}</td>
-											<td>${user.age}</td>
-											<td>${user.tel}</td>
-											<td>${user.email}</td>
+											<td>${athlete.name}</td>
+											<td>${athlete.playerNum}</td>
+											<td>${athlete.gender == false? "男":"女"}</td>
+											<td>${athlete.age}</td>
+											<td>${athlete.weight}</td>
+											<td>${athlete.height}</td>
+											<td>${athlete.nation}</td>
+											<td>${athlete.idNum}</td>
 											<td>
-												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/user/findDetailById?id=${user.id}'">详情</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}'">详情</button>
 												<button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
 												<button type="button" class="btn bg-olive btn-xs">修改</button>
 											</td>
@@ -457,12 +464,12 @@
 			// 激活导航位置
 			setSidebarActive("admin-datalist");
 
-			// 列表按钮 
+			// 列表按钮
 			$("#dataList td input[type='checkbox']").iCheck({
 				checkboxClass : 'icheckbox_square-blue',
 				increaseArea : '20%'
 			});
-			// 全选操作 
+			// 全选操作
 			$("#selall").click(function() {
 				var clicks = $(this).is(':checked');
 				if (!clicks) {

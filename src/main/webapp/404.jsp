@@ -11,7 +11,7 @@
 
 
 
-    <title>数据 - AdminLTE2定制版</title>
+    <title>404</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
 
@@ -142,7 +142,7 @@
                 </h1>
 
                 <ol class="breadcrumb">
-                    <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
                     <li class="active">404 错误</li>
                 </ol>
 

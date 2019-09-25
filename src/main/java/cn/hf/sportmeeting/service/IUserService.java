@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 韩锋
@@ -35,4 +36,5 @@ public interface IUserService extends UserDetailsService {
      * @return 保存成功
      */
     public void save(UserInfo user,Integer[] roleIds);
+
 }

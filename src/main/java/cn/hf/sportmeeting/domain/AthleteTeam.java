@@ -1,6 +1,8 @@
 package cn.hf.sportmeeting.domain;
 
-public class AthleteTeam {
+import java.io.Serializable;
+
+public class AthleteTeam implements Serializable {
     private Integer id;
 
     private Integer athleteId;

@@ -6,6 +6,8 @@ import cn.hf.sportmeeting.domain.RoleExample;
 import cn.hf.sportmeeting.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
  */
 
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 30,rollbackFor = Exception.class)
 public class RoleServiceImpl implements IRoleService {
     @Autowired
     private RoleMapper roleMapper;

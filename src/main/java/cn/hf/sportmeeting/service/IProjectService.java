@@ -4,6 +4,7 @@ import cn.hf.sportmeeting.domain.Athlete;
 import cn.hf.sportmeeting.domain.Project;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 韩锋
@@ -17,20 +18,17 @@ public interface IProjectService {
     public List<Project> findAll();
 
 
+
+
     /**
-     * 通过id查询项目
+     * 通过项目id来查询详情
      * @param projectId
-     * @return
+     * @param type
+     * @param sort 成绩排序 false 降序   true 升序
+     * @return map集合包含项目具体信息、运动员列表、成绩
      */
-    public Project findById(Integer projectId);
+    public Map<String,Object> findProjectDetailsById(Integer projectId,Boolean type, Boolean sort);
 
-
-    /**
-     * 通过项目id来查询运动员
-     * @param id
-     * @return
-     */
-    public List<Athlete> findAthleteById(Integer id);
 
     /**
      * 新建项目
@@ -49,4 +47,11 @@ public interface IProjectService {
      * @param project
      */
     public Integer update(Project project);
+
+    /**
+     * 根据查询项目
+     * @param id
+     * @return
+     */
+    public Project findById(Integer id);
 }

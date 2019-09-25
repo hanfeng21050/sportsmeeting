@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.hf.sportmeeting.dao.TeamMapper">
+  <cache/>
   <resultMap id="BaseResultMap" type="cn.hf.sportmeeting.domain.Team">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="team_num" jdbcType="VARCHAR" property="teamNum" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="score" jdbcType="DOUBLE" property="score" />
     <result column="rank" jdbcType="INTEGER" property="rank" />
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, project_id, score, rank, active
+    id, name, team_num, project_id, score, rank, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.TeamExample" resultMap="BaseResultMap">
     select
@@ -101,10 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Team">
-    insert into team (id, name, project_id, 
-      score, rank, active)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
-      #{score,jdbcType=DOUBLE}, #{rank,jdbcType=INTEGER}, #{active,jdbcType=BIT})
+    insert into team (id, name, team_num, 
+      project_id, score, rank, 
+      active)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{teamNum,jdbcType=VARCHAR}, 
+      #{projectId,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE}, #{rank,jdbcType=INTEGER}, 
+      #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Team">
     insert into team
@@ -114,6 +118,9 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="teamNum != null">
+        team_num,
       </if>
       <if test="projectId != null">
         project_id,
@@ -134,6 +141,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teamNum != null">
+        #{teamNum,jdbcType=VARCHAR},
       </if>
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
@@ -164,6 +174,9 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.teamNum != null">
+        team_num = #{record.teamNum,jdbcType=VARCHAR},
+      </if>
       <if test="record.projectId != null">
         project_id = #{record.projectId,jdbcType=INTEGER},
       </if>
@@ -185,6 +198,7 @@
     update team
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
+      team_num = #{record.teamNum,jdbcType=VARCHAR},
       project_id = #{record.projectId,jdbcType=INTEGER},
       score = #{record.score,jdbcType=DOUBLE},
       rank = #{record.rank,jdbcType=INTEGER},
@@ -198,6 +212,9 @@
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teamNum != null">
+        team_num = #{teamNum,jdbcType=VARCHAR},
       </if>
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
@@ -217,6 +234,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.hf.sportmeeting.domain.Team">
     update team
     set name = #{name,jdbcType=VARCHAR},
+      team_num = #{teamNum,jdbcType=VARCHAR},
       project_id = #{projectId,jdbcType=INTEGER},
       score = #{score,jdbcType=DOUBLE},
       rank = #{rank,jdbcType=INTEGER},
