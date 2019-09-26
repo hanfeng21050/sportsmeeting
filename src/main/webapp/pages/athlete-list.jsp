@@ -256,7 +256,7 @@
 											<td>${athlete.idNum}</td>
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}'">详情</button>
-												<button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="">删除</button>
 												<button type="button" class="btn bg-olive btn-xs">修改</button>
 											</td>
 										</tr>
@@ -413,11 +413,11 @@
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
 
-		function deleteProject(id)
+		function deleteAthlete(id)
 		{
 			if(confirm("您确定要删除吗？"))
 			{
-				location.href='${pageContext.request.contextPath}/user/deleteByIds?ids='+id;
+				location.href='';
 			}
 		}
 

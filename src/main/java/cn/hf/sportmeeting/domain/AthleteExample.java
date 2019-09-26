@@ -744,6 +744,66 @@ public class AthleteExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaxIsNull() {
+            addCriterion("max is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxIsNotNull() {
+            addCriterion("max is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxEqualTo(Integer value) {
+            addCriterion("max =", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxNotEqualTo(Integer value) {
+            addCriterion("max <>", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxGreaterThan(Integer value) {
+            addCriterion("max >", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxGreaterThanOrEqualTo(Integer value) {
+            addCriterion("max >=", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxLessThan(Integer value) {
+            addCriterion("max <", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxLessThanOrEqualTo(Integer value) {
+            addCriterion("max <=", value, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxIn(List<Integer> values) {
+            addCriterion("max in", values, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxNotIn(List<Integer> values) {
+            addCriterion("max not in", values, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxBetween(Integer value1, Integer value2) {
+            addCriterion("max between", value1, value2, "max");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxNotBetween(Integer value1, Integer value2) {
+            addCriterion("max not between", value1, value2, "max");
+            return (Criteria) this;
+        }
+
         public Criteria andActiveIsNull() {
             addCriterion("active is null");
             return (Criteria) this;

@@ -1,9 +1,6 @@
 package cn.hf.sportmeeting.service.impl;
 
-import cn.hf.sportmeeting.dao.AthleteMapper;
-import cn.hf.sportmeeting.dao.GradeMapper;
-import cn.hf.sportmeeting.dao.ProjectMapper;
-import cn.hf.sportmeeting.dao.TeamMapper;
+import cn.hf.sportmeeting.dao.*;
 import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +31,13 @@ public class ProjectServiceImpl implements IProjectService {
     @Autowired
     private TeamMapper teamMapper;
 
+    @Autowired
+    private AthleteTeamMapper athleteTeamMapper;
+
     @Override
     public List<Project> findAll() {
         ProjectExample example = new ProjectExample();
+        example.createCriteria().andActiveEqualTo(true);
         List<Project> projects = projectMapper.selectByExample(example);
         return projects;
     }
@@ -55,7 +56,7 @@ public class ProjectServiceImpl implements IProjectService {
             //个人比赛，查询运动员
             //先通过project_id去grade表查询athleteId
             GradeExample gradeExample = new GradeExample();
-            gradeExample.createCriteria().andProjectIdEqualTo(projectId);
+            gradeExample.createCriteria().andProjectIdEqualTo(projectId).andActiveEqualTo(true);
             List<Grade> gradeList = gradeMapper.selectByExample(gradeExample);
 
             //通过grade.getAthleteId()去查找运动员
@@ -68,30 +69,30 @@ public class ProjectServiceImpl implements IProjectService {
                     athlete.setRank(grade.getRank());
                     athleteList.add(athlete);
                 }
+
+                if(sort){
+                    //根据getScore升序排序
+                    athleteList.sort(Comparator.comparing(Athlete::getScore));
+                }else {
+                    //根据getScore降序排序
+                    athleteList.sort(Comparator.comparing(Athlete::getScore).reversed());
+                }
+
+                Grade grade = new Grade();
+                GradeExample example = new GradeExample();
+                for (int i = 0; i < athleteList.size(); i++) {
+                    example.clear();
+                    example.createCriteria().andAthleteIdEqualTo(athleteList.get(i).getId()).andActiveEqualTo(true);
+
+                    Athlete athlete = athleteList.get(i);
+                    athlete.setRank(i+1);
+                    //将排名保存到数据库
+                    grade.setRank(i+1);
+                    gradeMapper.updateByExampleSelective(grade,example);
+
+                }
             }
 
-            //如果数据库已经有排名的，就不需要再排序了
-
-            if(sort){
-                //根据getScore升序排序
-                athleteList.sort(Comparator.comparing(Athlete::getScore));
-            }else {
-                //根据getScore降序排序
-                athleteList.sort(Comparator.comparing(Athlete::getScore).reversed());
-            }
-            Grade grade = new Grade();
-            GradeExample example = new GradeExample();
-            for (int i = 0; i < athleteList.size(); i++) {
-                example.clear();
-                example.createCriteria().andAthleteIdEqualTo(athleteList.get(i).getId());
-
-                Athlete athlete = athleteList.get(i);
-                athlete.setRank(i+1);
-                //将排名保存到数据库
-                grade.setRank(i+1);
-                gradeMapper.updateByExampleSelective(grade,example);
-
-            }
 
             map.put("athleteList",athleteList);
         }else
@@ -99,7 +100,7 @@ public class ProjectServiceImpl implements IProjectService {
             //团体比赛
             //根据项目id去查询Team表
             TeamExample example = new TeamExample();
-            example.createCriteria().andProjectIdEqualTo(projectId);
+            example.createCriteria().andProjectIdEqualTo(projectId).andActiveEqualTo(true);
             List<Team> teamList = teamMapper.selectByExample(example);
 
             if(teamList != null && teamList.size() != 0)
@@ -137,6 +138,37 @@ public class ProjectServiceImpl implements IProjectService {
     public void deleteByIds(Integer[] ids) {
         if(ids != null && ids.length != 0){
             for (Integer id : ids) {
+                Project project = projectMapper.selectByPrimaryKey(id);
+                if (project == null) {
+                    return;
+                }
+
+                if(project.getType() == false)
+                {
+                    //个人比赛
+                    //去grade表中删除相关记录
+                    GradeExample gradeExample = new GradeExample();
+                    gradeExample.createCriteria().andProjectIdEqualTo(id).andActiveEqualTo(true);
+                    gradeMapper.deleteByExample(gradeExample);
+                }else
+                {
+                    //团体比赛
+                    TeamExample teamExample = new TeamExample();
+                    teamExample.createCriteria().andProjectIdEqualTo(id).andActiveEqualTo(true);
+
+                    List<Team> teamList = teamMapper.selectByExample(teamExample);
+                    if(teamList != null && teamList.size() != 0)
+                    {
+                        for (Team team : teamList) {
+                            AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
+                            athleteTeamExample.createCriteria().andTeamIdEqualTo(team.getId()).andActiveEqualTo(true);
+                            athleteTeamMapper.deleteByExample(athleteTeamExample);
+                        }
+                    }
+
+                    teamMapper.deleteByExample(teamExample);
+                }
+
                 projectMapper.deleteByPrimaryKey(id);
             }
         }
@@ -152,35 +184,64 @@ public class ProjectServiceImpl implements IProjectService {
         return projectMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public Map<String, Object> findMemberById(Integer id, Boolean type) {
+        Map<String,Object> map = new HashMap<>(4);
 
-    /**
-     * 计算排名
-     * @return
-     */
-    public Object calculateRank(Boolean type,Object o)
-    {
-        List<Athlete> list = null;
-        if(!type)
+        Project project = projectMapper.selectByPrimaryKey(id);
+        map.put("project",project);
+
+        if(type)
         {
-            list = (List<Athlete>) o;
-
-            //调用Collections.sort()方法;
-            Collections.sort(list, new Comparator<Athlete>() {
-
-                @Override
-                public int compare(Athlete o1, Athlete o2) {
-                    double score1 = o1.getScore();
-                    double score2 = o2.getScore();
-
-                    if(score1 < score2)
-                    {
-                        return 1;
-                    }else {
-                        return -1;
-                    }
+            //团体赛
+            TeamExample teamExample = new TeamExample();
+            teamExample.createCriteria().andProjectIdEqualTo(id).andActiveEqualTo(true);
+            List<Team> teamList = teamMapper.selectByExample(teamExample);
+            map.put("teamList",teamList);
+        }else
+        {
+            //个人赛
+            GradeExample gradeExample = new GradeExample();
+            gradeExample.createCriteria().andProjectIdEqualTo(id).andActiveEqualTo(true);
+            List<Grade> gradeList = gradeMapper.selectByExample(gradeExample);
+            List<Athlete> athleteList = new ArrayList<>();
+            if(gradeList != null && gradeList.size() != 0)
+            {
+                for (Grade grade : gradeList) {
+                    Athlete athlete = athleteMapper.selectByPrimaryKey(grade.getAthleteId());
+                    athleteList.add(athlete);
                 }
-            });
+            }
+
+            map.put("athleteList",athleteList);
         }
-        return list;
+
+        return map;
+    }
+
+
+    @Override
+    public void scoreEntry(List<ScoreExt> exts, Boolean type) {
+        if(type)
+        {
+            //团体赛
+            Team team = new Team();
+            for (ScoreExt ext : exts) {
+                team.setId(ext.getTeamId());
+                team.setScore(ext.getScore());
+                teamMapper.updateByPrimaryKeySelective(team);
+            }
+        }else
+        {
+            //个人赛
+            GradeExample gradeExample = new GradeExample();
+            Grade grade = new Grade();
+            for (ScoreExt ext : exts) {
+                gradeExample.clear();
+                gradeExample.createCriteria().andProjectIdEqualTo(ext.getProjectId()).andAthleteIdEqualTo(ext.getAthleteId());
+                grade.setScore(ext.getScore());
+                gradeMapper.updateByExampleSelective(grade,gradeExample);
+            }
+        }
     }
 }

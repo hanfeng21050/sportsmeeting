@@ -45,7 +45,7 @@ public class UserServiceImpl implements IUserService {
         UserInfo u = null;
         try {
             UserExample example = new UserExample();
-            example.createCriteria().andUsernameEqualTo(s);
+            example.createCriteria().andUsernameEqualTo(s).andActiveEqualTo(true);
             List<UserInfo> userInfos = userMapper.selectByExample(example);
             if(userInfos!= null && userInfos.size()!=0)
             {
@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
         List<SimpleGrantedAuthority> list = new ArrayList<SimpleGrantedAuthority>();
         //查询中间表
         UserRoleExample example = new UserRoleExample();
-        example.createCriteria().andUserIdEqualTo(userId);
+        example.createCriteria().andUserIdEqualTo(userId).andActiveEqualTo(true);
         List<UserRole> userRoles = userRoleMapper.selectByExample(example);
 
         if(userRoles!= null && userRoles.size() != 0)
@@ -98,7 +98,7 @@ public class UserServiceImpl implements IUserService {
             for (Integer id : ids) {
             //先删除中间表
                 UserRoleExample example = new UserRoleExample();
-                example.createCriteria().andUserIdEqualTo(id);
+                example.createCriteria().andUserIdEqualTo(id).andActiveEqualTo(true);
                 userRoleMapper.deleteByExample(example);
                // int i = 10/0;
             //删除用户

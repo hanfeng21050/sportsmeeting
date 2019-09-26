@@ -2,6 +2,7 @@ package cn.hf.sportmeeting.service;
 
 import cn.hf.sportmeeting.domain.Athlete;
 import cn.hf.sportmeeting.domain.Project;
+import cn.hf.sportmeeting.domain.ScoreExt;
 
 import java.util.List;
 import java.util.Map;
@@ -54,4 +55,20 @@ public interface IProjectService {
      * @return
      */
     public Project findById(Integer id);
+
+
+    /**
+     * 通过id查询参加该项目的成员，运动员|团队
+     * @param id
+     * @param type
+     * @return
+     */
+    public Map<String, Object> findMemberById(Integer id, Boolean type);
+
+    /**
+     * 保存成绩
+     * @param exts
+     * @param type
+     * */
+    public void scoreEntry(List<ScoreExt> exts, Boolean type);
 }

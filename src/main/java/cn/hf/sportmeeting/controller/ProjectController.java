@@ -3,6 +3,7 @@ package cn.hf.sportmeeting.controller;
 import cn.hf.sportmeeting.annotation.FormToken;
 import cn.hf.sportmeeting.domain.Athlete;
 import cn.hf.sportmeeting.domain.Project;
+import cn.hf.sportmeeting.domain.ScoreExt;
 import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -133,6 +135,73 @@ public class ProjectController {
             return "redirect:findAll";
         }
         return null;
+    }
+
+    /**
+     * 通过项目id查找该比赛的成员，运动员或者团队
+     * @param id
+     * @param type 比赛的类型  个人  团队
+     * @return
+     */
+    @RequestMapping("/findMemberById")
+    public ModelAndView findMemberById(Integer id,Boolean type)
+    {
+        ModelAndView mv = new ModelAndView();
+        Map<String,Object> map = projectService.findMemberById(id,type);
+        Project project = (Project) map.get("project");
+        if(type)
+        {
+            //团体项目
+            List<Team> teamList = (List<Team>) map.get("teamList");
+            mv.addObject("teamList",teamList);
+        }else
+        {
+            //个人项目
+            List<Athlete> athleteList = (List<Athlete>) map.get("athleteList");
+            mv.addObject("athlete",athleteList);
+        }
+
+        mv.addObject("project",project);
+        mv.addObject("type",type);
+        mv.setViewName("score-entry");
+        return mv;
+    }
+
+    @RequestMapping("/scoreEntry")
+    public String scoreEntry(@RequestParam("type")Boolean type,
+                             @RequestParam("sort")Boolean sort,
+                             @RequestParam("projectId")Integer projectId,
+                             @RequestParam("teamId") Integer[] teamIds,
+                             @RequestParam("athleteId") Integer[] athleteIds,
+                             @RequestParam("score") Double[] scores
+        ){
+
+        List<ScoreExt> exts = new ArrayList<>();
+        if(type)
+        {
+            for (int i = 0; i < teamIds.length; i++) {
+                ScoreExt ext = new ScoreExt();
+                ext.setTeamId(teamIds[i]);
+                ext.setScore(scores[i]);
+                exts.add(ext);
+            }
+        }else
+        {
+            for (int i = 0; i < athleteIds.length; i++) {
+                ScoreExt ext = new ScoreExt();
+                ext.setAthleteId(athleteIds[i]);
+                ext.setProjectId(projectId);
+                ext.setScore(scores[i]);
+                exts.add(ext);
+            }
+        }
+
+        /**
+         * 返回值为录入成绩的比赛项目的排序,
+         * 目的是能够使页面返回到详情页，需要三个参数 id sort type
+         */
+        projectService.scoreEntry(exts,type);
+        return "redirect:findDetailsById?id="+projectId+"&type="+type+"&sort="+sort;
     }
 
 }

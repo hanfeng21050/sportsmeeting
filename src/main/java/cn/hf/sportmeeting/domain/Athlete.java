@@ -21,6 +21,8 @@ public class Athlete {
 
     private Integer userId;
 
+    private Integer max;
+
     private Boolean active;
 
     private Double score;
@@ -121,6 +123,14 @@ public class Athlete {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getMax() {
+        return max;
+    }
+
+    public void setMax(Integer max) {
+        this.max = max;
     }
 
     public Boolean getActive() {

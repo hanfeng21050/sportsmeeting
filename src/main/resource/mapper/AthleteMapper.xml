@@ -12,6 +12,7 @@
     <result column="nation" jdbcType="VARCHAR" property="nation" />
     <result column="id_num" jdbcType="VARCHAR" property="idNum" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="max" jdbcType="INTEGER" property="max" />
     <result column="active" jdbcType="BIT" property="active" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, player_num, gender, age, weight, height, nation, id_num, user_id, active
+    id, name, player_num, gender, age, weight, height, nation, id_num, user_id, max, 
+    active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.AthleteExample" resultMap="BaseResultMap">
     select
@@ -109,11 +111,11 @@
     insert into athlete (id, name, player_num, 
       gender, age, weight, height, 
       nation, id_num, user_id, 
-      active)
+      max, active)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{playerNum,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, 
       #{nation,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{active,jdbcType=BIT})
+      #{max,jdbcType=INTEGER}, #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Athlete">
     insert into athlete
@@ -147,6 +149,9 @@
       </if>
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="max != null">
+        max,
       </if>
       <if test="active != null">
         active,
@@ -182,6 +187,9 @@
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=INTEGER},
       </if>
       <if test="active != null">
         #{active,jdbcType=BIT},
@@ -227,6 +235,9 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.max != null">
+        max = #{record.max,jdbcType=INTEGER},
+      </if>
       <if test="record.active != null">
         active = #{record.active,jdbcType=BIT},
       </if>
@@ -247,6 +258,7 @@
       nation = #{record.nation,jdbcType=VARCHAR},
       id_num = #{record.idNum,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
+      max = #{record.max,jdbcType=INTEGER},
       active = #{record.active,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -282,6 +294,9 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="max != null">
+        max = #{max,jdbcType=INTEGER},
+      </if>
       <if test="active != null">
         active = #{active,jdbcType=BIT},
       </if>
@@ -299,6 +314,7 @@
       nation = #{nation,jdbcType=VARCHAR},
       id_num = #{idNum,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
+      max = #{max,jdbcType=INTEGER},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>

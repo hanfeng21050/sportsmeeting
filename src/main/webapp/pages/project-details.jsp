@@ -146,10 +146,9 @@
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新建</button>
                                     <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
                                     <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
-                                    <button type="button" class="btn btn-default" title="成绩录入"><i class="fa fa-pencil"></i> 成绩录入</button>
+                                    <button type="button" class="btn btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +177,7 @@
                                 <c:if test="${project.type == false}">
                                     <c:forEach items="${athleteList}" varStatus="vs" var="athlete">
                                         <tr>
-                                            <td><input name="ids" type="checkbox"></td>
+                                            <td><input name="ids" type="checkbox" value="${athlete.id}"></td>
                                             <td style="text-align: center">${vs.index+1}</td>
                                             <td style="text-align: center">${athlete.name}</td>
                                             <td style="text-align: center">${athlete.playerNum}</td>
@@ -186,7 +185,7 @@
                                             <td style="text-align: center">${athlete.rank == null ? "未录入":athlete.rank}</td>
 
                                             <td style="text-align: center" class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>详情</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}"'>详情</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -203,7 +202,7 @@
                                             <td style="text-align: center">${team.rank == null ? "未录入":team.rank}</td>
 
                                             <td style="text-align: center" class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>详情</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href=""'>详情</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -321,6 +320,7 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
+
 
     $(function() {
         $('#dataList').DataTable({

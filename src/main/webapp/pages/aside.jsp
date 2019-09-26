@@ -44,15 +44,15 @@
                     </li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/role/findAll"> <i
-                            class="fa fa-circle-o"></i> XXX
+                            class="fa fa-circle-o"></i> 报名审核
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/permission/findAll">
-                        <i class="fa fa-circle-o"></i> XXX
+                        <i class="fa fa-circle-o"></i> 器材管理
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/sysLog/findAll"> <i
-                            class="fa fa-circle-o"></i> XXX
+                            class="fa fa-circle-o"></i> 开闭幕式
                     </a></li>
                 </ul>
             </li>

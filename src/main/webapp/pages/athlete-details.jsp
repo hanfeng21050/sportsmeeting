@@ -142,11 +142,11 @@
                 <!--tab头/-->
 
                 <div class="tab-content">
-                    <!-- 参赛人员列表 -->
+                    <!-- 该运动员参与的比赛 -->
                     <div class="tab-pane active"id="tab-project">
                         <div class="box-header with-border">
                             <i class="fa fa-cube"></i>
-                            <h3 class="box-title">参赛人员列表</h3>
+                            <h3 class="box-title">比赛</h3>
                         </div>
 
                         <div class="box-body">
@@ -182,8 +182,6 @@
                                             <td>${project.typeStr}</td>
                                             <td>
                                                 <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/project/findDetailsById?id=${project.id}&type=${project.type}&sort=${project.sort}'">详情</button>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${project.id})">删除</button>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/project/toUpdate?id=${project.id}'">修改</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -355,9 +353,28 @@
             "paging": false,
             "lengthChange": false,
             "searching": true,
-            "ordering": false,
+            "ordering": true,
             "info": false,
-            "autoWidth": true
+            "autoWidth": true,
+            "language": {
+                "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                "sInfoFiltered": "(从_MAX_条筛选 )",
+                "sInfoEmpty": "共筛选到0条",
+                "sSearch": "搜索:",
+                "sLengthMenu": "每页显示 _MENU_ 条",
+                "sZeroRecords": "未筛选到相关内容",
+                "paginate": {
+                    "sFirst": "首页",  //首页和尾页必须在pagingType设为full_numbers时才可以
+                    "sLast": "尾页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "first": "First page",
+                    "last": "Last page",
+                    "next": "Next page",
+                    "previous": "Previous page"
+                }
+
+            }
         });
 
         $('#teams').DataTable({

@@ -36,6 +36,7 @@ public class AthleteServiceImpl implements IAthleteService {
     @Override
     public List<Athlete> findByPage(Integer page, Integer size) {
         AthleteExample example = new AthleteExample();
+        example.createCriteria().andActiveEqualTo(true);
 
         PageHelper.startPage(page,size);
         return athleteMapper.selectByExample(example);
@@ -51,7 +52,7 @@ public class AthleteServiceImpl implements IAthleteService {
 
         //运动员参加的项目
         GradeExample gradeExample = new GradeExample();
-        gradeExample.createCriteria().andAthleteIdEqualTo(id);
+        gradeExample.createCriteria().andAthleteIdEqualTo(id).andActiveEqualTo(true);
         List<Grade> gradeList = gradeMapper.selectByExample(gradeExample);
         List<Project> projectList = new ArrayList<>();
         if(gradeList != null && gradeList.size() != 0)
@@ -65,7 +66,7 @@ public class AthleteServiceImpl implements IAthleteService {
 
         //运动员所属团队
         AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
-        athleteTeamExample.createCriteria().andAthleteIdEqualTo(id);
+        athleteTeamExample.createCriteria().andAthleteIdEqualTo(id).andActiveEqualTo(true);
         List<AthleteTeam> athleteTeamList = athleteTeamMapper.selectByExample(athleteTeamExample);
         List<Team> teamList = new ArrayList<>();
         if(athleteTeamList != null && athleteTeamList.size() != 0)
