@@ -52,7 +52,7 @@
                     </a></li>
                     <li id="system-setting"><a
                             href="${pageContext.request.contextPath}/sysLog/findAll"> <i
-                            class="fa fa-circle-o"></i> 开闭幕式
+                            class="fa fa-circle-o"></i> 成绩打印
                     </a></li>
                 </ul>
             </li>

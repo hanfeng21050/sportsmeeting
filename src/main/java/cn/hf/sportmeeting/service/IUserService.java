@@ -1,5 +1,6 @@
 package cn.hf.sportmeeting.service;
 
+import cn.hf.sportmeeting.domain.RoleExt;
 import cn.hf.sportmeeting.domain.UserInfo;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,4 +38,16 @@ public interface IUserService extends UserDetailsService {
      */
     public void save(UserInfo user,Integer[] roleIds);
 
+    /**
+     * 返回用户信息详情
+     * @param id
+     * @return
+     */
+    public Map<String, Object> findDetailsById(Integer id);
+
+    /**
+     * 更新角色信息
+     * @param roleExt
+     */
+    public void updateRole(RoleExt roleExt);
 }

@@ -75,7 +75,6 @@
 
     <!-- 内容区域 -->
     <div class="content-wrapper">
-
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
@@ -91,7 +90,9 @@
 
         <!-- 正文区域 -->
         <section class="content">
+
             <div class="tab-pane active" id="tab-label">
+
                 <div class="row data-type">
                     <div class="col-md-2 title">比赛名称</div>
                     <div class="col-md-4 data text">
@@ -131,9 +132,15 @@
                         <textarea class="form-control" rows="3" disabled="disabled">${project.description}</textarea>
                     </div>
                 </div>
-                <br>
-                <br>
 
+                <div class="box-tools text-center">
+                    <button type="button" class="btn bg-default"
+                            onclick="history.back(-1);">返回
+                    </button>
+                </div>
+
+                <br>
+                <br>
                 <!-- 参赛人员列表 -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -146,6 +153,7 @@
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
+                                    <button type="button" class="btn btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
                                     <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
                                     <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
                                     <button type="button" class="btn btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
@@ -329,7 +337,26 @@
             "searching": true,
             "ordering": false,
             "info": false,
-            "autoWidth": true
+            "autoWidth": true,
+            "language": {
+                "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                "sInfoFiltered": "(从_MAX_条筛选 )",
+                "sInfoEmpty": "共筛选到0条",
+                "sSearch": "搜索:",
+                "sLengthMenu": "每页显示 _MENU_ 条",
+                "sZeroRecords": "未筛选到相关内容",
+                "paginate": {
+                    "sFirst": "首页",  //首页和尾页必须在pagingType设为full_numbers时才可以
+                    "sLast": "尾页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "first": "First page",
+                    "last": "Last page",
+                    "next": "Next page",
+                    "previous": "Previous page"
+                }
+
+            }
         });
     });
 

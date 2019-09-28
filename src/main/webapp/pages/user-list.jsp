@@ -250,7 +250,6 @@
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/user/findDetailById?id=${user.id}'">详情</button>
 												<button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
-												<button type="button" class="btn bg-olive btn-xs">修改</button>
 											</td>
 										</tr>
 									</c:forEach>

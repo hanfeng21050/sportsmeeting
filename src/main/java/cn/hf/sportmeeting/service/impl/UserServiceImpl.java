@@ -1,5 +1,6 @@
 package cn.hf.sportmeeting.service.impl;
 
+import cn.hf.sportmeeting.dao.AthleteMapper;
 import cn.hf.sportmeeting.dao.RoleMapper;
 import cn.hf.sportmeeting.dao.UserMapper;
 import cn.hf.sportmeeting.dao.UserRoleMapper;
@@ -39,6 +40,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AthleteMapper athleteMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -127,6 +131,60 @@ public class UserServiceImpl implements IUserService {
                 userRoleMapper.insert(userRole);
             }
         }
+    }
+
+    @Override
+    public Map<String, Object> findDetailsById(Integer id) {
+        Map<String, Object> map = new HashMap<>(4);
+
+        //查询用户信息
+        UserInfo userInfo = userMapper.selectByPrimaryKey(id);
+        map.put("userInfo",userInfo);
+
+        //查询角色信息
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(id).andActiveEqualTo(true);
+        List<UserRole> userRoleList = userRoleMapper.selectByExample(userRoleExample);
+        List<Role> roleList = new ArrayList<>();
+        if(userRoleList!= null && userRoleList.size() !=0){
+            for (UserRole userRole : userRoleList) {
+                Role role = roleMapper.selectByPrimaryKey(userRole.getRoleId());
+                roleList.add(role);
+            }
+        }
+        map.put("roleList",roleList);
+
+        //查询是否注册运动员
+        AthleteExample athleteExample = new AthleteExample();
+        athleteExample.createCriteria().andUserIdEqualTo(id).andActiveEqualTo(true);
+        List<Athlete> athleteList = athleteMapper.selectByExample(athleteExample);
+        if(athleteList != null && athleteList.size() != 0)
+        {
+            map.put("athlete",athleteList.get(0));
+        }
+
+        return map;
+    }
+
+    @Override
+    public void updateRole(RoleExt roleExt) {
+        //先删除原有的角色信息
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(roleExt.getUserId());
+        userRoleMapper.deleteByExample(userRoleExample);
+
+        //更新角色信息
+        List<Integer> roleIdList = roleExt.getRoleIdList();
+        if(roleIdList != null && roleIdList.size() !=0)
+        {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(roleExt.getUserId());
+            for (Integer roleId : roleIdList) {
+               userRole.setRoleId(roleId);
+               userRoleMapper.insertSelective(userRole);
+            }
+        }
+
     }
 
 }

@@ -1,18 +1,21 @@
 package cn.hf.sportmeeting.controller;
 
+import cn.hf.sportmeeting.domain.Athlete;
+import cn.hf.sportmeeting.domain.Role;
+import cn.hf.sportmeeting.domain.RoleExt;
 import cn.hf.sportmeeting.domain.UserInfo;
 import cn.hf.sportmeeting.service.IUserService;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.ListResourceBundle;
 import java.util.Map;
 
 /**
@@ -70,8 +73,28 @@ public class UserController {
     public ModelAndView findDetailById(Integer id)
     {
         ModelAndView mv = new ModelAndView();
+        Map<String,Object> map = userService.findDetailsById(id);
+        UserInfo userInfo = (UserInfo) map.get("userInfo");
+        List<Role> roleList = (List<Role>) map.get("roleList");
+        Athlete athlete = (Athlete) map.get("athlete");
+
+        mv.addObject("userInfo", userInfo);
+        mv.addObject("roleList", roleList);
+        mv.addObject("athlete", athlete);
 
         mv.setViewName("user-details");
         return mv;
+    }
+
+    @RequestMapping(value="/updateRole",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String updateRole(@RequestBody RoleExt roleExt){
+        try {
+            userService.updateRole(roleExt);
+        }catch (Exception e)
+        {
+            return "修改失败";
+        }
+        return "200";
     }
 }

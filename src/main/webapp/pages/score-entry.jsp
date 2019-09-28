@@ -170,7 +170,7 @@
                                         <div class="col-md-2 title">${team.name}</div>
                                         <div class="col-md-4 title">${team.teamNum}</div>
                                         <div class="col-md-5 title">
-                                            <input onkeyup='clearNoNum(this)' type="text" class="form-control" name="score" required="required">
+                                            <input autocomplete="off" onkeyup='clearNoNum(this)' type="text" class="form-control" name="score" required="required">
                                         </div>
                                     </c:forEach>
                                 </c:if>
@@ -183,7 +183,7 @@
                                         <div class="col-md-2 title">${athlete.name}</div>
                                         <div class="col-md-4 title">${athlete.playerNum}</div>
                                         <div class="col-md-5 title">
-                                            <input onkeyup='clearNoNum(this)' type="text" class="form-control" name="score" required="required">
+                                            <input autocomplete="off" onkeyup='clearNoNum(this)' type="text" class="form-control" name="score" required="required">
                                         </div>
                                     </c:forEach>
                                 </c:if>

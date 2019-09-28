@@ -91,200 +91,87 @@
 
         <!-- 正文区域 -->
         <section class="content">
-            <div class="tab-pane active">
+            <div>
                 <div class="row data-type">
                     <div class="col-md-2 title">姓名</div>
                     <div class="col-md-4 data text">
-                        ${project.name}
-                    </div>
-                    <div class="col-md-2 title">运动员编号</div>
-                    <div class="col-md-4 data text">
-                        ${project.unitStr}
+                        ${userInfo.username}
                     </div>
                     <div class="col-md-2 title">性别</div>
                     <div class="col-md-4 data text">
-                        ${project.sortStr}
+                        ${userInfo.gender == false ? "男":"女"}
                     </div>
 
-                    <div class="col-md-2 title">年龄</div>
+                    <div class="col-md-2 title">电话号码</div>
                     <div class="col-md-4 data text">
-                        ${project.genderStr}
+                        ${userInfo.tel}
                     </div>
-                    <div class="col-md-2 title">身高</div>
+                    <div class="col-md-2 title">邮箱</div>
                     <div class="col-md-4 data text">
-                        ${project.place}
+                        ${userInfo.email}
                     </div>
-                    <div class="col-md-2 title">体重</div>
-                    <div class="col-md-4 data text">
-                        ${project.typeStr}
+                    <div class="col-md-2 title">角色信息</div>
+                    <div class="col-md-4 data text" >
+                        <c:forEach items="${roleList}" var="role">
+                            <span class="label label-warning "> ${role.name}</span>
+                            <span><font color="#ECF0F5">·</font></span>
+                        </c:forEach>
                     </div>
-                    <div class="col-md-2 title">名族</div>
-                    <div class="col-md-4 data text">
-                        ${project.startTimeStr}
-                    </div>
-                    <div class="col-md-2 title">身份证号码</div>
-                    <div class="col-md-4 data text">
-                        ${project.endTimeStr}
-                    </div>
+                    <c:if test="${athlete != null}">
+                        <div class="col-md-2 title">
+                            注册运动员
+                        </div>
+                        <div class="col-md-4 data text">
+                            <a href="${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}">${athlete.name}</a>
+                        </div>
+                    </c:if>
+                </div>
+                <div class="box-tools text-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="changeRole">修改</button>
+                    <button type="button" class="btn bg-default"
+                            onclick="history.back(-1);">返回
+                    </button>
                 </div>
                 <br>
                 <br>
-
-                <!--tab头-->
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#tab-project" data-toggle="tab">参加的比赛</a>
-                    </li>
-                    <li>
-                        <a href="#tab-team" data-toggle="tab">所在团队</a>
-                    </li>
-                </ul>
-                <!--tab头/-->
-
-                <div class="tab-content">
-                    <!-- 参赛人员列表 -->
-                    <div class="tab-pane active"id="tab-project">
-                        <div class="box-header with-border">
-                            <i class="fa fa-cube"></i>
-                            <h3 class="box-title">参赛人员列表</h3>
-                        </div>
-
-                        <div class="box-body">
-                            <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--工具栏/-->
-                            <!-- 数据表格 -->
-                            <div class="table-box">
-
-                                <!--数据列表-->
-                                <table id="projects" class="table table-bordered table-striped table-hover dataTable" >
-                                    <thead>
-                                    <tr>
-                                        <th class="" style="vertical-align: middle;margin:auto; padding:10px" width="20px">
-                                            <input id="selall" type="checkbox" class="icheckbox_square-blue">
-                                        </th>
-                                        <th class="">ID</th>
-                                        <th class="">姓名</th>
-                                        <th class="">性别</th>
-                                        <th class="">年龄</th>
-                                        <th class="">团队</th>
-                                        <th class="">运动员号码</th>
-                                        <th class="text-center">操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <c:forEach items="${athleteList}" varStatus="vs" var="athlete">
-                                        <tr>
-                                            <td><input name="ids" type="checkbox"></td>
-                                            <td>${vs.index+1}</td>
-
-                                            <td>${athlete.name}</td>
-                                            <td>${athlete.genderStr}</td>
-                                            <td>${athlete.age}</td>
-                                            <td>${athlete.teamId}</td>
-                                            <td>${athlete.playerNum}</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>编辑</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <!--数据列表/-->
-
-                            </div>
-                            <!-- 数据表格 /-->
-                        </div>
-                        <!-- /.box-body -->
-
-                    </div>
-
-                    <!-- 参赛人员列表 -->
-                    <div class="tab-pane"id="tab-team">
-                        <div class="box-header with-border">
-                            <i class="fa fa-cube"></i>
-                            <h3 class="box-title">所在团队</h3>
-                        </div>
-
-                        <div class="box-body">
-                            <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--工具栏/-->
-                            <!-- 数据表格 -->
-                            <div class="table-box">
-
-                                <!--数据列表-->
-                                <table id="teams"  class="table table-bordered table-striped table-hover dataTable" >
-                                    <thead>
-                                    <tr>
-                                        <th class="" style="vertical-align: middle;margin:auto; padding:10px" width="20px">
-                                            <input type="checkbox" class="icheckbox_square-blue">
-                                        </th>
-                                        <th class="">ID</th>
-                                        <th class="">姓名</th>
-                                        <th class="">性别</th>
-                                        <th class="">年龄</th>
-                                        <th class="">团队</th>
-                                        <th class="">运动员号码</th>
-                                        <th class="text-center">操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <c:forEach items="${athleteList}" varStatus="vs" var="athlete">
-                                        <tr>
-                                            <td><input name="ids" type="checkbox"></td>
-                                            <td>${vs.index+1}</td>
-
-                                            <td>${athlete.name}</td>
-                                            <td>${athlete.genderStr}</td>
-                                            <td>${athlete.age}</td>
-                                            <td>${athlete.teamId}</td>
-                                            <td>${athlete.playerNum}</td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>编辑</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <!--数据列表/-->
-
-                            </div>
-                            <!-- 数据表格 /-->
-                        </div>
-                        <!-- /.box-body -->
-
-                    </div>
-                </div>
-
-
-
 
             </div>
 
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title">修改角色信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="col-md-3 title">角色[多选]</div>
+                                <div class="col-md-9 data">
+                                    <select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-red" data-dismiss="modal" id="updateRole">保存</button>
+                            <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
 
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
         </section>
         <!-- 正文区域 /-->
 
+
+
     </div>
+
+
     <!-- @@close -->
     <!-- 内容区域 /-->
 
@@ -378,26 +265,67 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
+    $("#changeRole").click(function () {
+        //请求角色列表
+        var url = "${pageContext.request.contextPath}/role/findAll";
+        $.get(url,function (data) {
+            var html = "";
+            var flag = false;
+            for(var i = 0; i< data.length; i++)
+            {
+                <c:forEach items="${roleList}" var="role">
+                    if(data[i].id == ${role.id}){
+                        flag = true;
+                    }
+                </c:forEach>
 
-    $(function() {
-        $('#projects').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": false,
-            "info": false,
-            "autoWidth": true
-        });
+                if(flag == true){
+                    html += "<option value=\""+data[i].id +"\" selected='selected'>"+ data[i].name+"</option>";
+                }else {
+                    html += "<option value=\""+data[i].id +"\" >"+ data[i].name+"</option>";
+                }
 
-        $('#teams').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": false,
-            "info": false,
-            "autoWidth": true
+                flag = false;
+            }
+            $("#roleSel").html(html);
+    });
+    });
+
+    $("#updateRole").click(function () {
+        var data = {};
+        var rolesIds = $("#roleSel").val().toString();
+
+
+        data['roleIds']= rolesIds;
+        data['userId'] = ${userInfo.id};
+        $.ajax({
+            type: "POST",   //提交的方法
+            dataType: "json",
+            contentType : 'application/json',//添加这句话
+            url:"${pageContext.request.contextPath}/user/updateRole", //提交的地址
+            async: false,
+            data:JSON.stringify(data),
+            error: function() {  //失败的话
+                alert("修改失败!")
+            },
+            success: function(data) {  //成功
+                alert("修改成功!")
+                location.reload();
+            }
         });
     });
+
+
+    $(document).ready(function() {
+        // 选择框
+        $(".select2").select2();
+
+        // WYSIHTML5编辑器
+        $(".textarea").wysihtml5({
+            locale: 'zh-CN'
+        });
+    });
+
 
     // 设置激活菜单
     function setSidebarActive(tagUri) {
@@ -409,25 +337,19 @@
     }
 
     $(document).ready(function() {
+        // 选择框
+        $(".select2").select2();
+    });
+
+    $(document).ready(function() {
+
+    });
+
+    $(document).ready(function() {
 
         // 激活导航位置
-        setSidebarActive("order-manage");
+        setSidebarActive("admin-dataform");
 
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            increaseArea: '20%'
-        });
-        // 全选操作
-        $("#selall").click(function() {
-            var clicks = $(this).is(':checked');
-            if (!clicks) {
-                $("#dataList td input[type='checkbox']").iCheck("uncheck");
-            } else {
-                $("#dataList td input[type='checkbox']").iCheck("check");
-            }
-            $(this).data("clicks", !clicks);
-        });
     });
 </script>
 </body>

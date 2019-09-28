@@ -82,4 +82,18 @@ public class UserInfo implements Serializable {
     public void setActive(Boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }

@@ -127,6 +127,14 @@
                         ${athlete.idNum}
                     </div>
                 </div>
+
+                <%--返回按钮--%>
+                <div class="box-tools text-center">
+                    <button type="button" class="btn bg-default"
+                            onclick="history.back(-1);">返回
+                    </button>
+                </div>
+
                 <br>
                 <br>
 

@@ -140,4 +140,24 @@ public class Athlete {
     public void setActive(Boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "Athlete{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", playerNum='" + playerNum + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", nation='" + nation + '\'' +
+                ", idNum='" + idNum + '\'' +
+                ", userId=" + userId +
+                ", max=" + max +
+                ", active=" + active +
+                ", score=" + score +
+                ", rank=" + rank +
+                '}';
+    }
 }
