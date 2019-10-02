@@ -422,6 +422,7 @@ pageEncoding="UTF-8"%>
             document.getElementById("place").value = data.place;
             document.getElementById("start_time").value = data.startTime;
             document.getElementById("end_time").value = data.endTime;
+            document.getElementById("description").value = data.description;
             $("#type").val(data.type == false ? '0':'1').trigger("change");
             $("#btn").text('修改');
             $("#title").text('修改');

@@ -201,8 +201,7 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default bg-yellow" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
+										<button type="button" class="btn btn-default bg-yellow" data-toggle="modal" data-target="#myModal" title="新建">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">
@@ -304,9 +303,92 @@
 
                 </div>
                 <!-- /.box-footer-->
+				</div>
+
+				<%--保存弹出窗--%>
+				<div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<form id="myForm" action="${pageContext.request.contextPath}/user/save" method="post">
+							<div class="modal-content" style="border-radius: 6px">
+								<div class="modal-header">
+									<h4 class="modal-title" id="title">新建</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
 
 
+										<label for="username" class="col-sm-3 control-label">用户名</label>
+										<div class="col-sm-9">
+											<input id="username" type="text" class="form-control rounded" placeholder="用户名" name="username" required="required">
+										</div>
+										<br>
+										<br>
 
+										<label for="password" class="col-sm-3 control-label">密码</label>
+										<div class="col-sm-9">
+											<input id="password" type="password" class="form-control rounded" placeholder="密码" name="password" required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="confirmPassword" class="col-sm-3 control-label">确认密码</label>
+										<div class="col-sm-9">
+											<input id="confirmPassword" type="password" class="form-control rounded" placeholder="请再次输入密码" required="required" onblur="validate()"><span id="tishi"></span>
+										</div>
+										<br>
+										<br>
+										<br>
+										<label for="gender" class="col-sm-3 control-label">性别</label>
+										<div class="col-sm-9">
+											<select id="gender" class="form-control select2" style="width: 100%;" name="gender">
+												<option value="0">男</option>
+												<option value="1">女</option>
+											</select>
+										</div>
+										<br>
+										<br>
+
+										<label for="age" class="col-sm-3 control-label">年龄</label>
+										<div class="col-sm-9">
+											<input id="age" type="number" class="form-control" placeholder="年龄" name="age" min="1" max="100"  required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="tel" class="col-sm-3 control-label">电话</label>
+										<div class="col-sm-9">
+											<input id="tel" type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11 name="tel" placeholder="请输入手机号码">
+										</div>
+										<br>
+										<br>
+
+										<label for="email" class="col-sm-3 control-label">邮箱</label>
+										<div class="col-sm-9">
+											<input id="email" type="email" class="form-control" name="email" placeholder="请输入邮箱">
+										</div>
+										<br>
+										<br>
+
+										<label class="col-sm-3 control-label">角色[多选]</label>
+										<div class="col-sm-9">
+											<select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
+											</select>
+										</div>
+										<br>
+										<br>
+									</di>
+								</div>
+
+								<div class="modal-footer">
+									<button id="save" type="submit" class="btn bg-maroon">保存</button>
+									<button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+								</div>
+							</div>
+							</div>
+						</form>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
 				</div>
 
 			</section>
@@ -411,6 +493,38 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+
+		$(function () {
+			//请求项目列表
+			var url = "${pageContext.request.contextPath}/role/findAll";
+			$.get(url,function (data) {
+				var html = "";
+				for(var i = 0; i< data.length; i++)
+				{
+					html += "<option value=\""+data[i].id +"\">"+ data[i].name+"</option>";
+				}
+				$("#roleSel").html(html);
+
+			});
+		});
+
+
+		/*验证密码是否一致*/
+		function validate() {
+			var pwd1 = document.getElementById("password").value;
+			var pwd2 = document.getElementById("confirmPassword").value;
+
+			<!-- 对比两次输入的密码 -->
+			if(pwd1 == pwd2)
+			{
+				document.getElementById("tishi").innerHTML="<font color='green'>两次密码相同</font>";
+				document.getElementById("button").disabled = false;
+			}
+			else {
+				document.getElementById("tishi").innerHTML="<font color='red'>两次密码不相同</font>";
+				document.getElementById("button").disabled = true;
+			}
+		}
 
 		function deleteProject(id)
 		{
