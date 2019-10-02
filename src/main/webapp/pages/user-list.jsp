@@ -144,7 +144,14 @@
 	href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+	<style type="text/css">
+		input{
+			border-radius: 6px !important;
+		}
+	</style>
 </head>
+
 
 <body class="hold-transition skin-red sidebar-mini">
 
@@ -194,14 +201,14 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新建"
+										<button type="button" class="btn btn-default bg-yellow" title="新建"
 											onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										<button type="button" class="btn btn-default" title="删除" id="delSelected">
+										<button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
-										<button type="button" class="btn btn-default" title="刷新" id="refresh">
+										<button type="button" class="btn btn-default bg-green" title="刷新" id="refresh">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
 									</div>
@@ -249,7 +256,7 @@
 											<td>${user.email}</td>
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/user/findDetailById?id=${user.id}'">详情</button>
-												<button type="button" class="btn bg-olive btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
+												<button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${user.id})">删除</button>
 											</td>
 										</tr>
 									</c:forEach>

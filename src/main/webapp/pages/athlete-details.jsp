@@ -59,6 +59,12 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+
+    <style type="text/css">
+        input{
+            border-radius: 6px !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -381,9 +387,8 @@
                     "next": "Next page",
                     "previous": "Previous page"
                 }
-
             }
-        });
+            });
 
         $('#teams').DataTable({
             "paging": false,
@@ -391,9 +396,29 @@
             "searching": true,
             "ordering": false,
             "info": false,
-            "autoWidth": true
-        });
+            "autoWidth": true,
+            "language": {
+                "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                "sInfoFiltered": "(从_MAX_条筛选 )",
+                "sInfoEmpty": "共筛选到0条",
+                "sSearch": "搜索:",
+                "sLengthMenu": "每页显示 _MENU_ 条",
+                "sZeroRecords": "未筛选到相关内容",
+                "paginate": {
+                    "sFirst": "首页",  //首页和尾页必须在pagingType设为full_numbers时才可以
+                    "sLast": "尾页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "first": "First page",
+                    "last": "Last page",
+                    "next": "Next page",
+                    "previous": "Previous page"
+                }
+            }
+            });
+
     });
+
 
     // 设置激活菜单
     function setSidebarActive(tagUri) {

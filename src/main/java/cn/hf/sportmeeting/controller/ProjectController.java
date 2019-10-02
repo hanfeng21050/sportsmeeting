@@ -44,6 +44,17 @@ public class ProjectController {
     }
 
     /**
+     * 根据id查询项目
+    * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findProjectById",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Project findProjectById(@RequestParam(name = "id") Integer id){
+        return projectService.findById(id);
+    }
+
+    /**
      * 通过id查询项目详情
      * @param projectId id
      * @param type 比赛类型 false 个人   true 团体
@@ -81,15 +92,17 @@ public class ProjectController {
      * @param project
      * @return
      */
-    @RequestMapping("/save")
-    @FormToken(remove = true)
-    public String save(Project project) {
-        Integer rtn = projectService.save(project);
-        if(rtn == 1)
-        {
-            return "redirect:findAll";
+    //@FormToken(remove = true)
+    @RequestMapping(value = "/save",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String save(@RequestBody Project project) {
+        try {
+            System.out.println(project);
+            projectService.save(project);
+        }catch (Exception e){
+            return "新增失败";
         }
-        return null;
+        return "200";
     }
 
     /**
@@ -104,37 +117,23 @@ public class ProjectController {
         return "redirect:findAll";
     }
 
-    /**
-     * 去数据库查询相关信息，跳转到修改页面
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/toUpdate")
-    public ModelAndView toUpdate(Integer id)
-    {
-        ModelAndView mv = new ModelAndView();
-        Project project = projectService.findById(id);
-        mv.addObject("project",project);
-        mv.setViewName("project-update");
-        return mv;
-    }
-
 
     /**
      * 修改项目
      * @param project
      * @return
      */
-    @RequestMapping("/update")
-    public String update(Project project)
+    @RequestMapping(value = "/update" ,method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String update(@RequestBody Project project)
     {
         System.out.println(project);
-        Integer rtn = projectService.update(project);
-        if(rtn == 1)
-        {
-            return "redirect:findAll";
+        try {
+            projectService.update(project);
+        }catch (Exception e){
+            return "修改失败";
         }
-        return null;
+        return "200";
     }
 
     /**

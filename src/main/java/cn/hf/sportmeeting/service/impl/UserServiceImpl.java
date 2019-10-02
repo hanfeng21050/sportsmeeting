@@ -100,12 +100,14 @@ public class UserServiceImpl implements IUserService {
         if(ids != null && ids.length!=0)
         {
             for (Integer id : ids) {
-            //先删除中间表
+                //todo 删除运动员
+
+                //先删除user-role中间表
                 UserRoleExample example = new UserRoleExample();
                 example.createCriteria().andUserIdEqualTo(id).andActiveEqualTo(true);
                 userRoleMapper.deleteByExample(example);
                // int i = 10/0;
-            //删除用户
+                //删除用户
                 count += userMapper.deleteByPrimaryKey(id);
             }
         }
@@ -167,21 +169,32 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void updateRole(RoleExt roleExt) {
+    public void adminUpdate(UserExt userExt) {
+
+        //管理员修改资料，仅可修改角色信息和密码
+        //更新密码
+        if(userExt.getPassword() != null && !"******".equals(userExt.getPassword()))
+        {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(userExt.getUserId());
+            userInfo.setPassword(passwordEncoder.encode(userExt.getPassword()));
+            userMapper.updateByPrimaryKeySelective(userInfo);
+        }
+
         //先删除原有的角色信息
         UserRoleExample userRoleExample = new UserRoleExample();
-        userRoleExample.createCriteria().andUserIdEqualTo(roleExt.getUserId());
+        userRoleExample.createCriteria().andUserIdEqualTo(userExt.getUserId());
         userRoleMapper.deleteByExample(userRoleExample);
 
         //更新角色信息
-        List<Integer> roleIdList = roleExt.getRoleIdList();
+        List<Integer> roleIdList = userExt.getRoleIdList();
         if(roleIdList != null && roleIdList.size() !=0)
         {
             UserRole userRole = new UserRole();
-            userRole.setUserId(roleExt.getUserId());
+            userRole.setUserId(userExt.getUserId());
             for (Integer roleId : roleIdList) {
-               userRole.setRoleId(roleId);
-               userRoleMapper.insertSelective(userRole);
+                userRole.setRoleId(roleId);
+                userRoleMapper.insertSelective(userRole);
             }
         }
 

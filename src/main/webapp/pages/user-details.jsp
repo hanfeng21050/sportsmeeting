@@ -59,6 +59,12 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+
+    <style type="text/css">
+        input{
+            border-radius: 6px !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -127,7 +133,7 @@
                     </c:if>
                 </div>
                 <div class="box-tools text-center">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="changeRole">修改</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="editUser">修改</button>
                     <button type="button" class="btn bg-default"
                             onclick="history.back(-1);">返回
                     </button>
@@ -137,24 +143,31 @@
 
             </div>
 
-            <div id="myModal" class="modal" role="dialog">
+            <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content" style="border-radius: 6px">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                             <h4 class="modal-title">修改角色信息</h4>
                         </div>
                         <div class="modal-body">
                             <div class="box-body">
+                                <div class="col-md-3 title">密码</div>
+                                <div class="col-md-9 data">
+                                    <input id="password" type="password" class="form-control" value="******">
+                                </div>
+
                                 <div class="col-md-3 title">角色[多选]</div>
                                 <div class="col-md-9 data">
                                     <select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
                                     </select>
                                 </div>
+
                             </div>
                         </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="btn bg-red" data-dismiss="modal" id="updateRole">保存</button>
+                            <button type="button" class="btn bg-red" data-dismiss="modal" id="updateUser">保存</button>
                             <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
                         </div>
                     </div>
@@ -265,7 +278,7 @@
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
-    $("#changeRole").click(function () {
+    $("#editUser").click(function () {
         //请求角色列表
         var url = "${pageContext.request.contextPath}/role/findAll";
         $.get(url,function (data) {
@@ -291,18 +304,23 @@
     });
     });
 
-    $("#updateRole").click(function () {
+    $("#updateUser").click(function () {
         var data = {};
         var rolesIds = $("#roleSel").val().toString();
+        var password = $("#password").val();
+        console.log(password);
 
 
         data['roleIds']= rolesIds;
         data['userId'] = ${userInfo.id};
+        data['password'] = password;
+        data['flag'] = '0';
+        console.
         $.ajax({
             type: "POST",   //提交的方法
             dataType: "json",
             contentType : 'application/json',//添加这句话
-            url:"${pageContext.request.contextPath}/user/updateRole", //提交的地址
+            url:"${pageContext.request.contextPath}/user/adminUpdate", //提交的地址
             async: false,
             data:JSON.stringify(data),
             error: function() {  //失败的话

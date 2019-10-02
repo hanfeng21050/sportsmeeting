@@ -108,20 +108,10 @@
 <body class="hold-transition skin-purple sidebar-mini">
 
 	<div class="wrapper">
-
-		<!-- 页面头部 -->
-		<jsp:include page="/pages/header.jsp"></jsp:include>
-		<!-- 页面头部 /-->
-
-		<!-- 导航侧栏 -->
-		<jsp:include page="/pages/aside.jsp"></jsp:include>
-		<!-- 导航侧栏 /-->
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>登录失败 页面</h1>
 
 				<ol class="breadcrumb">
 					<li><a href="${pageContext.request.contextPath}/index.jsp"><i
@@ -136,12 +126,12 @@
 				<div class="error-page">
 				
 
-					<div class="error-content">
+					<div>
 						
-						<p>
-							登录失败 , 你可以 <a href="${pageContext.request.contextPath}/login.jsp">返回到登录页面</a>
-							重新登录
-						</p>
+						<h1>
+							登录失败 ,
+							<h2>你可以 <a href="${pageContext.request.contextPath}/login.jsp">返回到登录页面</a>重新登录</h2>
+						</h1>
 
 						
 					</div>

@@ -114,6 +114,12 @@
     <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+    <style type="text/css">
+        input{
+            border-radius: 6px !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">

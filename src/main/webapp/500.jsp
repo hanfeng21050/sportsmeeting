@@ -123,68 +123,12 @@
 
 <body class="hold-transition skin-purple sidebar-mini">
 
-    <div class="wrapper">
-
-        <!-- 页面头部 -->
-        <jsp:include page="/pages/header.jsp"></jsp:include>
-        <!-- 页面头部 /-->
-
-        <!-- 导航侧栏 -->
-        <jsp:include page="/pages/aside.jsp"></jsp:include>
-        <!-- 导航侧栏 /-->
-
-        <!-- 内容区域 -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    500 错误页面
-                </h1>
-
-                <ol class="breadcrumb">
-                    <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-                    <li class="active">500 错误</li>
-                </ol>
-
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="error-page">
-                    <h2 class="headline text-red"> 500</h2>
-
-                    <div class="error-content">
-                        <h3><i class="fa fa-warning text-red"></i> Oops! 页面程序有错误.</h3>
-
-                        <p>
-                            你访问的页面发生错误, 你可以 <a href="all-admin-index.html">返回到后台首页</a> 或者通过搜索查询
-                        </p>
-
-                        <form class="search-form">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="搜索">
-
-                                <div class="input-group-btn">
-                                    <button type="submit" name="submit" class="btn btn-warning btn-flat"><i class="fa fa-search"></i>
-                </button>
-                                </div>
-                            </div>
-                            <!-- /.input-group -->
-                        </form>
-                    </div>
-                    <!-- /.error-content -->
-                </div>
-                <!-- /.error-page -->
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- 内容区域 /-->
-
-        <!-- 底部导航 -->
-        <jsp:include page="/pages/foot.jsp"></jsp:include>
-        <!-- 底部导航 /-->
-
+<div style="text-align: center">
+    <div class="jumbotron" >
+        <h1>500 服务器出现了异常</h1>
+        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/pages/main.jsp" role="button">首页</a>
     </div>
+</div>
 
 
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>

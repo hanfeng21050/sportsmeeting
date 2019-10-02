@@ -1,6 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>运动会管理系统</title>
-    <meta name="description" content="AdminLTE2定制版">
-    <meta name="keywords" content="AdminLTE2定制版">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta
@@ -60,6 +59,16 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
 
+    <script>
+        function deleteProject(id)
+        {
+            if(confirm("您确定要删除吗？"))
+            {
+                location.href="${pageContext.request.contextPath}/equipment/deleteByIds?ids="+id;
+            }
+        }
+    </script>
+
     <style type="text/css">
         input{
             border-radius: 6px !important;
@@ -78,164 +87,160 @@
     <!-- 导航侧栏 -->
     <jsp:include page="aside.jsp"></jsp:include>
     <!-- 导航侧栏 /-->
+    <
+    <!-- 导航侧栏 /-->
+
 
     <!-- 内容区域 -->
     <div class="content-wrapper">
+
         <!-- 内容头部 -->
         <section class="content-header">
             <h1>
-                比赛管理 <small>比赛详情</small>
+                比赛管理 <small>器材列表</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li>比赛管理</li>
-                <li class="active">比赛详情</li>
+                <li class="active">器材列表</li>
             </ol>
         </section>
+
         <!-- 内容头部 /-->
 
         <!-- 正文区域 -->
         <section class="content">
 
-            <div class="tab-pane active" id="tab-label">
 
-                <div class="row data-type">
-                    <div class="col-md-2 title">比赛名称</div>
-                    <div class="col-md-4 data text">
-                        ${project.name}
-                    </div>
-                    <div class="col-md-2 title">单位</div>
-                    <div class="col-md-4 data text">
-                        ${project.unitStr}
-                    </div>
-                    <div class="col-md-2 title">排序</div>
-                    <div class="col-md-4 data text">
-                        ${project.sortStr}
-                    </div>
-
-                    <div class="col-md-2 title">性别限制</div>
-                    <div class="col-md-4 data text">
-                        ${project.genderStr}
-                    </div>
-                    <div class="col-md-2 title">比赛地点</div>
-                    <div class="col-md-4 data text">
-                        ${project.place}
-                    </div>
-                    <div class="col-md-2 title">比赛类型</div>
-                    <div class="col-md-4 data text">
-                        ${project.typeStr}
-                    </div>
-                    <div class="col-md-2 title">开始时间</div>
-                    <div class="col-md-4 data text">
-                        ${project.startTimeStr}
-                    </div>
-                    <div class="col-md-2 title">结束时间</div>
-                    <div class="col-md-4 data text">
-                        ${project.endTimeStr}
-                    </div>
-                    <div class="col-md-2 title rowHeight2x">描述</div>
-                    <div class="col-md-10 data rowHeight2x">
-                        <textarea class="form-control" rows="3" disabled="disabled">${project.description}</textarea>
-                    </div>
+            <!-- .box-body -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">体育器材列表</h3>
                 </div>
 
-                <div class="box-tools text-center">
-                    <button type="button" class="btn bg-default"
-                            onclick="history.back(-1);">返回
-                    </button>
-                </div>
+                <div class="box-body">
 
-                <br>
-                <br>
-                <!-- 参赛人员列表 -->
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <i class="fa fa-cube"></i>
-                        <h3 class="box-title">${project.type == false ? '运动员列表':'团体列表'}</h3>
-                    </div>
+                    <!-- 数据表格 -->
+                    <div class="table-box">
 
-                    <div class="box-body">
                         <!--工具栏-->
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
-                                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                    <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
-                                    <button type="button" class="btn btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
+                                    <button type="button" class="btn btn-default bg-yellow" title="新建" type="button" data-toggle="modal" data-target="#myModal"
+                                            onclick="">
+                                        <i class="fa fa-file-o"></i> 新建
+                                    </button>
+                                    <button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">
+                                        <i class="fa fa-trash-o"></i> 删除
+                                    </button>
+                                    <button type="button" class="btn btn-default bg-green" title="刷新" id="refresh">
+                                        <i class="fa fa-refresh"></i> 刷新
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <!--工具栏/-->
-                        <!-- 数据表格 -->
-                        <div class="table-box">
 
-                            <!--数据列表-->
-                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
-                                <thead>
+                        <form id="selection" action="${pageContext.request.contextPath}/equipment/deleteByIds" method="post">
+                        <!--数据列表-->
+                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
+                            <thead>
                                 <tr>
-                                    <th style="vertical-align: middle;margin:auto; padding:10px" width="20px">
-                                        <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                                    <th class="sorting_asc_disabled" style="vertical-align: middle;margin:auto; padding:10px" width="20px"><input
+                                            id="selall" type="checkbox" class="icheckbox_square-blue">
                                     </th>
                                     <th style="text-align: center">ID</th>
-                                    <th style="text-align: center">${project.type == false ? '姓名':'名称'}</th>
-                                    <th style="text-align: center">${project.type == false ? '运动员编号':'团队编号'}</th>
-                                    <th style="text-align: center">成绩</th>
-                                    <th style="text-align: center">排名</th>
-
-                                    <th class="text-center">操作</th>
+                                    <th style="text-align: center">器材</th>
+                                    <th style="text-align: center">种类</th>
+                                    <th style="text-align: center">地点</th>
+                                    <th style="text-align: center">可借数量 </th>
+                                    <th style="text-align: center">详细</th>
+                                    <th style="text-align: center">操作</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <%--运动员列表--%>
-                                <c:if test="${project.type == false}">
-                                    <c:forEach items="${athleteList}" varStatus="vs" var="athlete">
+                                <tbody >
+                                    <c:forEach items="${equipmentList}" var="equipment" varStatus="status">
                                         <tr>
-                                            <td><input name="ids" type="checkbox" value="${athlete.id}"></td>
-                                            <td style="text-align: center">${vs.index+1}</td>
-                                            <td style="text-align: center">${athlete.name}</td>
-                                            <td style="text-align: center">${athlete.playerNum}</td>
-                                            <td style="text-align: center">${athlete.score == null ? "未录入":athlete.score}</td>
-                                            <td style="text-align: center">${athlete.rank == null ? "未录入":athlete.rank}</td>
-
-                                            <td style="text-align: center" class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}"'>详情</button>
+                                            <td><input name="ids" type="checkbox" value="${equipment.id}"></td>
+                                            <td>${status.index+1}</td>
+                                            <td>${equipment.name}</td>
+                                            <td>${equipment.type}</td>
+                                            <td>${equipment.place}</td>
+                                            <td><span class="label  ${equipment.num == 0 ? "label-danger":"label-success"} "> ${equipment.num}</span></td>
+                                            <td>${equipment.description == null ? "无":equipment.description}</td>
+                                            <td>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">详情</button>
+                                                <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">修改</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
-                                </c:if>
-
-                                <c:if test="${project.type == true}">
-                                    <c:forEach items="${teamList}" varStatus="vs" var="team">
-                                        <tr>
-                                            <td><input name="ids" type="checkbox"></td>
-                                            <td style="text-align: center">${vs.index+1}</td>
-                                            <td style="text-align: center">${team.name}</td>
-                                            <td style="text-align: center">${team.teamNum}</td>
-                                            <td style="text-align: center">${team.score == null ? "未录入":team.score}</td>
-                                            <td style="text-align: center">${team.rank == null ? "未录入":team.rank}</td>
-
-                                            <td style="text-align: center" class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href=""'>详情</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
 
                                 </tbody>
-                            </table>
-                            <!--数据列表/-->
+                            </thead>
 
-                        </div>
-                        <!-- 数据表格 /-->
+                        </table>
+                        </form>
+
                     </div>
-                    <!-- /.box-body -->
+                    <!-- 数据表格 /-->
+
 
                 </div>
-
-
+                <!-- /.box-body -->
             </div>
 
+            <%--保存弹出窗--%>
+            <div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form id="myForm">
+                        <div class="modal-content" style="border-radius: 6px">
+                            <div class="modal-header">
+                                <h4 class="modal-title">新建</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">器材名称</label>
+                                    <div class="form-group">
+                                        <input id="name" type="text" class="form-control rounded" placeholder="器材名称" name="name" required="required">
+                                    </div>
+
+                                    <label for="type">器材名称</label>
+                                    <div class="form-group">
+                                        <input id="type" type="text" class="form-control rounded" placeholder="器材类别、型号" name="type" required="required">
+                                    </div>
+
+                                    <label for="place">存放地点</label>
+                                    <div class="form-group">
+                                        <input id="place" type="text" class="form-control rounded" placeholder="存放地点" name="place" required="required">
+                                    </div>
+
+                                    <label for="num">数量</label>
+                                    <div class="form-group">
+                                        <input id="num" type="number" class="form-control" placeholder="器材数量" name="num" min="1"  required="required">
+                                    </div>
+
+                                    <label for="description">详细</label>
+                                    <div class="form-group rowHeight2x" >
+                                        <input type="text" id="description" class="form-control rounded" placeholder="输入···" name="description" required="required"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn bg-maroon">保存</button>
+                                <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <!-- /.modal-content -->
+                </div>
+
+                <!-- /.modal-dialog -->
+            </div>
 
         </section>
         <!-- 正文区域 /-->
@@ -335,14 +340,44 @@
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
 
+    $("#myForm").submit(function () {
+        var data = $('#myForm').serialize();
+        data = decodeURIComponent(data,true);
 
-    $(function() {
+        //处理data 转成json格式
+        var dataArr = data.split("&");
+        var res = {};
+        for (var i = 0; i < dataArr.length; i++) {
+            var str = dataArr[i].split("=");
+            res[str[0]] = str[1];
+        }
+        console.log(res);
+
+        $.ajax({
+            type: "POST",   //提交的方法
+            dataType: "json",
+            contentType : 'application/json',//添加这句话
+            url:"${pageContext.request.contextPath}/equipment/save", //提交的地址
+            async: false,
+            data:JSON.stringify(res),
+            error: function() {  //失败的话
+                alert("修改失败!")
+            },
+            success: function(data) {  //成功
+                alert("修改成功!")
+                location.reload();
+            }
+        });
+    });
+
+    $(function () {
         $('#dataList').DataTable({
-            "paging": false,
+            "paging": true,
             "lengthChange": false,
+            "iDisplayLength": 15,
             "searching": true,
             "ordering": false,
-            "info": false,
+            "info": true,
             "autoWidth": true,
             "language": {
                 "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
@@ -363,38 +398,60 @@
                 }
             }
         });
-    });
 
-    // 设置激活菜单
-    function setSidebarActive(tagUri) {
-        var liObj = $("#" + tagUri);
-        if (liObj.length > 0) {
-            liObj.parent().parent().addClass("active");
-            liObj.addClass("active");
-        }
-    }
 
-    $(document).ready(function() {
-
-        // 激活导航位置
-        setSidebarActive("order-manage");
-
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            increaseArea: '20%'
+        $("#refresh").click(function () {
+            window.location.reload(true);
         });
-        // 全选操作
-        $("#selall").click(function() {
-            var clicks = $(this).is(':checked');
-            if (!clicks) {
-                $("#dataList td input[type='checkbox']").iCheck("uncheck");
-            } else {
-                $("#dataList td input[type='checkbox']").iCheck("check");
+
+        document.getElementById("delSelected").onclick = function () {
+            if(confirm("你确定要删除选中条目吗"));
+            {
+                document.getElementById("selection").submit();
             }
-            $(this).data("clicks", !clicks);
+        }
+
+        $(document).ready(function () {
+            // 选择框
+            $(".select2").select2();
+
+            // WYSIHTML5编辑器
+            $(".textarea").wysihtml5({
+                locale: 'zh-CN'
+            });
         });
-    });
+
+        // 设置激活菜单
+        function setSidebarActive(tagUri) {
+            var liObj = $("#" + tagUri);
+            if (liObj.length > 0) {
+                liObj.parent().parent().addClass("active");
+                liObj.addClass("active");
+            }
+        }
+
+        $(document).ready(function() {
+
+            // 激活导航位置
+            setSidebarActive("order-manage");
+
+            // 列表按钮
+            $("#dataList td input[type='checkbox']").iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                increaseArea: '20%'
+            });
+            // 全选操作
+            $("#selall").click(function() {
+                var clicks = $(this).is(':checked');
+                if (!clicks) {
+                    $("#dataList td input[type='checkbox']").iCheck("uncheck");
+                } else {
+                    $("#dataList td input[type='checkbox']").iCheck("check");
+                }
+                $(this).data("clicks", !clicks);
+            });
+        });
+    })
 </script>
 </body>
 

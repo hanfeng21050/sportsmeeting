@@ -123,55 +123,12 @@
 
 <body class="hold-transition skin-purple sidebar-mini">
 
-    <div class="wrapper">
-
-        <!-- 页面头部 -->
-        <jsp:include page="/pages/header.jsp"></jsp:include>
-        <!-- 页面头部 /-->
-
-        <!-- 导航侧栏 -->
-        <jsp:include page="/pages/aside.jsp"></jsp:include>
-        <!-- 导航侧栏 /-->
-
-        <!-- 内容区域 -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    403
-                </h1>
-
-                <ol class="breadcrumb">
-                    <li><a href="${pageContext.request.contextPath}/pages/main.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-                    <li class="active">403 </li>
-                </ol>
-
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="error-page">
-                    <h2 class="headline text-yellow"> 403</h2>
-
-                    <div class="error-content">
-                        <h3><i class="fa fa-warning text-yellow"></i> Oops! 资源不可用.</h3>
-
-                        <p>
-                            没有找到你请求的页面, 你可以 <a href="${pageContext.request.contextPath}/pages/main.jsp">返回到后台首页</a>
-                    </div>
-                    <!-- /.error-content -->
-                </div>
-                <!-- /.error-page -->
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- 内容区域 /-->
-
-        <!-- 底部导航 -->
-        <jsp:include page="pages/foot.jsp"></jsp:include>
-        <!-- 底部导航 /-->
-
+<div style="text-align: center">
+    <div class="jumbotron" >
+        <h1>403 服务器拒绝了您的请求</h1>
+        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/pages/main.jsp" role="button">首页</a>
     </div>
+</div>
 
 
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>

@@ -25,42 +25,47 @@
                     href="${pageContext.request.contextPath}/pages/main.jsp"><i
                     class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
-            <li class="treeview"><a href="#"> <i class="fa fa-align-justify"></i>
-                <span>比赛管理</span> <span class="pull-right-container"> <i
-                        class="fa fa-angle-left pull-right"></i>
-				</span>
+            <%--比赛管理--%>
+            <security:authorize access="hasRole('ADMIN')">
+                <li class="treeview">
+                    <a href="#"> <i class="fa fa-align-justify"></i>
+                        <span>比赛管理</span> <span class="pull-right-container"> <i
+                                class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
 
-
-            </a>
-                <ul class="treeview-menu">
-
-                    <li id="system-setting">
-                        <security:authorize access="hasRole('ADMIN')">
+                        <li id="system-setting">
                             <a
                                     href="${pageContext.request.contextPath}/project/findAll"> <i
                                     class="fa fa-circle-o"></i> 比赛列表
                             </a>
-                        </security:authorize>
-                    </li>
-                    <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/role/findAll"> <i
-                            class="fa fa-circle-o"></i> 报名审核
-                    </a></li>
-                    <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/permission/findAll">
-                        <i class="fa fa-circle-o"></i> 器材管理
-                    </a></li>
-                    <li id="system-setting"><a
-                            href="${pageContext.request.contextPath}/sysLog/findAll"> <i
-                            class="fa fa-circle-o"></i> 成绩打印
-                    </a></li>
-                </ul>
-            </li>
-            <li class="treeview"><a href="#"> <i class="fa fa-user"></i>
-                <span>用户管理</span> <span class="pull-right-container"> <i
-                        class="fa fa-angle-left pull-right"></i>
-				</span>
-            </a>
+                        </li>
+                        <li id="system-setting"><a
+                                href="${pageContext.request.contextPath}/role/findAll"> <i
+                                class="fa fa-circle-o"></i> 报名审核
+                        </a></li>
+                        <li id="system-setting"><a
+                                href="${pageContext.request.contextPath}/equipment/findAll">
+                            <i class="fa fa-circle-o"></i> 器材管理
+                        </a></li>
+                        <li id="system-setting"><a
+                                href="${pageContext.request.contextPath}/sysLog/findAll"> <i
+                                class="fa fa-circle-o"></i> 成绩打印
+                        </a></li>
+                    </ul>
+                </li>
+            </security:authorize>
+
+            <%--比赛管理--%>
+
+            <%--用户管理--%>
+            <li class="treeview">
+                <a href="#"> <i class="fa fa-user"></i>
+                    <span>用户管理</span> <span class="pull-right-container"> <i
+                            class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
                 <ul class="treeview-menu">
 
                     <li id="system-setting"><a
@@ -71,15 +76,21 @@
                             href="${pageContext.request.contextPath}/athlete/findByPage"> <i
                             class="fa fa-circle-o"></i> 运动员列表
                     </a></li>
+                    <li id="system-setting"><a
+                            href=""> <i
+                            class="fa fa-circle-o"></i> 运动员申请
+                    </a></li>
 
                 </ul>
             </li>
 
-            <li class="treeview"><a href="#"> <i class="fa fa-users"></i>
-                <span>团队管理</span> <span class="pull-right-container"> <i
-                        class="fa fa-angle-left pull-right"></i>
-				</span>
-            </a>
+            <%--团队管理--%>
+            <li class="treeview">
+                <a href="#"> <i class="fa fa-users"></i>
+                    <span>团队管理</span> <span class="pull-right-container"> <i
+                            class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
                 <ul class="treeview-menu">
 
                     <li id="system-setting"><a
@@ -93,6 +104,7 @@
 
                 </ul>
             </li>
+            <%--团队管理--%>
 
         </ul>
     </section>

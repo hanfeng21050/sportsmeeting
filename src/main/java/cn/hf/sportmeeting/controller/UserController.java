@@ -2,20 +2,16 @@ package cn.hf.sportmeeting.controller;
 
 import cn.hf.sportmeeting.domain.Athlete;
 import cn.hf.sportmeeting.domain.Role;
-import cn.hf.sportmeeting.domain.RoleExt;
+import cn.hf.sportmeeting.domain.UserExt;
 import cn.hf.sportmeeting.domain.UserInfo;
 import cn.hf.sportmeeting.service.IUserService;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.ListResourceBundle;
 import java.util.Map;
 
 /**
@@ -48,6 +44,11 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 删除用户
+     * @param ids
+     * @return
+     */
     @RequestMapping("/deleteByIds")
     public String deleteByIds(Integer[] ids){
         int rtn = userService.deleteByIds(ids);
@@ -69,6 +70,11 @@ public class UserController {
         return "redirect:findByPage";
     }
 
+    /**
+     * 查询用户详情
+     * @param id
+     * @return
+     */
     @RequestMapping("/findDetailById")
     public ModelAndView findDetailById(Integer id)
     {
@@ -86,11 +92,33 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(value="/updateRole",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    /**
+     * 管理员修改用户资料，修改角色、密码
+     * @param userExt
+     * @return
+     */
+    @RequestMapping(value="/adminUpdate",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     @ResponseBody
-    public String updateRole(@RequestBody RoleExt roleExt){
+    public String adminUpdate(@RequestBody UserExt userExt){
         try {
-            userService.updateRole(roleExt);
+            userService.adminUpdate(userExt);
+        }catch (Exception e)
+        {
+            return "修改失败";
+        }
+        return "200";
+    }
+
+    /**
+     * 用户修改用户资料，修改除用户名、角色之外的信息
+     * @param userExt
+     * @return
+     */
+    @RequestMapping(value="/userUpdate",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String userUpdate(@RequestBody UserExt userExt){
+        try {
+
         }catch (Exception e)
         {
             return "修改失败";

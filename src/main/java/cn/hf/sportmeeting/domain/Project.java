@@ -1,6 +1,7 @@
 package cn.hf.sportmeeting.domain;
 
 import cn.hf.sportmeeting.utils.DateUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -22,11 +23,11 @@ public class Project implements Serializable {
 
     private String place;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JSONField(format = "yyyy-MM-dd HH:mm")
     private Date startTime;
     private String startTimeStr;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JSONField(format = "yyyy-MM-dd HH:mm")
     private Date endTime;
     private String endTimeStr;
 
@@ -39,6 +40,29 @@ public class Project implements Serializable {
 
     private Boolean active;
 
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", unit=" + unit +
+                ", unitStr='" + unitStr + '\'' +
+                ", sort=" + sort +
+                ", sortStr='" + sortStr + '\'' +
+                ", gender=" + gender +
+                ", genderStr='" + genderStr + '\'' +
+                ", place='" + place + '\'' +
+                ", startTime=" + startTime +
+                ", startTimeStr='" + startTimeStr + '\'' +
+                ", endTime=" + endTime +
+                ", endTimeStr='" + endTimeStr + '\'' +
+                ", num=" + num +
+                ", type=" + type +
+                ", typeStr='" + typeStr + '\'' +
+                ", description='" + description + '\'' +
+                ", active=" + active +
+                '}';
+    }
 
     public Boolean getUnit() {
         return unit;
@@ -231,27 +255,4 @@ public class Project implements Serializable {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", unit=" + unit +
-                ", unitStr='" + unitStr + '\'' +
-                ", sort=" + sort +
-                ", sortStr='" + sortStr + '\'' +
-                ", gender=" + gender +
-                ", genderStr='" + genderStr + '\'' +
-                ", place='" + place + '\'' +
-                ", startTime=" + startTime +
-                ", startTimeStr='" + startTimeStr + '\'' +
-                ", endTime=" + endTime +
-                ", endTimeStr='" + endTimeStr + '\'' +
-                ", num=" + num +
-                ", type=" + type +
-                ", typeStr='" + typeStr + '\'' +
-                ", description='" + description + '\'' +
-                ", active=" + active +
-                '}';
-    }
 }
