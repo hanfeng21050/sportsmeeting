@@ -50,4 +50,28 @@ public class EquipmentController {
         }
         return "200";
     }
+
+    /**
+     * 根据id查询器材
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findById",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Equipment findById(@RequestParam(name = "id",required = true) Integer id){
+        return equipmentService.findById(id);
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String update(@RequestBody Equipment equipment){
+        //System.out.println(equipment);
+        try {
+            equipmentService.update(equipment);
+        }catch (Exception e)
+        {
+            return "执行失败";
+        }
+        return "200";
+    }
 }

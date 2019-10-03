@@ -171,7 +171,8 @@ pageEncoding="UTF-8"%>
                                             <td>
                                                 <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">详情</button>
                                                 <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">修改</button>
+                                                <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject(${equipment.id})">修改</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">借还</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -196,16 +197,20 @@ pageEncoding="UTF-8"%>
                     <form id="myForm">
                         <div class="modal-content" style="border-radius: 6px">
                             <div class="modal-header">
-                                <h4 class="modal-title">新建</h4>
+                                <h4 class="modal-title" id="title">新建</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <input type="hidden" name="id" id="id">
+                                    <%--updateOrInsert 用于判断当前模态窗口是新增还是修改--%>
+                                    <input type="hidden" id="updateOrInsert" name="updateOrInsert" value="insert">
+
                                     <label for="name">器材名称</label>
                                     <div class="form-group">
                                         <input id="name" type="text" class="form-control rounded" placeholder="器材名称" name="name" required="required">
                                     </div>
 
-                                    <label for="type">器材名称</label>
+                                    <label for="type">器材类别</label>
                                     <div class="form-group">
                                         <input id="type" type="text" class="form-control rounded" placeholder="器材类别、型号" name="type" required="required">
                                     </div>
@@ -229,7 +234,7 @@ pageEncoding="UTF-8"%>
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn bg-maroon">保存</button>
+                                <button id="btn" type="submit" class="btn bg-maroon">保存</button>
                                 <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
                             </div>
                         </div>
@@ -340,9 +345,35 @@ pageEncoding="UTF-8"%>
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
 
+    function getProject(id) {
+        //请求角色列表
+        console.log(id)
+        var url = "${pageContext.request.contextPath}/equipment/findById?id="+id;
+        $.get(url,function (data) {
+            document.getElementById("updateOrInsert").value = "update";
+            document.getElementById("id").value = id;
+            document.getElementById("name").value = data.name;
+            document.getElementById("type").value = data.type;
+            document.getElementById("place").value = data.place;
+            document.getElementById("num").value = data.num;
+            document.getElementById("description").value = data.description;
+
+            $("#btn").text('修改');
+            $("#title").text('修改');
+        });
+    };
+
+    $('#myModal').on('hidden.bs.modal', function (){
+        document.getElementById("myForm").reset();
+        $("#btn").text('保存');
+        $("#title").text('新增');
+    });
+
     $("#myForm").submit(function () {
         var data = $('#myForm').serialize();
         data = decodeURIComponent(data,true);
+
+        //todo 解决空格变成加号问题
 
         //处理data 转成json格式
         var dataArr = data.split("&");
@@ -351,23 +382,40 @@ pageEncoding="UTF-8"%>
             var str = dataArr[i].split("=");
             res[str[0]] = str[1];
         }
-        console.log(res);
 
-        $.ajax({
-            type: "POST",   //提交的方法
-            dataType: "json",
-            contentType : 'application/json',//添加这句话
-            url:"${pageContext.request.contextPath}/equipment/save", //提交的地址
-            async: false,
-            data:JSON.stringify(res),
-            error: function() {  //失败的话
-                alert("修改失败!")
-            },
-            success: function(data) {  //成功
-                alert("修改成功!")
-                location.reload();
-            }
-        });
+        if(res['updateOrInsert'] == 'update')
+        {
+            $.ajax({
+                type: "POST",   //提交的方法
+                dataType: "json",
+                contentType : 'application/json',//添加这句话
+                url:"${pageContext.request.contextPath}/equipment/update", //提交的地址
+                async: false,
+                data:JSON.stringify(res),
+                error: function() {  //失败的话
+                    alert("执行失败!")
+                },
+                success: function() {  //成功
+                    alert("执行成功!")
+                }
+            });
+        }else if(res['updateOrInsert'] == 'insert')
+        {
+            $.ajax({
+                type: "POST",   //提交的方法
+                dataType: "json",
+                contentType : 'application/json',//添加这句话
+                url:"${pageContext.request.contextPath}/equipment/save", //提交的地址
+                async: false,
+                data:JSON.stringify(res),
+                error: function() {  //失败的话
+                    alert("执行失败!")
+                },
+                success: function() {  //成功
+                    alert("执行成功!")
+                }
+            });
+        }
     });
 
     $(function () {
@@ -454,5 +502,4 @@ pageEncoding="UTF-8"%>
     })
 </script>
 </body>
-
 </html>

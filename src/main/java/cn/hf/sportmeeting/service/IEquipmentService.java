@@ -26,4 +26,17 @@ public interface IEquipmentService {
      * @param equipment
      */
     public void save(Equipment equipment);
+
+    /**
+     * 根据id查询项目
+     * @param id
+     * @return
+     */
+    public Equipment findById(Integer id);
+
+    /**
+     * 修改
+     * @param equipment
+     */
+    public void update(Equipment equipment);
 }

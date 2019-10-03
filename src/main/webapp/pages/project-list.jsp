@@ -134,6 +134,18 @@ pageEncoding="UTF-8"%>
         input{
             border-radius: 6px !important;
         }
+        select{
+            border:1px solid #c9c9c9;
+            background-color:#fff;
+            color:#666;
+            height:34px;
+            line-height:28px;
+            padding:4px 6px;
+            font-size:14px;
+            border-radius:6px;
+            cursor:pointer;
+            outline:none;
+        }
     </style>
 </head>
 
@@ -276,7 +288,7 @@ pageEncoding="UTF-8"%>
                                     <br>
                                     <label for="unit" class="col-sm-3 control-label">单位</label>
                                     <div class="col-md-9 data">
-                                        <select id="unit" class="form-control select2" style="width: 100%;" name="unit">
+                                        <select id="unit" style="width: 100%;" name="unit">
                                             <option value="0">秒</option>
                                             <option value="1">米</option>
                                         </select>
@@ -285,7 +297,7 @@ pageEncoding="UTF-8"%>
                                     <br>
                                     <label for="sort" class="col-sm-3 control-label">排序</label>
                                     <div class="col-sm-9">
-                                        <select id="sort" class="form-control select2" style="width: 100%;" name="sort">
+                                        <select id="sort" style="width: 100%;" name="sort">
                                             <option value="0">降序</option>
                                             <option value="1">升序</option>
                                         </select>
@@ -294,7 +306,7 @@ pageEncoding="UTF-8"%>
                                     <br>
                                     <label for="gender" class="col-sm-3 control-label">性别限制</label>
                                     <div class="col-sm-9">
-                                        <select id="gender" class="form-control select2" style="width: 100%;" name="gender">
+                                        <select id="gender" style="width: 100%;" name="gender">
                                             <option value="0">男</option>
                                             <option value="1">女</option>
                                         </select>
@@ -309,19 +321,19 @@ pageEncoding="UTF-8"%>
                                     <br>
                                     <label for="start_time" class="col-sm-3 control-label">开始时间</label>
                                     <div class="col-sm-9" >
-                                        <input autocomplete="off" type="text" class="form-control pull-right" id="start_time" name="startTime" required="required">
+                                        <input autocomplete="off" type="text" class="form-control pull-right" placeholder="开始时间" id="start_time" name="startTime" required="required">
                                     </div>
                                     <br>
                                     <br>
                                     <label for="end_time" class="col-sm-3 control-label">结束时间</label>
                                     <div class="col-sm-9">
-                                        <input autocomplete="off" type="text" class="form-control pull-right" id="end_time" name="endTime" required="required">
+                                        <input autocomplete="off" type="text" class="form-control pull-right" placeholder="结束时间" id="end_time" name="endTime" required="required">
                                     </div>
                                     <br>
                                     <br>
                                     <label for="type" class="col-sm-3 control-label">比赛类型</label>
                                     <div class="col-sm-9">
-                                        <select id="type" class="form-control select2" style="width: 100%;" name="type">
+                                        <select id="type" style="width: 100%;" name="type">
                                             <option value="0">个人比赛</option>
                                             <option value="1">团体比赛</option>
                                         </select>
@@ -330,7 +342,7 @@ pageEncoding="UTF-8"%>
                                     <br>
                                     <label for="description" class="col-sm-3 control-label rowHeight2x">描述</label>
                                     <div class="col-sm-9" >
-                                        <textarea id="description"  class="form-control" rows="3" placeholder="输入 ..." name="description"></textarea>
+                                        <input id="description"  class="form-control" rows="3" placeholder="输入 ..." name="description"></input>
                                     </div>
                                     <br>
                                     <br>
@@ -438,6 +450,7 @@ pageEncoding="UTF-8"%>
 
 
     $("#myForm").submit(function () {
+        //todo 解决空格变成加号问题
         var data = $('#myForm').serialize().replace(/\+/g," ");
         data = decodeURIComponent(data,true);
         //处理data 转成json格式

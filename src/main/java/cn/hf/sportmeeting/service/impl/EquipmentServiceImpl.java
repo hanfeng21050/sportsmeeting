@@ -53,4 +53,14 @@ public class EquipmentServiceImpl implements IEquipmentService {
     public void save(Equipment equipment) {
         equipmentMapper.insertSelective(equipment);
     }
+
+    @Override
+    public Equipment findById(Integer id) {
+        return equipmentMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void update(Equipment equipment) {
+        equipmentMapper.updateByPrimaryKeySelective(equipment);
+    }
 }

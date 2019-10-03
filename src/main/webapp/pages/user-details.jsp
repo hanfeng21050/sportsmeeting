@@ -151,12 +151,14 @@
                             <h4 class="modal-title">修改角色信息</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="box-body">
+                            <div class="box-body text-center">
                                 <div class="col-md-3 title">密码</div>
                                 <div class="col-md-9 data">
                                     <input id="password" type="password" class="form-control" value="******">
                                 </div>
 
+                                <br>
+                                <br>
                                 <div class="col-md-3 title">角色[多选]</div>
                                 <div class="col-md-9 data">
                                     <select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">

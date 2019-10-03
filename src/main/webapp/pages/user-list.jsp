@@ -149,6 +149,18 @@
 		input{
 			border-radius: 6px !important;
 		}
+        select{
+            border:1px solid #c9c9c9;
+            background-color:#fff;
+            color:#666;
+            height:34px;
+            line-height:28px;
+            padding:4px 6px;
+            font-size:14px;
+            border-radius:6px;
+            cursor:pointer;
+            outline:none;
+        }
 	</style>
 </head>
 
@@ -314,33 +326,32 @@
 									<h4 class="modal-title" id="title">新建</h4>
 								</div>
 								<div class="modal-body">
-									<div class="form-group">
+									<div class="form-group text-center">
 
 
-										<label for="username" class="col-sm-3 control-label">用户名</label>
-										<div class="col-sm-9">
-											<input id="username" type="text" class="form-control rounded" placeholder="用户名" name="username" required="required">
+										<label for="username" class="col-md-3 control-label">用户名</label>
+										<div class="col-md-9">
+											<input id="username" type="text" class="form-control easyui-validatebox" placeholder="用户名" name="username" required="required">
 										</div>
 										<br>
 										<br>
 
-										<label for="password" class="col-sm-3 control-label">密码</label>
-										<div class="col-sm-9">
+										<label for="password" class="col-md-3 control-label">密码</label>
+										<div class="col-md-9">
 											<input id="password" type="password" class="form-control rounded" placeholder="密码" name="password" required="required">
 										</div>
 										<br>
 										<br>
 
-										<label for="confirmPassword" class="col-sm-3 control-label">确认密码</label>
-										<div class="col-sm-9">
-											<input id="confirmPassword" type="password" class="form-control rounded" placeholder="请再次输入密码" required="required" onblur="validate()"><span id="tishi"></span>
+										<label for="confirmPassword" class="col-md-3 control-label">确认密码</label>
+										<div class="col-md-9">
+											<input id="confirmPassword" type="password" class="form-control rounded" placeholder="请再次输入密码" required="required" onblur="validate()"><span id="tip"></span>
 										</div>
 										<br>
 										<br>
-										<br>
-										<label for="gender" class="col-sm-3 control-label">性别</label>
-										<div class="col-sm-9">
-											<select id="gender" class="form-control select2" style="width: 100%;" name="gender">
+										<label for="gender" class="col-md-3 control-label">性别</label>
+										<div class="col-md-9">
+											<select id="gender" class="" style="width: 100%;" name="gender">
 												<option value="0">男</option>
 												<option value="1">女</option>
 											</select>
@@ -348,30 +359,30 @@
 										<br>
 										<br>
 
-										<label for="age" class="col-sm-3 control-label">年龄</label>
-										<div class="col-sm-9">
+										<label for="age" class="col-md-3 control-label">年龄</label>
+										<div class="col-md-9">
 											<input id="age" type="number" class="form-control" placeholder="年龄" name="age" min="1" max="100"  required="required">
 										</div>
 										<br>
 										<br>
 
-										<label for="tel" class="col-sm-3 control-label">电话</label>
-										<div class="col-sm-9">
+										<label for="tel" class="col-md-3 control-label">电话</label>
+										<div class="col-md-9">
 											<input id="tel" type="text" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11 name="tel" placeholder="请输入手机号码">
 										</div>
 										<br>
 										<br>
 
-										<label for="email" class="col-sm-3 control-label">邮箱</label>
-										<div class="col-sm-9">
+										<label for="email" class="col-md-3 control-label">邮箱</label>
+										<div class="col-md-9">
 											<input id="email" type="email" class="form-control" name="email" placeholder="请输入邮箱">
 										</div>
 										<br>
 										<br>
 
-										<label class="col-sm-3 control-label">角色[多选]</label>
-										<div class="col-sm-9">
-											<select id="roleSel" class="form-control select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
+										<label class="col-md-3 control-label">角色[多选]</label>
+										<div class="col-md-9">
+											<select  id="roleSel" class="select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
 											</select>
 										</div>
 										<br>
@@ -380,7 +391,7 @@
 								</div>
 
 								<div class="modal-footer">
-									<button id="save" type="submit" class="btn bg-maroon">保存</button>
+									<button id="btn" type="submit" class="btn bg-maroon">保存</button>
 									<button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
 								</div>
 							</div>
@@ -517,12 +528,12 @@
 			<!-- 对比两次输入的密码 -->
 			if(pwd1 == pwd2)
 			{
-				document.getElementById("tishi").innerHTML="<font color='green'>两次密码相同</font>";
-				document.getElementById("button").disabled = false;
+				document.getElementById("tip").innerHTML="<font color='green'>两次密码相同</font>";
+				document.getElementById("btn").disabled = false;
 			}
 			else {
-				document.getElementById("tishi").innerHTML="<font color='red'>两次密码不相同</font>";
-				document.getElementById("button").disabled = true;
+				document.getElementById("tip").innerHTML="<font color='red'>两次密码不相同</font>";
+				document.getElementById("btn").disabled = true;
 			}
 		}
 
