@@ -127,7 +127,7 @@ pageEncoding="UTF-8"%>
                         <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default bg-yellow" title="新建" type="button" data-toggle="modal" data-target="#myModal"
+                                    <button type="button" class="btn btn-default bg-yellow" title="新建" data-toggle="modal" data-target="#myModal"
                                             onclick="">
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
@@ -169,10 +169,9 @@ pageEncoding="UTF-8"%>
                                             <td><span class="label  ${equipment.num == 0 ? "label-danger":"label-success"} "> ${equipment.num}</span></td>
                                             <td>${equipment.description == null ? "无":equipment.description}</td>
                                             <td>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">详情</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/equipment/findDetailsById?id=${equipment.id}'">详情</button>
                                                 <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
                                                 <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject(${equipment.id})">修改</button>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href=''">借还</button>
                                             </td>
                                         </tr>
                                     </c:forEach>

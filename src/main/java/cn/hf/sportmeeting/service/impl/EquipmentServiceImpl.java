@@ -4,6 +4,7 @@ import cn.hf.sportmeeting.dao.EquipmentMapper;
 import cn.hf.sportmeeting.dao.LendDetailsMapper;
 import cn.hf.sportmeeting.domain.Equipment;
 import cn.hf.sportmeeting.domain.EquipmentExample;
+import cn.hf.sportmeeting.domain.LendDetails;
 import cn.hf.sportmeeting.domain.LendDetailsExample;
 import cn.hf.sportmeeting.service.IEquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 韩锋
@@ -62,5 +66,28 @@ public class EquipmentServiceImpl implements IEquipmentService {
     @Override
     public void update(Equipment equipment) {
         equipmentMapper.updateByPrimaryKeySelective(equipment);
+    }
+
+    @Override
+    public Map<String, Object> findDetailsById(Integer id) {
+        Map<String,Object> map = new HashMap<>();
+
+        //1.查询详细
+        Equipment equipment = equipmentMapper.selectByPrimaryKey(id);
+        map.put("equipment", equipment);
+
+        //2.查询已借
+        LendDetailsExample example = new LendDetailsExample();
+        example.createCriteria().andEquipmentIdEqualTo(id).andIsReturnEqualTo(false).andActiveEqualTo(true);
+        List<LendDetails> lendList = lendDetailsMapper.selectByExample(example);
+        map.put("lendList",lendList);
+
+        //3.查询已还
+        example.clear();
+        example.createCriteria().andEquipmentIdEqualTo(id).andIsReturnEqualTo(true).andActiveEqualTo(true);
+        List<LendDetails> returnList = lendDetailsMapper.selectByExample(example);
+        map.put("returnList",returnList);
+
+        return map;
     }
 }

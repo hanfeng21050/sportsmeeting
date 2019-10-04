@@ -116,14 +116,26 @@
                     <div class="col-md-4 data text">
                         ${userInfo.email}
                     </div>
-                    <div class="col-md-2 title">角色信息</div>
-                    <div class="col-md-4 data text" >
-                        <c:forEach items="${roleList}" var="role">
-                            <span class="label label-warning "> ${role.name}</span>
-                            <span><font color="#ECF0F5">·</font></span>
-                        </c:forEach>
-                    </div>
+                    <c:if test="${athlete == null}">
+                        <div class="col-md-2 title">角色信息</div>
+                        <div class="col-md-10 data text" >
+                            <c:forEach items="${roleList}" var="role">
+                                <span class="label label-warning "> ${role.name}</span>
+                                <span><font color="#ECF0F5">·</font></span>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+
+
                     <c:if test="${athlete != null}">
+                        <div class="col-md-2 title">角色信息</div>
+                        <div class="col-md-4 data text" >
+                            <c:forEach items="${roleList}" var="role">
+                                <span class="label label-warning "> ${role.name}</span>
+                                <span><font color="#ECF0F5">·</font></span>
+                            </c:forEach>
+                        </div>
+
                         <div class="col-md-2 title">
                             注册运动员
                         </div>
@@ -317,7 +329,6 @@
         data['userId'] = ${userInfo.id};
         data['password'] = password;
         data['flag'] = '0';
-        console.
         $.ajax({
             type: "POST",   //提交的方法
             dataType: "json",

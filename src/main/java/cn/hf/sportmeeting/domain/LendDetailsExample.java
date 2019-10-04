@@ -425,66 +425,6 @@ public class LendDetailsExample {
             return (Criteria) this;
         }
 
-        public Criteria andReturnNumIsNull() {
-            addCriterion("return_num is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumIsNotNull() {
-            addCriterion("return_num is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumEqualTo(Integer value) {
-            addCriterion("return_num =", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumNotEqualTo(Integer value) {
-            addCriterion("return_num <>", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumGreaterThan(Integer value) {
-            addCriterion("return_num >", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumGreaterThanOrEqualTo(Integer value) {
-            addCriterion("return_num >=", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumLessThan(Integer value) {
-            addCriterion("return_num <", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumLessThanOrEqualTo(Integer value) {
-            addCriterion("return_num <=", value, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumIn(List<Integer> values) {
-            addCriterion("return_num in", values, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumNotIn(List<Integer> values) {
-            addCriterion("return_num not in", values, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumBetween(Integer value1, Integer value2) {
-            addCriterion("return_num between", value1, value2, "returnNum");
-            return (Criteria) this;
-        }
-
-        public Criteria andReturnNumNotBetween(Integer value1, Integer value2) {
-            addCriterion("return_num not between", value1, value2, "returnNum");
-            return (Criteria) this;
-        }
-
         public Criteria andReturnTimeIsNull() {
             addCriterion("return_time is null");
             return (Criteria) this;
@@ -545,6 +485,76 @@ public class LendDetailsExample {
             return (Criteria) this;
         }
 
+        public Criteria andReturnerIsNull() {
+            addCriterion("returner is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerIsNotNull() {
+            addCriterion("returner is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerEqualTo(String value) {
+            addCriterion("returner =", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerNotEqualTo(String value) {
+            addCriterion("returner <>", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerGreaterThan(String value) {
+            addCriterion("returner >", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerGreaterThanOrEqualTo(String value) {
+            addCriterion("returner >=", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerLessThan(String value) {
+            addCriterion("returner <", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerLessThanOrEqualTo(String value) {
+            addCriterion("returner <=", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerLike(String value) {
+            addCriterion("returner like", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerNotLike(String value) {
+            addCriterion("returner not like", value, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerIn(List<String> values) {
+            addCriterion("returner in", values, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerNotIn(List<String> values) {
+            addCriterion("returner not in", values, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerBetween(String value1, String value2) {
+            addCriterion("returner between", value1, value2, "returner");
+            return (Criteria) this;
+        }
+
+        public Criteria andReturnerNotBetween(String value1, String value2) {
+            addCriterion("returner not between", value1, value2, "returner");
+            return (Criteria) this;
+        }
+
         public Criteria andEquipmentIdIsNull() {
             addCriterion("equipment_id is null");
             return (Criteria) this;
@@ -602,6 +612,136 @@ public class LendDetailsExample {
 
         public Criteria andEquipmentIdNotBetween(Integer value1, Integer value2) {
             addCriterion("equipment_id not between", value1, value2, "equipmentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnIsNull() {
+            addCriterion("is_return is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnIsNotNull() {
+            addCriterion("is_return is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnEqualTo(Boolean value) {
+            addCriterion("is_return =", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnNotEqualTo(Boolean value) {
+            addCriterion("is_return <>", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnGreaterThan(Boolean value) {
+            addCriterion("is_return >", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_return >=", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnLessThan(Boolean value) {
+            addCriterion("is_return <", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_return <=", value, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnIn(List<Boolean> values) {
+            addCriterion("is_return in", values, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnNotIn(List<Boolean> values) {
+            addCriterion("is_return not in", values, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_return between", value1, value2, "isReturn");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReturnNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_return not between", value1, value2, "isReturn");
             return (Criteria) this;
         }
 

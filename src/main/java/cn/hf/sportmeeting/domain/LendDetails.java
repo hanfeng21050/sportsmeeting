@@ -1,5 +1,7 @@
 package cn.hf.sportmeeting.domain;
 
+import cn.hf.sportmeeting.utils.DateUtil;
+
 import java.util.Date;
 
 public class LendDetails {
@@ -12,14 +14,65 @@ public class LendDetails {
     private String borrowerTel;
 
     private Date borrowTime;
-
-    private Integer returnNum;
+    private String borrowTimeStr;
 
     private Date returnTime;
+    private String returnTimeStr;
+
+    private String returner;
 
     private Integer equipmentId;
 
+    private String description;
+
+    private Boolean isReturn;
+
     private Boolean active;
+
+    @Override
+    public String toString() {
+        return "LendDetails{" +
+                "id=" + id +
+                ", borrowNum=" + borrowNum +
+                ", borrower='" + borrower + '\'' +
+                ", borrowerTel='" + borrowerTel + '\'' +
+                ", borrowTime=" + borrowTime +
+                ", borrowTimeStr='" + borrowTimeStr + '\'' +
+                ", returnTime=" + returnTime +
+                ", returnTimeStr='" + returnTimeStr + '\'' +
+                ", returner='" + returner + '\'' +
+                ", equipmentId=" + equipmentId +
+                ", description='" + description + '\'' +
+                ", isReturn=" + isReturn +
+                ", active=" + active +
+                '}';
+    }
+
+    public String getBorrowTimeStr() {
+        if(borrowTime != null)
+        {
+            borrowTimeStr = DateUtil.date2String(borrowTime,"yyyy-MM-dd HH:mm:ss");
+        }
+
+        return borrowTimeStr;
+    }
+
+    public void setBorrowTimeStr(String borrowTimeStr) {
+        this.borrowTimeStr = borrowTimeStr;
+    }
+
+    public String getReturnTimeStr() {
+        if(returnTime != null)
+        {
+            returnTimeStr = DateUtil.date2String(returnTime,"yyyy-MM-dd HH:mm:ss");
+        }
+
+        return returnTimeStr;
+    }
+
+    public void setReturnTimeStr(String returnTimeStr) {
+        this.returnTimeStr = returnTimeStr;
+    }
 
     public Integer getId() {
         return id;
@@ -61,14 +114,6 @@ public class LendDetails {
         this.borrowTime = borrowTime;
     }
 
-    public Integer getReturnNum() {
-        return returnNum;
-    }
-
-    public void setReturnNum(Integer returnNum) {
-        this.returnNum = returnNum;
-    }
-
     public Date getReturnTime() {
         return returnTime;
     }
@@ -77,12 +122,36 @@ public class LendDetails {
         this.returnTime = returnTime;
     }
 
+    public String getReturner() {
+        return returner;
+    }
+
+    public void setReturner(String returner) {
+        this.returner = returner == null ? null : returner.trim();
+    }
+
     public Integer getEquipmentId() {
         return equipmentId;
     }
 
     public void setEquipmentId(Integer equipmentId) {
         this.equipmentId = equipmentId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public Boolean getIsReturn() {
+        return isReturn;
+    }
+
+    public void setIsReturn(Boolean isReturn) {
+        this.isReturn = isReturn;
     }
 
     public Boolean getActive() {

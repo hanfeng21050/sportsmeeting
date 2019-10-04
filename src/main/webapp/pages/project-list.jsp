@@ -267,7 +267,7 @@ pageEncoding="UTF-8"%>
             <%--保存弹出窗--%>
              <div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <form id="myForm">
+                    <form id="myForm" method="post">
                         <div class="modal-content" style="border-radius: 6px">
                             <div class="modal-header">
                                 <h4 class="modal-title" id="title">新建</h4>

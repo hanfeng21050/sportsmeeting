@@ -1,8 +1,10 @@
 package cn.hf.sportmeeting.service;
 
 import cn.hf.sportmeeting.domain.Equipment;
+import cn.hf.sportmeeting.domain.LendDetails;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 韩锋
@@ -39,4 +41,14 @@ public interface IEquipmentService {
      * @param equipment
      */
     public void update(Equipment equipment);
+
+    /**
+     * 查询器材详细，已借、已还
+     * @param id
+     * @return
+     */
+    public Map<String,Object> findDetailsById(Integer id);
+
+
+
 }

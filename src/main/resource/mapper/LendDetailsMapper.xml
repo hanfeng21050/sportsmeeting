@@ -7,9 +7,11 @@
     <result column="borrower" jdbcType="VARCHAR" property="borrower" />
     <result column="borrower_tel" jdbcType="VARCHAR" property="borrowerTel" />
     <result column="borrow_time" jdbcType="TIMESTAMP" property="borrowTime" />
-    <result column="return_num" jdbcType="INTEGER" property="returnNum" />
     <result column="return_time" jdbcType="TIMESTAMP" property="returnTime" />
+    <result column="returner" jdbcType="VARCHAR" property="returner" />
     <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="is_return" jdbcType="BIT" property="isReturn" />
     <result column="active" jdbcType="BIT" property="active" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, borrow_num, borrower, borrower_tel, borrow_time, return_num, return_time, equipment_id, 
-    active
+    id, borrow_num, borrower, borrower_tel, borrow_time, return_time, returner, equipment_id, 
+    description, is_return, active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.LendDetailsExample" resultMap="BaseResultMap">
     select
@@ -106,13 +108,13 @@
   </delete>
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.LendDetails">
     insert into lend_details (id, borrow_num, borrower, 
-      borrower_tel, borrow_time, return_num, 
-      return_time, equipment_id, active
-      )
+      borrower_tel, borrow_time, return_time, 
+      returner, equipment_id, description, 
+      is_return, active)
     values (#{id,jdbcType=INTEGER}, #{borrowNum,jdbcType=INTEGER}, #{borrower,jdbcType=VARCHAR}, 
-      #{borrowerTel,jdbcType=VARCHAR}, #{borrowTime,jdbcType=TIMESTAMP}, #{returnNum,jdbcType=INTEGER}, 
-      #{returnTime,jdbcType=TIMESTAMP}, #{equipmentId,jdbcType=INTEGER}, #{active,jdbcType=BIT}
-      )
+      #{borrowerTel,jdbcType=VARCHAR}, #{borrowTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, 
+      #{returner,jdbcType=VARCHAR}, #{equipmentId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{isReturn,jdbcType=BIT}, #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.LendDetails">
     insert into lend_details
@@ -132,14 +134,20 @@
       <if test="borrowTime != null">
         borrow_time,
       </if>
-      <if test="returnNum != null">
-        return_num,
-      </if>
       <if test="returnTime != null">
         return_time,
       </if>
+      <if test="returner != null">
+        returner,
+      </if>
       <if test="equipmentId != null">
         equipment_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isReturn != null">
+        is_return,
       </if>
       <if test="active != null">
         active,
@@ -161,14 +169,20 @@
       <if test="borrowTime != null">
         #{borrowTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="returnNum != null">
-        #{returnNum,jdbcType=INTEGER},
-      </if>
       <if test="returnTime != null">
         #{returnTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="returner != null">
+        #{returner,jdbcType=VARCHAR},
+      </if>
       <if test="equipmentId != null">
         #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isReturn != null">
+        #{isReturn,jdbcType=BIT},
       </if>
       <if test="active != null">
         #{active,jdbcType=BIT},
@@ -199,14 +213,20 @@
       <if test="record.borrowTime != null">
         borrow_time = #{record.borrowTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.returnNum != null">
-        return_num = #{record.returnNum,jdbcType=INTEGER},
-      </if>
       <if test="record.returnTime != null">
         return_time = #{record.returnTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.returner != null">
+        returner = #{record.returner,jdbcType=VARCHAR},
+      </if>
       <if test="record.equipmentId != null">
         equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isReturn != null">
+        is_return = #{record.isReturn,jdbcType=BIT},
       </if>
       <if test="record.active != null">
         active = #{record.active,jdbcType=BIT},
@@ -223,9 +243,11 @@
       borrower = #{record.borrower,jdbcType=VARCHAR},
       borrower_tel = #{record.borrowerTel,jdbcType=VARCHAR},
       borrow_time = #{record.borrowTime,jdbcType=TIMESTAMP},
-      return_num = #{record.returnNum,jdbcType=INTEGER},
       return_time = #{record.returnTime,jdbcType=TIMESTAMP},
+      returner = #{record.returner,jdbcType=VARCHAR},
       equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      is_return = #{record.isReturn,jdbcType=BIT},
       active = #{record.active,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -246,14 +268,20 @@
       <if test="borrowTime != null">
         borrow_time = #{borrowTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="returnNum != null">
-        return_num = #{returnNum,jdbcType=INTEGER},
-      </if>
       <if test="returnTime != null">
         return_time = #{returnTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="returner != null">
+        returner = #{returner,jdbcType=VARCHAR},
+      </if>
       <if test="equipmentId != null">
         equipment_id = #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isReturn != null">
+        is_return = #{isReturn,jdbcType=BIT},
       </if>
       <if test="active != null">
         active = #{active,jdbcType=BIT},
@@ -267,9 +295,11 @@
       borrower = #{borrower,jdbcType=VARCHAR},
       borrower_tel = #{borrowerTel,jdbcType=VARCHAR},
       borrow_time = #{borrowTime,jdbcType=TIMESTAMP},
-      return_num = #{returnNum,jdbcType=INTEGER},
       return_time = #{returnTime,jdbcType=TIMESTAMP},
+      returner = #{returner,jdbcType=VARCHAR},
       equipment_id = #{equipmentId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      is_return = #{isReturn,jdbcType=BIT},
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
