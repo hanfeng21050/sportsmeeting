@@ -156,13 +156,12 @@
 
                     <div class="box-body">
                         <!--工具栏-->
-                        <div class="pull-left">
+                        <div>
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
-                                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                    <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
-                                    <button type="button" class="btn btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
+                                    <button type="button" class="btn bg-yellow btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
+                                    <button type="button" class="btn bg-red btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                                    <button type="button" class="btn bg-green btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
                                 </div>
                             </div>
                         </div>
@@ -338,11 +337,11 @@
 
     $(function() {
         $('#dataList').DataTable({
-            "paging": false,
-            "lengthChange": false,
+            "paging": true,
+            "lengthChange": true,
             "searching": true,
             "ordering": false,
-            "info": false,
+            "info": true,
             "autoWidth": true,
             "language": {
                 "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",

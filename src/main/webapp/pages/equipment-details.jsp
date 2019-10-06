@@ -114,12 +114,17 @@
 
                     <div class="col-md-2 title">可借数量</div>
                     <div class="col-md-4 data text">
-                        ${equipment.num}
+                        <c:if test="${equipment.num == 0}">
+                            <p style="color: red">${equipment.num}</p>
+                        </c:if>
+                        <c:if test="${equipment.num != 0}">
+                            <p style="color: green">${equipment.num}</p>
+                        </c:if>
                     </div>
 
-                    <div class="col-md-2 title">详情</div>
-                    <div class="col-md-10 data text">
-                        ${equipment.description}
+                    <div class="col-md-2 title rowHeight2x">详情</div>
+                    <div class="col-md-10 data text rowHeight2x">
+                        <textarea class="form-control" rows="3" disabled="disabled">${equipment.description}</textarea>
                     </div>
 
                 </div>
@@ -163,7 +168,7 @@
                                     <div class="form-group form-inline">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default bg-yellow" title="新建" data-toggle="modal" data-target="#myModal"
-                                                    onclick="">
+                                                    onclick="" <c:if test="${equipment.num == 0}">disabled="disabled"</c:if>>
                                                 <i class="fa fa-file-o"></i> 新建
                                             </button>
                                         </div>
@@ -193,7 +198,7 @@
                                             <td>${lend.returnTimeStr}</td>
                                             <td>${lend.description}</td>
                                             <td>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="">归还</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="rtn('${lend.id}','${lend.borrowNum}','${lend.borrower}','${equipment.id}')">归还</button>
                                                 <button type="button"  class="btn bg-red btn-xs" onclick="del(${lend.id})">删除</button>
                                             </td>
                                         </tr>
@@ -250,7 +255,7 @@
                                             <td>${rtn.description}</td>
 
                                             <td class="text-center">
-                                                <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-product-line-edit.html"'>详情</button>
+                                                <button type="button" class="btn bg-red btn-xs" onclick='del(${rtn.id})'>删除</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -282,14 +287,14 @@
 
                                     <label for="name" class="col-md-3">姓名</label>
                                     <div class="col-md-9">
-                                        <input id="name" type="text" class="form-control" placeholder="器材名称" name="borrower" required="required">
+                                        <input id="name" type="text" class="form-control" placeholder="姓名" name="borrower" required="required">
                                     </div>
                                     <br>
                                     <br>
 
                                     <label for="type" class="col-md-3">数量</label>
                                     <div class="col-md-9">
-                                        <input id="type" type="number" class="form-control" placeholder="数量" name="borrowNum" required="required">
+                                        <input id="type" type="number" min="1" max="${equipment.num}" class="form-control" placeholder="数量" name="borrowNum" required="required">
                                     </div>
                                     <br>
                                     <br>
@@ -302,7 +307,7 @@
 
                                     <label for="description" class="col-md-3">详细</label>
                                     <div class="col-md-9" >
-                                        <input type="text" id="description" class="form-control" placeholder="输入···" name="description" required="required"/>
+                                        <input type="text" id="description" class="form-control" placeholder="可填···" name="description"/>
                                     </div>
                                     <br>
                                     <br>
@@ -460,6 +465,32 @@
            $.get(url,function (data) {
                location.reload();
            })
+        }
+    }
+
+    function rtn(id,borrowNum,borrower,equipmentId){
+        if(confirm("确认归还？"))
+        {
+            var res = {};
+            res['id'] = id;
+            res['borrowNum'] = borrowNum;
+            res['returner'] = borrower;
+            res['equipmentId'] = equipmentId;
+
+            $.ajax({
+                type: "POST",   //提交的方法
+                dataType: "json",
+                contentType : 'application/json',//添加这句话
+                url:"${pageContext.request.contextPath}/lendDetails/rtnEquipment", //提交的地址
+                async: false,
+                data:JSON.stringify(res),
+                error: function() {  //失败的话
+                    alert("归还失败！")
+                },
+                success: function(data) {  //成功
+                    location.reload();
+                }
+            });
         }
     }
 

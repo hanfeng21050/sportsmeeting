@@ -47,4 +47,21 @@ public class LendDetailsController {
         return "200";
     }
 
+    /**
+     * 归还器材
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value="/rtnEquipment",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public String rtnEquipment(@RequestBody LendDetails lendDetails){
+        try{
+            System.out.println(lendDetails);
+           lendDetailsService.rtnEquipment(lendDetails);
+        }catch (Exception e)
+        {
+            return "归还失败！";
+        }
+        return "200";
+    }
 }

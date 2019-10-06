@@ -203,9 +203,6 @@ pageEncoding="UTF-8"%>
                                     <button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </button>
-                                    <button type="button" class="btn btn-default bg-green" title="刷新" id="refresh">
-                                        <i class="fa fa-refresh"></i> 刷新
-                                    </button>
                                 </div>
                             </div>
                         </div>

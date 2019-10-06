@@ -18,4 +18,11 @@ public interface ILendDetailsService {
      * @param ids
      */
     public void deleteByIds(Integer[] ids);
+
+
+    /**
+     * 归还
+     * @param lendDetails
+     */
+    public void rtnEquipment(LendDetails lendDetails);
 }
