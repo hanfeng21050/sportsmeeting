@@ -94,7 +94,7 @@
                 <ul class="treeview-menu">
 
                     <li id="system-setting"><a
-                            href="">
+                            href="${pageContext.request.contextPath}/team/findAll">
                         <i class="fa fa-circle-o"></i> 团队列表
                     </a></li>
                     <li id="system-setting"><a

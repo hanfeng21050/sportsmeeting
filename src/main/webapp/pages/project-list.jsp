@@ -194,7 +194,7 @@ pageEncoding="UTF-8"%>
                     <div class="table-box">
 
                         <!--工具栏-->
-                        <div class="pull-left">
+                        <div>
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default bg-yellow"  data-toggle="modal" data-target="#myModal" title="新建">
@@ -499,13 +499,15 @@ pageEncoding="UTF-8"%>
 
         $('#dataList').DataTable({
             "paging": true,
-            "lengthChange": false,
+            "lengthChange": true,
             "iDisplayLength": 15,
             "searching": true,
             "ordering": false,
             "info": true,
             "autoWidth": true,
             "language": {
+                "sLoadingRecords":     "正在加载...",
+                "sProcessing":"正在获取数据，请稍候...",
                 "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
                 "sInfoFiltered": "(从_MAX_条筛选 )",
                 "sInfoEmpty": "共筛选到0条",

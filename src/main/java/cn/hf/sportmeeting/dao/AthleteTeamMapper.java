@@ -27,4 +27,6 @@ public interface AthleteTeamMapper {
     int updateByPrimaryKeySelective(AthleteTeam record);
 
     int updateByPrimaryKey(AthleteTeam record);
+
+    int selectCountByTeamId(Integer teamId);
 }

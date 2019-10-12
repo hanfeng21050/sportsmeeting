@@ -194,4 +194,8 @@
       active = #{active,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCountByTeamId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from athlete_team where team_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

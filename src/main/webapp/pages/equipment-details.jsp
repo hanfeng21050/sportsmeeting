@@ -229,7 +229,7 @@
                             <div class="table-box">
 
                                 <!--数据列表-->
-                                <table class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
+                                <table id="rtnList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
                                     <thead>
                                     <tr>
                                         <th style="text-align: center">ID</th>
@@ -522,6 +522,33 @@
                 }
             }
             });
+
+        $('#rtnList').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                "sInfoFiltered": "(从_MAX_条筛选 )",
+                "sInfoEmpty": "共筛选到0条",
+                "sSearch": "搜索:",
+                "sLengthMenu": "每页显示 _MENU_ 条",
+                "sZeroRecords": "未筛选到相关内容",
+                "paginate": {
+                    "sFirst": "首页",  //首页和尾页必须在pagingType设为full_numbers时才可以
+                    "sLast": "尾页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "first": "First page",
+                    "last": "Last page",
+                    "next": "Next page",
+                    "previous": "Previous page"
+                }
+            }
+        });
 
         $('#teams').DataTable({
             "paging": false,

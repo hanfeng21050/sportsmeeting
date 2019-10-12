@@ -148,27 +148,25 @@ pageEncoding="UTF-8"%>
                                             id="selall" type="checkbox" class="icheckbox_square-blue">
                                     </th>
                                     <th style="text-align: center">ID</th>
-                                    <th style="text-align: center">器材</th>
-                                    <th style="text-align: center">种类</th>
-                                    <th style="text-align: center">地点</th>
-                                    <th style="text-align: center">可借数量 </th>
-                                    <th style="text-align: center">详细</th>
+                                    <th style="text-align: center">团队名称</th>
+                                    <th style="text-align: center">团队编号</th>
+                                    <th style="text-align: center">成员数量</th>
+                                    <th style="text-align: center">比赛 </th>
                                     <th style="text-align: center">操作</th>
                                 </tr>
                                 <tbody >
-                                    <c:forEach items="${equipmentList}" var="equipment" varStatus="status">
+                                    <c:forEach items="${teamExts}" var="ext" varStatus="status">
                                         <tr>
-                                            <td><input name="ids" type="checkbox" value="${equipment.id}"></td>
+                                            <td><input name="ids" type="checkbox" value="${ext.team.id}"></td>
                                             <td>${status.index+1}</td>
-                                            <td>${equipment.name}</td>
-                                            <td>${equipment.type}</td>
-                                            <td>${equipment.place}</td>
-                                            <td><span class="label  ${equipment.num == 0 ? "label-danger":"label-success"} "> ${equipment.num}</span></td>
-                                            <td>${equipment.description == null ? "无":equipment.description}</td>
+                                            <td>${ext.team.name}</td>
+                                            <td>${ext.team.teamNum}</td>
+                                            <td>${ext.memberNum}</td>
+                                            <td><a href="${pageContext.request.contextPath}/project/findDetailsById?id=${ext.project.id}&type=${ext.project.type}&sort=${ext.project.sort}">${ext.project.name}</a></td>
                                             <td>
                                                 <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/equipment/findDetailsById?id=${equipment.id}'">详情</button>
                                                 <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
-                                                <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject(${equipment.id})">修改</button>
+                                                <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject('${ext.team.id}','${ext.team.name}','${ext.team.teamNum}')">修改</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -201,30 +199,19 @@ pageEncoding="UTF-8"%>
                                     <%--updateOrInsert 用于判断当前模态窗口是新增还是修改--%>
                                     <input type="hidden" id="updateOrInsert" name="updateOrInsert" value="insert">
 
-                                    <label for="name">器材名称</label>
-                                    <div class="form-group">
-                                        <input id="name" type="text" class="form-control rounded" placeholder="器材名称" name="name" required="required">
+                                    <label for="name" class="col-md-3 control-label">团队名称</label>
+                                    <div class="col-md-9">
+                                        <input id="name" type="text" class="form-control easyui-validatebox" placeholder="团队名称" name="name" required="required">
                                     </div>
+                                    <br>
+                                    <br>
 
-                                    <label for="type">器材类别</label>
-                                    <div class="form-group">
-                                        <input id="type" type="text" class="form-control rounded" placeholder="器材类别、型号" name="type" required="required">
+                                    <label for="teamNum" class="col-md-3 control-label">团队编号</label>
+                                    <div class="col-md-9">
+                                        <input id="teamNum" type="text" class="form-control easyui-validatebox" placeholder="团队编号" name="teamNum" required="required">
                                     </div>
-
-                                    <label for="place">存放地点</label>
-                                    <div class="form-group">
-                                        <input id="place" type="text" class="form-control rounded" placeholder="存放地点" name="place" required="required">
-                                    </div>
-
-                                    <label for="num">数量</label>
-                                    <div class="form-group">
-                                        <input id="num" type="number" class="form-control" placeholder="器材数量" name="num" min="1"  required="required">
-                                    </div>
-
-                                    <label for="description">详细</label>
-                                    <div class="form-group rowHeight2x" >
-                                        <input type="text" id="description" class="form-control rounded" placeholder="输入···" name="description" required="required"/>
-                                    </div>
+                                    <br>
+                                    <br>
 
                                 </div>
                             </div>
@@ -341,22 +328,15 @@ pageEncoding="UTF-8"%>
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
 
-    function getProject(id) {
+    function getProject(id,name,num) {
         //请求角色列表
         console.log(id)
-        var url = "${pageContext.request.contextPath}/equipment/findById?id="+id;
-        $.get(url,function (data) {
-            document.getElementById("updateOrInsert").value = "update";
-            document.getElementById("id").value = id;
-            document.getElementById("name").value = data.name;
-            document.getElementById("type").value = data.type;
-            document.getElementById("place").value = data.place;
-            document.getElementById("num").value = data.num;
-            document.getElementById("description").value = data.description;
-
-            $("#btn").text('修改');
-            $("#title").text('修改');
-        });
+        document.getElementById("updateOrInsert").value = "update";
+        document.getElementById("id").value = id;
+        document.getElementById("name").value = name;
+        document.getElementById("teamNum").value = num;
+        $("#btn").text('修改');
+        $("#title").text('修改');
     };
 
     $('#myModal').on('hidden.bs.modal', function (){
