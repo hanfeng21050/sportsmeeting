@@ -200,7 +200,7 @@
 								<div class="form-group form-inline">
 									<div class="btn-group">
 										<button type="button" class="btn btn-default bg-yellow" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
+											onclick="location.href='${pageContext.request.contextPath}/pages/user-list.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">

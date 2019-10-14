@@ -51,6 +51,7 @@ public class UserServiceImpl implements IUserService {
             UserExample example = new UserExample();
             example.createCriteria().andUsernameEqualTo(s).andActiveEqualTo(true);
             List<UserInfo> userInfos = userMapper.selectByExample(example);
+
             if(userInfos!= null && userInfos.size()!=0)
             {
                 u = userInfos.get(0);

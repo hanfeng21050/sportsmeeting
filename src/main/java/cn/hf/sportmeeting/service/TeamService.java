@@ -15,4 +15,12 @@ public interface TeamService {
      * @return
      */
     public List<TeamExt> findAll();
+
+
+    /**
+     * 查询团队详情
+     * @param id teamID
+     * @return 返回的是包括团队和成员的一个集合
+     */
+    public Map<String,Object> findDetailsById(Integer id);
 }

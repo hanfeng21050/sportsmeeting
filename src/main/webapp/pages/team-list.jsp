@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
             <!-- .box-body -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">体育器材列表</h3>
+                    <h3 class="box-title">团队列表</h3>
                 </div>
 
                 <div class="box-body">
@@ -164,7 +164,7 @@ pageEncoding="UTF-8"%>
                                             <td>${ext.memberNum}</td>
                                             <td><a href="${pageContext.request.contextPath}/project/findDetailsById?id=${ext.project.id}&type=${ext.project.type}&sort=${ext.project.sort}">${ext.project.name}</a></td>
                                             <td>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/equipment/findDetailsById?id=${equipment.id}'">详情</button>
+                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/team/findDetailsById?id=${ext.team.id}'">详情</button>
                                                 <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
                                                 <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject('${ext.team.id}','${ext.team.name}','${ext.team.teamNum}')">修改</button>
                                             </td>

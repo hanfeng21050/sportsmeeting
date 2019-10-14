@@ -1,12 +1,10 @@
 package cn.hf.sportmeeting.service.impl;
 
+import cn.hf.sportmeeting.dao.AthleteMapper;
 import cn.hf.sportmeeting.dao.AthleteTeamMapper;
 import cn.hf.sportmeeting.dao.ProjectMapper;
 import cn.hf.sportmeeting.dao.TeamMapper;
-import cn.hf.sportmeeting.domain.AthleteExample;
-import cn.hf.sportmeeting.domain.Team;
-import cn.hf.sportmeeting.domain.TeamExample;
-import cn.hf.sportmeeting.domain.TeamExt;
+import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.TeamService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,8 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private AthleteTeamMapper athleteTeamMapper;
     @Autowired
+    private AthleteMapper athleteMapper;
+    @Autowired
     private ProjectMapper projectMapper;
 
     @Override
@@ -48,5 +48,38 @@ public class TeamServiceImpl implements TeamService {
             }
         }
         return teamExts;
+    }
+
+    @Override
+    public Map<String, Object> findDetailsById(Integer id) {
+        Map<String,Object> map = new HashMap<>();
+
+        TeamExt ext = new TeamExt();
+        //查询team信息
+        Team team = teamMapper.selectByPrimaryKey(id);
+        //查询成员数量
+        int count = athleteTeamMapper.selectCountByTeamId(id);
+        //查询参加的比赛
+        Project project = projectMapper.selectByPrimaryKey(team.getProjectId());
+
+        ext.setTeam(team);
+        ext.setProject(project);
+        ext.setMemberNum(count);
+        map.put("ext",ext);
+
+        //查询成员
+        AthleteTeamExample example = new AthleteTeamExample();
+        example.createCriteria().andTeamIdEqualTo(id).andActiveEqualTo(true);
+        List<AthleteTeam> athleteTeamList = athleteTeamMapper.selectByExample(example);
+        if(athleteTeamList != null && athleteTeamList.size() != 0)
+        {
+            List<Athlete> athleteList = new ArrayList<>();
+            for (AthleteTeam athleteTeam : athleteTeamList) {
+                athleteList.add(athleteMapper.selectByPrimaryKey(athleteTeam.getAthleteId()));
+            }
+            map.put("athleteList",athleteList);
+        }
+
+        return map;
     }
 }
