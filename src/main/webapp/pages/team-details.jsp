@@ -64,6 +64,18 @@
         input{
             border-radius: 6px !important;
         }
+        select{
+            border:1px solid #c9c9c9;
+            background-color:#fff;
+            color:#666;
+            height:34px;
+            line-height:28px;
+            padding:4px 6px;
+            font-size:14px;
+            border-radius:6px;
+            cursor:pointer;
+            outline:none;
+        }
     </style>
 </head>
 
@@ -120,6 +132,8 @@
                 </div>
 
                 <div class="box-tools text-center">
+                    <button type="button" class="btn bg-green" data-toggle="modal" data-target="#teamModel">修改
+                    </button>
                     <button type="button" class="btn bg-default"
                             onclick="history.back(-1);">返回
                     </button>
@@ -141,7 +155,6 @@
                                 <div class="btn-group">
                                     <button type="button" class="btn bg-yellow btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
                                     <button type="button" class="btn bg-red btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                    <button type="button" class="btn bg-green btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +163,7 @@
                         <div class="table-box">
 
                             <!--数据列表-->
-                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+                            <table style="text-align: center" id="dataList" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                 <tr>
                                     <th style="vertical-align: middle;margin:auto; padding:10px" width="20px">
@@ -194,6 +207,62 @@
 
             </div>
 
+
+            <%--保存弹出窗--%>
+            <div id="teamModel" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form id="myForm" method="post">
+                        <div class="modal-content" style="border-radius: 6px">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="title">修改</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id">
+
+                                    <label for="name" class="col-sm-3 control-label">团队名称</label>
+                                    <div class="col-sm-9">
+                                        <input id="name" type="text" class="form-control rounded" placeholder="团队名称" name="name" required="required">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <label for="teamNum" class="col-sm-3 control-label">团队编号</label>
+                                    <div class="col-sm-9">
+                                        <input id="teamNum" type="text" class="form-control rounded" placeholder="团队编号" name="teamNum" required="required">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <label for="project" class="col-sm-3 control-label">比赛</label>
+                                    <div class="col-sm-9">
+                                        <select id="project" style="width: 100%;" name="projectId">
+
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <label for="gender" class="col-sm-3 control-label">成员</label>
+                                    <div class="col-sm-9">
+                                        <select id="gender" style="width: 100%;" name="gender">
+                                            <option value="0">男</option>
+                                            <option value="1">女</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <br>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button id="btn" type="submit" class="btn bg-maroon">保存</button>
+                                <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
 
         </section>
         <!-- 正文区域 /-->
@@ -337,11 +406,6 @@
         // 激活导航位置
         setSidebarActive("order-manage");
 
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            increaseArea: '20%'
-        });
         // 全选操作
         $("#selall").click(function() {
             var clicks = $(this).is(':checked');

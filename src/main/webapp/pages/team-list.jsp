@@ -459,11 +459,6 @@ pageEncoding="UTF-8"%>
             // 激活导航位置
             setSidebarActive("order-manage");
 
-            // 列表按钮
-            $("#dataList td input[type='checkbox']").iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                increaseArea: '20%'
-            });
             // 全选操作
             $("#selall").click(function() {
                 var clicks = $(this).is(':checked');

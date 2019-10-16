@@ -51,6 +51,7 @@
 			</bean>
 			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4"/>
 		</mvc:message-converters>
+
 	</mvc:annotation-driven>
 	<!-- 
 		支持AOP的注解支持，AOP底层使用代理技术
