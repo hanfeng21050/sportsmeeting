@@ -6,13 +6,13 @@ import cn.hf.sportmeeting.dao.ProjectMapper;
 import cn.hf.sportmeeting.dao.TeamMapper;
 import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.TeamService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,5 +81,59 @@ public class TeamServiceImpl implements TeamService {
         }
 
         return map;
+    }
+
+    @Override
+    public TeamExt findById(Integer id) {
+        TeamExt ext = new TeamExt();
+
+        //查询team
+        Team team = teamMapper.selectByPrimaryKey(id);
+
+        //查询所有可参加的比赛
+        ProjectExample projectExample = new ProjectExample();
+        projectExample.createCriteria().andTypeEqualTo(true).andActiveEqualTo(true);
+        List<Project> projectList = projectMapper.selectByExample(projectExample);
+
+        //查询所有未加入团队的运动员
+        AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
+        athleteTeamExample.createCriteria().andTeamIdEqualTo(team.getId()).andActiveEqualTo(true);
+        List<AthleteTeam> athleteTeamList = athleteTeamMapper.selectByExample(athleteTeamExample);
+        List<Integer> ids = getIds(athleteTeamList, "getAthleteId");
+
+        AthleteExample athleteExample = new AthleteExample();
+        athleteExample.createCriteria().andIdNotIn(ids).andActiveEqualTo(true);
+
+        List<Athlete> athleteList = athleteMapper.selectByExample(athleteExample);
+
+        ext.setTeam(team);
+        ext.setAthleteList(athleteList);
+        ext.setProjectList(projectList);
+
+        return ext;
+
+    }
+
+    /**
+     * 通过反射获取对象中的id
+     * @param list
+     * @param method
+     * @param <T>
+     * @return
+     */
+    public<T> List<Integer> getIds(List<T> list,String method){
+        List<Integer> ids = new ArrayList<>();
+        for (T t : list) {
+            try {
+                ids.add((Integer) t.getClass().getMethod(method).invoke(t));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return ids;
     }
 }

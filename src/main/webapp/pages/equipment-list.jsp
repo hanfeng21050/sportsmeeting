@@ -1,64 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+         pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
+
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>运动会管理系统</title>
+
+
+
+    <title>田径运动会管理系统</title>
+    <meta name="description" content="管理系统">
+    <meta name="keywords" content="管理系统">
+
+
+
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <!-- Font Awesome -->
+    <!-- Ionicons -->
+    <!-- iCheck -->
+    <!-- Morris chart -->
+    <!-- jvectormap -->
+    <!-- Date Picker -->
+    <!-- Daterange picker -->
+    <!-- Bootstrap time Picker -->
+    <!--<link rel="stylesheet" href="${pageContext.request.contextPath}/${pageContext.request.contextPath}/${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">-->
+    <!-- bootstrap wysihtml5 - text editor -->
+    <!--数据表格-->
+    <!-- 表格树 -->
+    <!-- select2 -->
+    <!-- Bootstrap Color Picker -->
+    <!-- bootstrap wysihtml5 - text editor -->
+    <!--bootstrap-markdown-->
+    <!-- Theme style -->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+    <!-- Ion Slider -->
+    <!-- ion slider Nice -->
+    <!-- bootstrap slider -->
+    <!-- bootstrap-datetimepicker -->
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/morris/morris.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/treeTable/jquery.treetable.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/treeTable/jquery.treetable.theme.default.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/select2/select2.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/adminLTE/css/AdminLTE.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/adminLTE/css/skins/_all-skins.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
+
+
+
+
+
+
+
+    <!-- jQuery 2.2.3 -->
+    <!-- jQuery UI 1.11.4 -->
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!-- Bootstrap 3.3.6 -->
+    <!-- Morris.js charts -->
+    <!-- Sparkline -->
+    <!-- jvectormap -->
+    <!-- jQuery Knob Chart -->
+    <!-- daterangepicker -->
+    <!-- datepicker -->
+    <!-- Bootstrap WYSIHTML5 -->
+    <!-- Slimscroll -->
+    <!-- FastClick -->
+    <!-- iCheck -->
+    <!-- AdminLTE App -->
+    <!-- 表格树 -->
+    <!-- select2 -->
+    <!-- bootstrap color picker -->
+    <!-- bootstrap time picker -->
+    <!--<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>-->
+    <!-- Bootstrap WYSIHTML5 -->
+    <!--bootstrap-markdown-->
+    <!-- CK Editor -->
+    <!-- InputMask -->
+    <!-- DataTables -->
+    <!-- ChartJS 1.0.1 -->
+    <!-- FLOT CHARTS -->
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+    <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+    <!-- jQuery Knob -->
+    <!-- Sparkline -->
+    <!-- Morris.js charts -->
+    <!-- Ion Slider -->
+    <!-- Bootstrap slider -->
+    <!-- bootstrap-datetimepicker -->
+    <!-- 页面meta /-->
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/treeTable/jquery.treetable.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/treeTable/jquery.treetable.theme.default.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
     <script>
         function deleteProject(id)
         {
@@ -76,6 +139,7 @@ pageEncoding="UTF-8"%>
     </style>
 </head>
 
+
 <body class="hold-transition skin-red sidebar-mini">
 
 <div class="wrapper">
@@ -83,13 +147,9 @@ pageEncoding="UTF-8"%>
     <!-- 页面头部 -->
     <jsp:include page="header.jsp"></jsp:include>
     <!-- 页面头部 /-->
-
     <!-- 导航侧栏 -->
     <jsp:include page="aside.jsp"></jsp:include>
     <!-- 导航侧栏 /-->
-    <
-    <!-- 导航侧栏 /-->
-
 
     <!-- 内容区域 -->
     <div class="content-wrapper">
@@ -140,9 +200,9 @@ pageEncoding="UTF-8"%>
                         <!--工具栏/-->
 
                         <form id="selection" action="${pageContext.request.contextPath}/equipment/deleteByIds" method="post">
-                        <!--数据列表-->
+                            <!--数据列表-->
                             <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="text-align: center">
-                            <thead>
+                                <thead>
                                 <tr>
                                     <th class="sorting_asc_disabled" style="vertical-align: middle;margin:auto; padding:10px" width="20px"><input
                                             id="selall" type="checkbox" class="icheckbox_square-blue">
@@ -156,27 +216,27 @@ pageEncoding="UTF-8"%>
                                     <th style="text-align: center">操作</th>
                                 </tr>
                                 <tbody >
-                                    <c:forEach items="${equipmentList}" var="equipment" varStatus="status">
-                                        <tr>
-                                            <td><input name="ids" type="checkbox" value="${equipment.id}"></td>
-                                            <td>${status.index+1}</td>
-                                            <td>${equipment.name}</td>
-                                            <td>${equipment.type}</td>
-                                            <td>${equipment.place}</td>
-                                            <td><span class="label  ${equipment.num == 0 ? "label-danger":"label-success"} "> ${equipment.num}</span></td>
-                                            <td>${equipment.description == null ? "无":equipment.description}</td>
-                                            <td>
-                                                <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/equipment/findDetailsById?id=${equipment.id}'">详情</button>
-                                                <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
-                                                <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject(${equipment.id})">修改</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach items="${equipmentList}" var="equipment" varStatus="status">
+                                    <tr>
+                                        <td><input name="ids" type="checkbox" value="${equipment.id}"></td>
+                                        <td>${status.index+1}</td>
+                                        <td>${equipment.name}</td>
+                                        <td>${equipment.type}</td>
+                                        <td>${equipment.place}</td>
+                                        <td><span class="label  ${equipment.num == 0 ? "label-danger":"label-success"} "> ${equipment.num}</span></td>
+                                        <td>${equipment.description == null ? "无":equipment.description}</td>
+                                        <td>
+                                            <button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/equipment/findDetailsById?id=${equipment.id}'">详情</button>
+                                            <button type="button" class="btn bg-red btn-xs" onclick="javascript:deleteProject(${equipment.id})">删除</button>
+                                            <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal" onclick="getProject(${equipment.id})">修改</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
 
                                 </tbody>
-                            </thead>
+                                </thead>
 
-                        </table>
+                            </table>
                         </form>
 
                     </div>
@@ -255,6 +315,7 @@ pageEncoding="UTF-8"%>
     <!-- 底部导航 /-->
 
 </div>
+
 
 <script
         src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -339,8 +400,11 @@ pageEncoding="UTF-8"%>
         src="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.min.js"></script>
 <script
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+<script
+        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script
+        src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script>
-
     function getProject(id) {
         //请求角色列表
         console.log(id)
@@ -491,6 +555,8 @@ pageEncoding="UTF-8"%>
             });
         });
     })
+
 </script>
 </body>
+
 </html>

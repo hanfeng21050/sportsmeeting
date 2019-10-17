@@ -23,4 +23,11 @@ public interface TeamService {
      * @return 返回的是包括团队和成员的一个集合
      */
     public Map<String,Object> findDetailsById(Integer id);
+
+    /**
+     * 团队详情页，点击修改，返回相对应数据
+     * @param id
+     * @return
+     */
+    public TeamExt findById(Integer id);
 }

@@ -7,6 +7,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -31,6 +34,8 @@ public class TeamController {
         mv.setViewName("team-list");
         return mv;
     }
+
+
     @RequestMapping("/findDetailsById")
     public ModelAndView findDetailsById(Integer id)
     {
@@ -41,5 +46,18 @@ public class TeamController {
         mv.addObject("athleteList",map.get("athleteList"));
         mv.setViewName("team-details");
         return mv;
+    }
+
+    /**
+     * 修改团队时获取相关信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findById",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public TeamExt findById(@RequestParam(name = "id") Integer id)
+    {
+        TeamExt ext = teamService.findById(id);
+        return ext;
     }
 }

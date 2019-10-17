@@ -51,7 +51,7 @@ public class UserController {
      */
     @RequestMapping("/deleteByIds")
     public String deleteByIds(Integer[] ids){
-        int rtn = userService.deleteByIds(ids);
+        userService.deleteByIds(ids);
         return "redirect:findByPage";
     }
 

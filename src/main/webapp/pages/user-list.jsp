@@ -561,7 +561,7 @@
 			// 激活导航位置
 			setSidebarActive("admin-datalist");
 
-			// 全选操作 
+			// 全选操作
 			$("#selall").click(function() {
 				var clicks = $(this).is(':checked');
 				if (!clicks) {
