@@ -1,5 +1,7 @@
 package cn.hf.sportmeeting.domain;
 
+import cn.hf.sportmeeting.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class UserExt {
     public List<Integer> getRoleIdList() {
         if(roleIds != null)
         {
-            roleIdList = str2Int(roleIds);
+            roleIdList = Utils.str2Int(roleIds);
         }
 
         return roleIdList;
@@ -90,19 +92,4 @@ public class UserExt {
         this.roleIdList = roleIdList;
     }
 
-    /**
-     * "1,2,3" -->  [1,2,3]
-     * 将字符串转换成int数组
-     * @param str
-     * @return
-     */
-    public List<Integer> str2Int(String str)
-    {
-        List<Integer> list = new ArrayList<>();
-        String[] split = str.split(",");
-        for (String s : split) {
-            list.add(Integer.parseInt(s));
-        }
-        return list;
-    }
 }

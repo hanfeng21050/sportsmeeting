@@ -2,6 +2,7 @@ package cn.hf.sportmeeting.service;
 
 import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.domain.TeamExt;
+import cn.hf.sportmeeting.domain.TeamVO;
 
 import java.util.List;
 import java.util.Map;
@@ -30,4 +31,10 @@ public interface TeamService {
      * @return
      */
     public TeamExt findById(Integer id);
+
+    /**
+     * 更新团队
+     * @param vo
+     */
+    public void update(TeamVO vo);
 }

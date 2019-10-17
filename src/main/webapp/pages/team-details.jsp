@@ -252,6 +252,7 @@
 
                                         <td style="text-align: center" class="text-center">
                                             <button type="button" class="btn bg-olive btn-xs" onclick='location.href="${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}"'>详情</button>
+                                            <button type="button" class="btn bg-red btn-xs" onclick=''>删除</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -274,52 +275,50 @@
             <%--保存弹出窗--%>
             <div id="teamModel" class="modal fade" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <form id="myForm" method="post">
-                        <div class="modal-content" style="border-radius: 6px">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="title">修改</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group text-center">
-                                    <input type="hidden" name="id" id="id">
+                    <div class="modal-content" style="border-radius: 6px">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="title">修改</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group text-center">
+                                <input type="hidden" name="id" id="id" value="${ext.team.id}">
 
-                                    <label for="name" class="col-sm-3 control-label">团队名称</label>
-                                    <div class="col-sm-9">
-                                        <input id="name" type="text" class="form-control rounded" placeholder="团队名称" name="name" required="required">
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <label for="teamNum" class="col-sm-3 control-label">团队编号</label>
-                                    <div class="col-sm-9">
-                                        <input id="teamNum" type="text" class="form-control rounded" placeholder="团队编号" name="teamNum" required="required">
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <label for="project" class="col-sm-3 control-label">比赛</label>
-                                    <div class="col-sm-9">
-                                        <select id="project" style="width: 100%;" name="projectId">
-
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <label class="col-md-3 control-label">运动员</label>
-                                    <div class="col-md-9">
-                                        <select  id="athlete" class="select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <br>
-
+                                <label for="name" class="col-sm-3 control-label">团队名称</label>
+                                <div class="col-sm-9">
+                                    <input id="name" type="text" class="form-control rounded" placeholder="团队名称" name="name" required="required">
                                 </div>
-                            </div>
+                                <br>
+                                <br>
+                                <label for="teamNum" class="col-sm-3 control-label">团队编号</label>
+                                <div class="col-sm-9">
+                                    <input id="teamNum" type="text" class="form-control rounded" placeholder="团队编号" name="teamNum" required="required">
+                                </div>
+                                <br>
+                                <br>
+                                <label for="project" class="col-sm-3 control-label">比赛</label>
+                                <div class="col-sm-9">
+                                    <select id="project" style="width: 100%;" name="projectId">
 
-                            <div class="modal-footer">
-                                <button id="btn" type="submit" class="btn bg-maroon">保存</button>
-                                <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                                    </select>
+                                </div>
+                                <br>
+                                <br>
+                                <label class="col-md-3 control-label">新增运动员</label>
+                                <div class="col-md-9">
+                                    <select  id="athlete" class="select2" multiple="multiple" data-placeholder="可多选" style="width: 100%;" name="roleIds">
+                                    </select>
+                                </div>
+                                <br>
+                                <br>
+
                             </div>
                         </div>
-                    </form>
+
+                        <div class="modal-footer">
+                            <button id="btn" type="submit" class="btn bg-maroon">保存</button>
+                            <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
@@ -443,7 +442,7 @@
 
               if(projectList[i].name == "${ext.project.name}")
               {
-                  html+= "<option value=\""+projectList[i].id +" \" selected='selected'>"+ projectList[i].name+"</option>";
+                  html+= "<option value=\""+projectList[i].id +"\" selected='selected'>"+ projectList[i].name+"</option>";
               }else {
                   html+= "<option value=\""+projectList[i].id +"\">"+ projectList[i].name+"</option>";
               }
@@ -461,6 +460,38 @@
        });
 
    };
+
+   $("#btn").click(function () {
+       var data = {};
+       var name = $("#name").val();
+       var id = $("#id").val();
+       var teamNum = $("#teamNum").val();
+       var projectId = $("#project").val();
+       var athleteIds = $("#athlete").val().toString();
+
+       data['teamName']= name;
+       data['teamId'] = id;
+       data['teamNum'] = teamNum;
+       data['projectId'] = projectId;
+       data['athleteIds'] = athleteIds;
+
+       console.log(data)
+       $.ajax({
+           type: "POST",   //提交的方法
+           dataType: "json",
+           contentType : 'application/json',//添加这句话
+           url:"${pageContext.request.contextPath}/team/update", //提交的地址
+           async: false,
+           data:JSON.stringify(data),
+           error: function() {  //失败的话
+               alert("修改失败!")
+           },
+           success: function(data) {  //成功
+               alert("修改成功!")
+               location.reload();
+           }
+       });
+   });
 
     $(function() {
         $('#dataList').DataTable({

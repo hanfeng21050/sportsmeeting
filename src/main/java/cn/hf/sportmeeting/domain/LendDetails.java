@@ -1,6 +1,6 @@
 package cn.hf.sportmeeting.domain;
 
-import cn.hf.sportmeeting.utils.DateUtil;
+import cn.hf.sportmeeting.utils.Utils;
 
 import java.util.Date;
 
@@ -51,7 +51,7 @@ public class LendDetails {
     public String getBorrowTimeStr() {
         if(borrowTime != null)
         {
-            borrowTimeStr = DateUtil.date2String(borrowTime,"yyyy-MM-dd HH:mm:ss");
+            borrowTimeStr = Utils.date2String(borrowTime,"yyyy-MM-dd HH:mm:ss");
         }
 
         return borrowTimeStr;
@@ -64,7 +64,7 @@ public class LendDetails {
     public String getReturnTimeStr() {
         if(returnTime != null)
         {
-            returnTimeStr = DateUtil.date2String(returnTime,"yyyy-MM-dd HH:mm:ss");
+            returnTimeStr = Utils.date2String(returnTime,"yyyy-MM-dd HH:mm:ss");
         }
 
         return returnTimeStr;

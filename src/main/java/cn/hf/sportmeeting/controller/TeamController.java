@@ -2,14 +2,12 @@ package cn.hf.sportmeeting.controller;
 
 import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.domain.TeamExt;
+import cn.hf.sportmeeting.domain.TeamVO;
 import cn.hf.sportmeeting.service.TeamService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -59,5 +57,16 @@ public class TeamController {
     {
         TeamExt ext = teamService.findById(id);
         return ext;
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String update(@RequestBody TeamVO vo){
+       try {
+           teamService.update(vo);
+       }catch (Exception e){
+           return "修改失败";
+       }
+        return "200";
     }
 }

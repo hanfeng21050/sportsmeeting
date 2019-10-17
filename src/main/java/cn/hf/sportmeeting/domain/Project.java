@@ -1,8 +1,7 @@
 package cn.hf.sportmeeting.domain;
 
-import cn.hf.sportmeeting.utils.DateUtil;
+import cn.hf.sportmeeting.utils.Utils;
 import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -128,7 +127,7 @@ public class Project implements Serializable {
     public String getStartTimeStr() {
         if(startTime != null)
         {
-            startTimeStr = DateUtil.date2String(startTime,"yyyy-MM-dd HH:mm");
+            startTimeStr = Utils.date2String(startTime,"yyyy-MM-dd HH:mm");
         }
         return startTimeStr;
     }
@@ -140,7 +139,7 @@ public class Project implements Serializable {
     public String getEndTimeStr() {
         if(endTime != null)
         {
-            endTimeStr = DateUtil.date2String(endTime,"yyyy-MM-dd HH:mm");
+            endTimeStr = Utils.date2String(endTime,"yyyy-MM-dd HH:mm");
         }
         return endTimeStr;
     }

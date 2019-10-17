@@ -100,7 +100,7 @@ public class TeamServiceImpl implements TeamService {
         athleteTeamExample.createCriteria().andTeamIdEqualTo(team.getId()).andActiveEqualTo(true);
         List<AthleteTeam> athleteTeamList = athleteTeamMapper.selectByExample(athleteTeamExample);
 
-        List<Athlete> athleteList =new ArrayList<>();
+        List<Athlete> athleteList = new ArrayList<>();
         AthleteExample athleteExample = new AthleteExample();
         if(athleteTeamList != null && athleteTeamList.size() != 0)
         {
@@ -118,6 +118,25 @@ public class TeamServiceImpl implements TeamService {
 
         return ext;
 
+    }
+
+    @Override
+    public void update(TeamVO vo) {
+        //更新team
+        Team team = new Team();
+        team.setId(vo.getTeamId());
+        team.setName(vo.getTeamName());
+        team.setProjectId(vo.getProjectId());
+        team.setTeamNum(vo.getTeamNum());
+        teamMapper.updateByPrimaryKeySelective(team);
+
+        //更新athlete_team中间表
+        AthleteTeam athleteTeam = new AthleteTeam();
+        athleteTeam.setTeamId(vo.getTeamId());
+        for (Integer id : vo.getAthleteIdList()) {
+            athleteTeam.setAthleteId(id);
+            athleteTeamMapper.insertSelective(athleteTeam);
+        }
     }
 
     /**
