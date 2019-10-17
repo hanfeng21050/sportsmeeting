@@ -37,4 +37,10 @@ public interface TeamService {
      * @param vo
      */
     public void update(TeamVO vo);
+
+    /**
+     * 删除团队中的运动员
+     * @param id
+     */
+    public void deleteAthleteById(Integer id);
 }

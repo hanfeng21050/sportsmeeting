@@ -69,4 +69,15 @@ public class TeamController {
        }
         return "200";
     }
+
+    @RequestMapping("/deleteAthleteById")
+    @ResponseBody
+    public String deleteAthleteById(Integer id){
+        try {
+            teamService.deleteAthleteById(id);
+        }catch (Exception e){
+            return "删除失败";
+        }
+        return "200";
+    }
 }

@@ -139,6 +139,13 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
+    @Override
+    public void deleteAthleteById(Integer id) {
+        AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
+        athleteTeamExample.createCriteria().andAthleteIdEqualTo(id).andActiveEqualTo(true);
+        athleteTeamMapper.deleteByExample(athleteTeamExample);
+    }
+
     /**
      * 通过反射获取对象中的id
      * @param list

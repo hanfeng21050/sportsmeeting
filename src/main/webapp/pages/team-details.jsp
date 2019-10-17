@@ -212,16 +212,16 @@
                     </div>
 
                     <div class="box-body">
-                        <!--工具栏-->
+                        <%--<!--工具栏-->
                         <div>
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn bg-yellow btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
-                                    <button type="button" class="btn bg-red btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                                    <button type="button" class="btn bg-red btn-default" title="删除" id="delSelected"><i class="fa fa-trash-o"></i> 删除</button>
                                 </div>
                             </div>
                         </div>
-                        <!--工具栏/-->
+                        <!--工具栏/-->--%>
                         <!-- 数据表格 -->
                         <div class="table-box">
 
@@ -252,7 +252,7 @@
 
                                         <td style="text-align: center" class="text-center">
                                             <button type="button" class="btn bg-olive btn-xs" onclick='location.href="${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}"'>详情</button>
-                                            <button type="button" class="btn bg-red btn-xs" onclick=''>删除</button>
+                                            <button type="button" class="btn bg-red btn-xs" onclick='deleteAthlete(${athlete.id})'>删除</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -492,6 +492,18 @@
            }
        });
    });
+
+   function deleteAthlete(id)
+   {
+       if(confirm("您确定要删除吗？"))
+       {
+           url = "${pageContext.request.contextPath}/team/deleteAthleteById?id="+id;
+           $.get(url,function (data) {
+               location.reload();
+           })
+       }
+   }
+
 
     $(function() {
         $('#dataList').DataTable({
