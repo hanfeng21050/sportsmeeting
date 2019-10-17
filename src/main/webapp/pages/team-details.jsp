@@ -467,7 +467,11 @@
        var id = $("#id").val();
        var teamNum = $("#teamNum").val();
        var projectId = $("#project").val();
-       var athleteIds = $("#athlete").val().toString();
+       var athleteIds = $("#athlete").val();
+       if(athleteIds != null)
+       {
+           athleteIds = athleteIds.toString();
+       }
 
        data['teamName']= name;
        data['teamId'] = id;

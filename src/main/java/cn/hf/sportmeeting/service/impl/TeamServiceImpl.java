@@ -131,12 +131,15 @@ public class TeamServiceImpl implements TeamService {
         teamMapper.updateByPrimaryKeySelective(team);
 
         //更新athlete_team中间表
-        AthleteTeam athleteTeam = new AthleteTeam();
-        athleteTeam.setTeamId(vo.getTeamId());
-        for (Integer id : vo.getAthleteIdList()) {
-            athleteTeam.setAthleteId(id);
-            athleteTeamMapper.insertSelective(athleteTeam);
+        if(vo.getAthleteIdList() !=null && vo.getAthleteIdList().size() != 0){
+            AthleteTeam athleteTeam = new AthleteTeam();
+            athleteTeam.setTeamId(vo.getTeamId());
+            for (Integer id : vo.getAthleteIdList()) {
+                athleteTeam.setAthleteId(id);
+                athleteTeamMapper.insertSelective(athleteTeam);
+            }
         }
+
     }
 
     @Override
