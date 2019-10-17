@@ -99,12 +99,18 @@ public class TeamServiceImpl implements TeamService {
         AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
         athleteTeamExample.createCriteria().andTeamIdEqualTo(team.getId()).andActiveEqualTo(true);
         List<AthleteTeam> athleteTeamList = athleteTeamMapper.selectByExample(athleteTeamExample);
-        List<Integer> ids = getIds(athleteTeamList, "getAthleteId");
 
+        List<Athlete> athleteList =new ArrayList<>();
         AthleteExample athleteExample = new AthleteExample();
-        athleteExample.createCriteria().andIdNotIn(ids).andActiveEqualTo(true);
-
-        List<Athlete> athleteList = athleteMapper.selectByExample(athleteExample);
+        if(athleteTeamList != null && athleteTeamList.size() != 0)
+        {
+            List<Integer> ids = getIds(athleteTeamList, "getAthleteId");
+            athleteExample.createCriteria().andIdNotIn(ids).andActiveEqualTo(true);
+            athleteList = athleteMapper.selectByExample(athleteExample);
+        }else {
+            //如果中间表查询不到数据，说明该队伍没有运动员加入，此时查询所有运动员
+            athleteList = athleteMapper.selectByExample(athleteExample);
+        }
 
         ext.setTeam(team);
         ext.setAthleteList(athleteList);

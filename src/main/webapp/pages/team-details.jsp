@@ -438,12 +438,11 @@
 
            /*比赛*/
            var projectList = data.projectList;
-           var html = "";
+           var html="";
            for (var i = 0; i < projectList.length; i++) {
 
               if(projectList[i].name == "${ext.project.name}")
               {
-                  console.log(123123)
                   html+= "<option value=\""+projectList[i].id +" \" selected='selected'>"+ projectList[i].name+"</option>";
               }else {
                   html+= "<option value=\""+projectList[i].id +"\">"+ projectList[i].name+"</option>";
