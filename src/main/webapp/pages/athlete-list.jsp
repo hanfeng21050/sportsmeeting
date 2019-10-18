@@ -258,7 +258,7 @@
 											<td>${athlete.idNum}</td>
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}'">详情</button>
-												<button type="button" class="btn bg-red btn-xs" onclick="">删除</button>
+												<button type="button" class="btn bg-red btn-xs" onclick="deleteAthlete(${athlete.id})">删除</button>
 												<button type="button" class="btn bg-olive btn-xs">修改</button>
 											</td>
 										</tr>
@@ -419,7 +419,7 @@
 		{
 			if(confirm("您确定要删除吗？"))
 			{
-				location.href='';
+				location.href='${pageContext.request.contextPath}/athlete/deleteByIds?ids='+id;
 			}
 		}
 

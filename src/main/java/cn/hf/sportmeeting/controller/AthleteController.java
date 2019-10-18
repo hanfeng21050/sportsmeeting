@@ -63,4 +63,11 @@ public class AthleteController {
         return mv;
     }
 
+    @RequestMapping("/deleteByIds")
+    public String deleteByIds(Integer[] ids)
+    {
+        athleteService.deleteByIds(ids);
+        return "redirect:findByPage";
+    }
+
 }

@@ -24,4 +24,10 @@ public interface IAthleteService {
      * @return
      */
     public Map<String,Object> findDetailsById(Integer id);
+
+    /**
+     * 删除运动员
+     * @param ids
+     */
+    public void deleteByIds(Integer[] ids);
 }

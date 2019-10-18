@@ -1,5 +1,6 @@
 package cn.hf.sportmeeting.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,5 +37,28 @@ public class Utils {
             list.add(Integer.parseInt(s));
         }
         return list;
+    }
+
+    /**
+     * 该方法用于提取中间表对象集合的指定id集合
+     * @param list
+     * @param method getXXId()
+     * @param <T>
+     * @return id集合
+     */
+    public static <T> List<Integer> getIds(List<T> list,String method){
+        List<Integer> ids = new ArrayList<>();
+        for (T t : list) {
+            try {
+                ids.add((Integer) t.getClass().getMethod(method).invoke(t));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return ids;
     }
 }

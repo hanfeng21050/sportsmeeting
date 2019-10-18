@@ -3,6 +3,7 @@ package cn.hf.sportmeeting.service.impl;
 import cn.hf.sportmeeting.domain.AthleteTeam;
 import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.service.TeamService;
+import cn.hf.sportmeeting.utils.Utils;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,8 +27,7 @@ public class TeamServiceImplTest {
         list.add(a2);
         list.add(a3);
 
-        TeamServiceImpl t = new TeamServiceImpl();
-        List<Integer> getAthleteId = t.getIds(list, "getAthleteId");
+        List<Integer> getAthleteId = Utils.getIds(list, "getAthleteId");
         System.out.println(getAthleteId);
     }
 }

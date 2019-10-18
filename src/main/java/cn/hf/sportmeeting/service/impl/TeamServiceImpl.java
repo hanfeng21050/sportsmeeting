@@ -6,6 +6,7 @@ import cn.hf.sportmeeting.dao.ProjectMapper;
 import cn.hf.sportmeeting.dao.TeamMapper;
 import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.TeamService;
+import cn.hf.sportmeeting.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -104,7 +105,7 @@ public class TeamServiceImpl implements TeamService {
         AthleteExample athleteExample = new AthleteExample();
         if(athleteTeamList != null && athleteTeamList.size() != 0)
         {
-            List<Integer> ids = getIds(athleteTeamList, "getAthleteId");
+            List<Integer> ids =  Utils.getIds(athleteTeamList, "getAthleteId");
             athleteExample.createCriteria().andIdNotIn(ids).andActiveEqualTo(true);
             athleteList = athleteMapper.selectByExample(athleteExample);
         }else {
@@ -149,26 +150,4 @@ public class TeamServiceImpl implements TeamService {
         athleteTeamMapper.deleteByExample(athleteTeamExample);
     }
 
-    /**
-     * 通过反射获取对象中的id
-     * @param list
-     * @param method
-     * @param <T>
-     * @return
-     */
-    public<T> List<Integer> getIds(List<T> list,String method){
-        List<Integer> ids = new ArrayList<>();
-        for (T t : list) {
-            try {
-                ids.add((Integer) t.getClass().getMethod(method).invoke(t));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-        }
-        return ids;
-    }
 }

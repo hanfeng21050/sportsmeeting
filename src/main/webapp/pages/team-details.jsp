@@ -298,7 +298,7 @@
                                 <label for="project" class="col-sm-3 control-label">比赛</label>
                                 <div class="col-sm-9">
                                     <select id="project" style="width: 100%;" name="projectId">
-
+                                        <option>无</option>
                                     </select>
                                 </div>
                                 <br>
@@ -428,16 +428,14 @@
 
    function getMessage(id){
         var url = "${pageContext.request.contextPath}/team/findById?id="+id;
-        console.log(url)
        $.get(url,function (data) {
-            console.log(data);
            document.getElementById("id").value = data.team.id;
            document.getElementById("name").value = data.team.name;
            document.getElementById("teamNum").value = data.team.teamNum;
 
            /*比赛*/
            var projectList = data.projectList;
-           var html="";
+           var html = "<option value=''>无</option>";
            for (var i = 0; i < projectList.length; i++) {
 
               if(projectList[i].name == "${ext.project.name}")

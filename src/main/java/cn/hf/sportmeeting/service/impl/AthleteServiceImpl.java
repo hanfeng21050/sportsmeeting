@@ -3,6 +3,7 @@ package cn.hf.sportmeeting.service.impl;
 import cn.hf.sportmeeting.dao.*;
 import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.IAthleteService;
+import cn.hf.sportmeeting.utils.Utils;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,5 +80,27 @@ public class AthleteServiceImpl implements IAthleteService {
         map.put("teamList",teamList);
 
         return map;
+    }
+
+    @Override
+    public void deleteByIds(Integer[] ids) {
+
+        if(ids!= null && ids.length != 0)
+        {
+            for (Integer id : ids) {
+                //1.删除grade表中相关数据
+                GradeExample gradeExample = new GradeExample();
+                gradeExample.createCriteria().andAthleteIdEqualTo(id).andActiveEqualTo(true);
+                gradeMapper.deleteByExample(gradeExample);
+
+                //2.删除athlete_team中相关数据
+                AthleteTeamExample athleteTeamExample = new AthleteTeamExample();
+                athleteTeamExample.createCriteria().andAthleteIdEqualTo(id).andActiveEqualTo(true);
+                athleteTeamMapper.deleteByExample(athleteTeamExample);
+
+                //3.删除运动员
+                athleteMapper.deleteByPrimaryKey(id);
+            }
+        }
     }
 }
