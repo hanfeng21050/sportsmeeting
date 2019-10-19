@@ -122,4 +122,21 @@ public class Athlete {
         this.active = active;
     }
 
+    @Override
+    public String toString() {
+        return "Athlete{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", playerNum='" + playerNum + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", nationId=" + nationId +
+                ", idNum='" + idNum + '\'' +
+                ", userId=" + userId +
+                ", max=" + max +
+                ", active=" + active +
+                '}';
+    }
 }

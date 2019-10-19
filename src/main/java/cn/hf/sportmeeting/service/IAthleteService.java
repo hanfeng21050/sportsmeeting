@@ -44,4 +44,10 @@ public interface IAthleteService {
      * @param athlete
      */
     public void save(Athlete athlete);
+
+    /**
+     * 修改运动员
+     * @param athlete
+     */
+    public void update(Athlete athlete);
 }

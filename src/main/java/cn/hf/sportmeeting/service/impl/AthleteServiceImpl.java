@@ -128,13 +128,31 @@ public class AthleteServiceImpl implements IAthleteService {
 
         }else if(type == 1)
         {
-            //获取运动员
+            String athleteId = requestParam.get("id");
 
             //获取民族一栏的下拉框
+            NationExample nationExample = new NationExample();
+            nationExample.createCriteria().andActiveEqualTo(true);
+            List<Nation> nationList = nationMapper.selectByExample(nationExample);
 
             //获取所有未注册运动员的用户
+            List<UserInfo> userInfoList = userMapper.selectUserNotInAthlete();
+
+
+            //运动员
+            Athlete athlete = athleteMapper.selectByPrimaryKey(Integer.valueOf(athleteId));
+
+            //找到和运动员相对应的用户
+            UserInfo userInfo = userMapper.selectByPrimaryKey(athlete.getUserId());
+            if(userInfo != null)
+            {
+                userInfoList.add(userInfo);
+            }
 
             //返回
+            map.put("nationList",nationList);
+            map.put("userList",userInfoList);
+            map.put("athlete",athlete);
             return map;
         }
         return null;
@@ -143,5 +161,10 @@ public class AthleteServiceImpl implements IAthleteService {
     @Override
     public void save(Athlete athlete) {
         athleteMapper.insertSelective(athlete);
+    }
+
+    @Override
+    public void update(Athlete athlete) {
+        athleteMapper.updateByPrimaryKeySelective(athlete);
     }
 }

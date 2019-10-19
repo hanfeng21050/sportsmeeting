@@ -270,7 +270,7 @@
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}'">详情</button>
 												<button type="button" class="btn bg-red btn-xs" onclick="deleteAthlete(${athlete.id})">删除</button>
-												<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal">修改</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="get_athlete_User_Nation_list(${athlete.id})" data-toggle="modal" data-target="#myModal">修改</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -333,7 +333,7 @@
 										<input type="hidden" name="id" id="id">
 
 										<%--updateOrInsert 用于判断当前模态窗口是新增还是修改--%>
-										<%--<input type="hidden" id="updateOrInsert" name="updateOrInsert" value="insert">--%>
+										<input type="hidden" id="updateOrInsert" name="updateOrInsert" value="insert">
 
 										<label for="name" class="col-sm-3 control-label">真实姓名</label>
 										<div class="col-sm-9">
@@ -519,6 +519,8 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+
+		/*获取表单相关内容*/
 		function get_User_Nation_list()
 		{
 			var url = "${pageContext.request.contextPath}/athlete/getMessage/type/0";
@@ -549,13 +551,64 @@
 			});
 		}
 
+		function get_athlete_User_Nation_list(id)
+		{
+			var url = "${pageContext.request.contextPath}/athlete/getMessage/type/1?id="+id;
+			$.ajax({
+				type: "Get",   //提交的方法
+				dataType: "json",
+				contentType : 'application/json',//添加这句话
+				url:url, //提交的地址
+				async: false,
+				success: function(data) {  //成功
+					document.getElementById("updateOrInsert").value = "update";
+					document.getElementById("id").value = id;
+					document.getElementById("name").value = data.athlete.name;
+					$("#gender").val(data.athlete.gender == false ? '0':'1').trigger("change");
+					document.getElementById("age").value = data.athlete.age;
+					document.getElementById("height").value = data.athlete.height;
+					document.getElementById("weight").value = data.athlete.weight;
+					document.getElementById("weight").value = data.athlete.weight;
+					document.getElementById("idNum").value = data.athlete.idNum;
+					document.getElementById("playerNum").value = data.athlete.playerNum;
+					$("#btn").text('修改');
+					$("#title").text('修改');
+					/*民族*/
+					var html = "";
+					var nationList = data.nationList;
+					for (var i = 0; i < nationList.length; i++) {
+						if(nationList[i].id == data.athlete.nationId){
+							html+= "<option value=\""+nationList[i].id +"\" selected='selected'>"+ nationList[i].name+"</option>";
+						}else {
+							html+= "<option value=\""+nationList[i].id +"\">"+ nationList[i].name+"</option>";
+						}
+					}
+					$("#nation").html(html);
 
+					/*用户*/
+					var html = "";
+					var userList = data.userList;
+					for (var i = 0; i < userList.length; i++) {
+						if(userList[i].id == data.athlete.userId) {
+							html += "<option value=\"" + userList[i].id + "\" selected='selected'>" + userList[i].username + "</option>";
+						}else {
+							html+= "<option value=\""+userList[i].id +"\">"+ userList[i].username+"</option>";
+						}
+					}
+					$("#user").html(html);
+				}
+			});
+		}
+
+		/*关闭弹出窗口后清除表单内容*/
 		$('#myModal').on('hidden.bs.modal', function (){
 			document.getElementById("myForm").reset();
 			$("#btn").text('保存');
 			$("#title").text('新增');
 		});
 
+
+		/*提交表单*/
 
 		$("#myForm").submit(function () {
 			//todo 解决空格变成加号问题
@@ -568,22 +621,41 @@
 				var str = dataArr[i].split("=");
 				res[str[0]] = str[1];
 			}
-			console.log(res)
 
-			$.ajax({
-				type: "POST",   //提交的方法
-				dataType: "json",
-				contentType : 'application/json',//添加这句话
-				url:"${pageContext.request.contextPath}/athlete/save", //提交的地址
-				async: false,
-				data:JSON.stringify(res),
-				error: function() {  //失败的话
-					alert("执行失败!")
-				},
-				success: function() {  //成功
-					alert("执行成功!")
-				}
-			});
+			if(res['updateOrInsert'] == 'insert')
+			{
+				$.ajax({
+					type: "POST",   //提交的方法
+					dataType: "json",
+					contentType : 'application/json',//添加这句话
+					url:"${pageContext.request.contextPath}/athlete/save", //提交的地址
+					async: false,
+					data:JSON.stringify(res),
+					error: function() {  //失败的话
+						alert("执行失败!")
+					},
+					success: function() {  //成功
+						alert("执行成功!")
+					}
+				});
+			}else if(res['updateOrInsert'] == 'update'){
+				$.ajax({
+					type: "POST",   //提交的方法
+					dataType: "json",
+					contentType : 'application/json',//添加这句话
+					url:"${pageContext.request.contextPath}/athlete/update", //提交的地址
+					async: false,
+					data:JSON.stringify(res),
+					error: function() {  //失败的话
+						alert("执行失败!")
+					},
+					success: function() {  //成功
+						alert("执行成功!")
+					}
+				});
+			}
+
+
 		});
 
 

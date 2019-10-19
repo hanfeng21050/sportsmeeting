@@ -109,4 +109,20 @@ public class AthleteController {
         }
         return "200";
     }
+
+
+    /**
+     * 修改运动员
+     */
+    @RequestMapping(value ="/update",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String update (@RequestBody Athlete athlete)
+    {
+        try {
+            athleteService.update(athlete);
+        }catch (Exception e){
+            return "保存失败";
+        }
+        return "200";
+    }
 }
