@@ -46,10 +46,34 @@
 	<mvc:annotation-driven>
 		<!--配置@ResponseBody由fastjson解析-->
 		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="defaultCharset" value="UTF-8"/>
 			</bean>
-			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4"/>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4"/>-->
+
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json</value>
+						<value>application/json;charset=UTF-8</value>
+						<value>application/atom+xml</value>
+						<value>application/x-www-form-urlencoded</value>
+						<value>application/octet-stream</value>
+						<value>application/pdf</value>
+						<value>application/rss+xml</value>
+						<value>application/xhtml+xml</value>
+						<value>application/xml</value>
+						<value>image/gif</value>
+						<value>image/jpeg</value>
+						<value>image/png</value>
+						<value>text/event-stream</value>
+						<value>text/html</value>
+						<value>text/markdown</value>
+						<value>text/plain</value>
+						<value>text/xml</value>
+					</list>
+				</property>
+			</bean>
 		</mvc:message-converters>
 
 	</mvc:annotation-driven>

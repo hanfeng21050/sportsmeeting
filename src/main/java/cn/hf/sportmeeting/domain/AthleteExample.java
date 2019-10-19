@@ -544,73 +544,63 @@ public class AthleteExample {
             return (Criteria) this;
         }
 
-        public Criteria andNationIsNull() {
-            addCriterion("nation is null");
+        public Criteria andNationIdIsNull() {
+            addCriterion("nation_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andNationIsNotNull() {
-            addCriterion("nation is not null");
+        public Criteria andNationIdIsNotNull() {
+            addCriterion("nation_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNationEqualTo(String value) {
-            addCriterion("nation =", value, "nation");
+        public Criteria andNationIdEqualTo(Integer value) {
+            addCriterion("nation_id =", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationNotEqualTo(String value) {
-            addCriterion("nation <>", value, "nation");
+        public Criteria andNationIdNotEqualTo(Integer value) {
+            addCriterion("nation_id <>", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationGreaterThan(String value) {
-            addCriterion("nation >", value, "nation");
+        public Criteria andNationIdGreaterThan(Integer value) {
+            addCriterion("nation_id >", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationGreaterThanOrEqualTo(String value) {
-            addCriterion("nation >=", value, "nation");
+        public Criteria andNationIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("nation_id >=", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationLessThan(String value) {
-            addCriterion("nation <", value, "nation");
+        public Criteria andNationIdLessThan(Integer value) {
+            addCriterion("nation_id <", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationLessThanOrEqualTo(String value) {
-            addCriterion("nation <=", value, "nation");
+        public Criteria andNationIdLessThanOrEqualTo(Integer value) {
+            addCriterion("nation_id <=", value, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationLike(String value) {
-            addCriterion("nation like", value, "nation");
+        public Criteria andNationIdIn(List<Integer> values) {
+            addCriterion("nation_id in", values, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationNotLike(String value) {
-            addCriterion("nation not like", value, "nation");
+        public Criteria andNationIdNotIn(List<Integer> values) {
+            addCriterion("nation_id not in", values, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationIn(List<String> values) {
-            addCriterion("nation in", values, "nation");
+        public Criteria andNationIdBetween(Integer value1, Integer value2) {
+            addCriterion("nation_id between", value1, value2, "nationId");
             return (Criteria) this;
         }
 
-        public Criteria andNationNotIn(List<String> values) {
-            addCriterion("nation not in", values, "nation");
-            return (Criteria) this;
-        }
-
-        public Criteria andNationBetween(String value1, String value2) {
-            addCriterion("nation between", value1, value2, "nation");
-            return (Criteria) this;
-        }
-
-        public Criteria andNationNotBetween(String value1, String value2) {
-            addCriterion("nation not between", value1, value2, "nation");
+        public Criteria andNationIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("nation_id not between", value1, value2, "nationId");
             return (Criteria) this;
         }
 

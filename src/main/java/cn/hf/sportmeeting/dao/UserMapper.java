@@ -3,6 +3,7 @@ package cn.hf.sportmeeting.dao;
 import cn.hf.sportmeeting.domain.UserInfo;
 import cn.hf.sportmeeting.domain.UserExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,4 +29,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKey(UserInfo record);
+
+
+    @Select("select * from user where id not in (select user_id from athlete where user_id is not null)")
+    List<UserInfo> selectUserNotInAthlete();
 }

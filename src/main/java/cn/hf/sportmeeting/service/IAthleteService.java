@@ -30,4 +30,18 @@ public interface IAthleteService {
      * @param ids
      */
     public void deleteByIds(Integer[] ids);
+
+    /**
+     * 获取输入框 、下拉框信息
+     * @param type
+     * @param requestParam
+     * @return
+     */
+    public Map<String,Object> getMessage(Integer type, Map<String, String> requestParam);
+
+    /**
+     * 保存
+     * @param athlete
+     */
+    public void save(Athlete athlete);
 }

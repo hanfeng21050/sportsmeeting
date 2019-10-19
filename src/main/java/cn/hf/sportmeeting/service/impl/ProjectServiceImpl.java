@@ -60,22 +60,23 @@ public class ProjectServiceImpl implements IProjectService {
             List<Grade> gradeList = gradeMapper.selectByExample(gradeExample);
 
             //通过grade.getAthleteId()去查找运动员
-            List<Athlete> athleteList = new ArrayList<Athlete>();
+            List<AthleteExt> athleteList = new ArrayList<AthleteExt>();
             if(gradeList != null && gradeList.size() !=0)
             {
                 for (Grade grade : gradeList) {
                     Athlete athlete = athleteMapper.selectByPrimaryKey(grade.getAthleteId());
-                    athlete.setScore(grade.getScore());
-                    athlete.setRank(grade.getRank());
-                    athleteList.add(athlete);
+                    AthleteExt athleteExt = new AthleteExt(athlete);
+                    athleteExt.setScore(grade.getScore());
+                    athleteExt.setRank(grade.getRank());
+                    athleteList.add(athleteExt);
                 }
 
                 if(sort){
                     //根据getScore升序排序
-                    athleteList.sort(Comparator.comparing(Athlete::getScore));
+                    athleteList.sort(Comparator.comparing(AthleteExt::getScore));
                 }else {
                     //根据getScore降序排序
-                    athleteList.sort(Comparator.comparing(Athlete::getScore).reversed());
+                    athleteList.sort(Comparator.comparing(AthleteExt::getScore).reversed());
                 }
 
                 Grade grade = new Grade();
@@ -84,7 +85,7 @@ public class ProjectServiceImpl implements IProjectService {
                     example.clear();
                     example.createCriteria().andAthleteIdEqualTo(athleteList.get(i).getId()).andActiveEqualTo(true);
 
-                    Athlete athlete = athleteList.get(i);
+                    AthleteExt athlete = athleteList.get(i);
                     athlete.setRank(i+1);
                     //将排名保存到数据库
                     grade.setRank(i+1);

@@ -9,7 +9,7 @@
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="height" jdbcType="DOUBLE" property="height" />
-    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="nation_id" jdbcType="INTEGER" property="nationId" />
     <result column="id_num" jdbcType="VARCHAR" property="idNum" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="max" jdbcType="INTEGER" property="max" />
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, player_num, gender, age, weight, height, nation, id_num, user_id, max, 
+    id, name, player_num, gender, age, weight, height, nation_id, id_num, user_id, max, 
     active
   </sql>
   <select id="selectByExample" parameterType="cn.hf.sportmeeting.domain.AthleteExample" resultMap="BaseResultMap">
@@ -110,11 +110,11 @@
   <insert id="insert" parameterType="cn.hf.sportmeeting.domain.Athlete">
     insert into athlete (id, name, player_num, 
       gender, age, weight, height, 
-      nation, id_num, user_id, 
+      nation_id, id_num, user_id, 
       max, active)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{playerNum,jdbcType=VARCHAR}, 
       #{gender,jdbcType=BIT}, #{age,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE}, 
-      #{nation,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{nationId,jdbcType=INTEGER}, #{idNum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{max,jdbcType=INTEGER}, #{active,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.hf.sportmeeting.domain.Athlete">
@@ -141,8 +141,8 @@
       <if test="height != null">
         height,
       </if>
-      <if test="nation != null">
-        nation,
+      <if test="nationId != null">
+        nation_id,
       </if>
       <if test="idNum != null">
         id_num,
@@ -179,8 +179,8 @@
       <if test="height != null">
         #{height,jdbcType=DOUBLE},
       </if>
-      <if test="nation != null">
-        #{nation,jdbcType=VARCHAR},
+      <if test="nationId != null">
+        #{nationId,jdbcType=INTEGER},
       </if>
       <if test="idNum != null">
         #{idNum,jdbcType=VARCHAR},
@@ -226,8 +226,8 @@
       <if test="record.height != null">
         height = #{record.height,jdbcType=DOUBLE},
       </if>
-      <if test="record.nation != null">
-        nation = #{record.nation,jdbcType=VARCHAR},
+      <if test="record.nationId != null">
+        nation_id = #{record.nationId,jdbcType=INTEGER},
       </if>
       <if test="record.idNum != null">
         id_num = #{record.idNum,jdbcType=VARCHAR},
@@ -255,7 +255,7 @@
       age = #{record.age,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=DOUBLE},
       height = #{record.height,jdbcType=DOUBLE},
-      nation = #{record.nation,jdbcType=VARCHAR},
+      nation_id = #{record.nationId,jdbcType=INTEGER},
       id_num = #{record.idNum,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=INTEGER},
       max = #{record.max,jdbcType=INTEGER},
@@ -285,8 +285,8 @@
       <if test="height != null">
         height = #{height,jdbcType=DOUBLE},
       </if>
-      <if test="nation != null">
-        nation = #{nation,jdbcType=VARCHAR},
+      <if test="nationId != null">
+        nation_id = #{nationId,jdbcType=INTEGER},
       </if>
       <if test="idNum != null">
         id_num = #{idNum,jdbcType=VARCHAR},
@@ -311,7 +311,7 @@
       age = #{age,jdbcType=INTEGER},
       weight = #{weight,jdbcType=DOUBLE},
       height = #{height,jdbcType=DOUBLE},
-      nation = #{nation,jdbcType=VARCHAR},
+      nation_id = #{nationId,jdbcType=INTEGER},
       id_num = #{idNum,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
       max = #{max,jdbcType=INTEGER},

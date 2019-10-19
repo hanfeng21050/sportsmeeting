@@ -6,12 +6,15 @@ import cn.hf.sportmeeting.domain.Team;
 import cn.hf.sportmeeting.service.IAthleteService;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.Oneway;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +66,11 @@ public class AthleteController {
         return mv;
     }
 
+    /**
+     * 删除
+     * @param ids
+     * @return
+     */
     @RequestMapping("/deleteByIds")
     public String deleteByIds(Integer[] ids)
     {
@@ -70,4 +78,35 @@ public class AthleteController {
         return "redirect:findByPage";
     }
 
+    /**
+     * 请求下拉框数据
+     * @param type 0 新增表单时请求  1 修改时请求
+     * @param requestParam
+     */
+    @RequestMapping("/getMessage/type/{type}")
+    @ResponseBody
+    public Map<String,Object> getMessage(@PathVariable(name = "type") Integer type,@RequestParam Map<String,String> requestParam){
+        try {
+            Map<String, Object> message = athleteService.getMessage(type, requestParam);
+            return message;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+
+    /**
+     * 保存运动员
+     */
+    @RequestMapping(value ="/save",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
+    public String save(@RequestBody Athlete athlete)
+    {
+        try {
+            athleteService.save(athlete);
+        }catch (Exception e){
+            return "保存失败";
+        }
+        return "200";
+    }
 }

@@ -148,6 +148,18 @@
 		input{
 			border-radius: 6px !important;
 		}
+		select{
+			border:1px solid #c9c9c9;
+			background-color:#fff;
+			color:#666;
+			height:34px;
+			line-height:28px;
+			padding:4px 6px;
+			font-size:14px;
+			border-radius:6px;
+			cursor:pointer;
+			outline:none;
+		}
 	</style>
 </head>
 
@@ -199,8 +211,7 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default bg-yellow" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/user-list.jsp'">
+										<button type="button" class="btn btn-default bg-yellow" onclick="get_User_Nation_list()" title="新建" data-toggle="modal" data-target="#myModal">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default bg-red" title="删除" id="delSelected">
@@ -254,12 +265,12 @@
 											<td>${athlete.age}</td>
 											<td>${athlete.weight}</td>
 											<td>${athlete.height}</td>
-											<td>${athlete.nation}</td>
+											<td>${athlete.nationId}</td>
 											<td>${athlete.idNum}</td>
 											<td>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/athlete/findDetailsById?id=${athlete.id}'">详情</button>
 												<button type="button" class="btn bg-red btn-xs" onclick="deleteAthlete(${athlete.id})">删除</button>
-												<button type="button" class="btn bg-olive btn-xs">修改</button>
+												<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#myModal">修改</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -307,9 +318,103 @@
 
                 </div>
                 <!-- /.box-footer-->
+				</div>
 
+				<%--保存弹出窗--%>
+				<div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<form id="myForm" method="post">
+							<div class="modal-content" style="border-radius: 6px">
+								<div class="modal-header">
+									<h4 class="modal-title" id="title">新建</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group text-center">
+										<input type="hidden" name="id" id="id">
 
+										<%--updateOrInsert 用于判断当前模态窗口是新增还是修改--%>
+										<%--<input type="hidden" id="updateOrInsert" name="updateOrInsert" value="insert">--%>
 
+										<label for="name" class="col-sm-3 control-label">真实姓名</label>
+										<div class="col-sm-9">
+											<input id="name" type="text" class="form-control rounded" placeholder="真实姓名" name="name" required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="playerNum" class="col-sm-3 control-label">运动员编号</label>
+										<div class="col-sm-9">
+											<input id="playerNum" type="text" class="form-control rounded" placeholder="运动员编号" name="playerNum" required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="gender" class="col-sm-3 control-label">性别</label>
+										<div class="col-sm-9">
+											<select id="gender" style="width: 100%;" name="gender">
+												<option value="0">男</option>
+												<option value="1">女</option>
+											</select>
+										</div>
+										<br>
+										<br>
+
+										<label for="age" class="col-md-3 control-label">年龄</label>
+										<div class="col-md-9">
+											<input id="age" type="number" class="form-control" placeholder="年龄" name="age" min="1" max="100"  required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="height" class="col-md-3 control-label">身高</label>
+										<div class="col-md-9">
+											<input id="height" type="number" class="form-control" placeholder="身高/cm" name="height" min="1" max="300"  required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="weight" class="col-md-3 control-label">体重</label>
+										<div class="col-md-9">
+											<input id="weight" type="number" class="form-control" placeholder="体重/kg" name="weight" min="1" max="300"  required="required">
+										</div>
+										<br>
+										<br>
+
+										<label for="nation" class="col-md-3 control-label">民族</label>
+										<div class="col-md-9">
+											<select id="nation" style="width: 100%;" name="nationId">
+											</select>
+										</div>
+										<br>
+										<br>
+
+										<label for="idNum" class="col-md-3 control-label">身份证号码</label>
+										<div class="col-md-9">
+											<input id="idNum" type="text" class="form-control"  maxlength=18 name="idNum" placeholder="请输入身份证号码">
+										</div>
+										<br>
+										<br>
+
+										<label for="user" class="col-md-3 control-label">注册用户</label>
+										<div class="col-md-9">
+											<select id="user" style="width: 100%;" name="userId">
+											</select>
+										</div>
+										<br>
+										<br>
+
+									</div>
+								</div>
+
+								<div class="modal-footer">
+									<button id="btn" type="submit" class="btn bg-maroon">保存</button>
+									<button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+								</div>
+							</div>
+						</form>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
 				</div>
 
 			</section>
@@ -414,6 +519,74 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+		function get_User_Nation_list()
+		{
+			var url = "${pageContext.request.contextPath}/athlete/getMessage/type/0";
+			$.ajax({
+				type: "Get",   //提交的方法
+				dataType: "json",
+				contentType : 'application/json',//添加这句话
+				url:url, //提交的地址
+				async: false,
+				success: function(data) {  //成功
+					console.log(data);
+					/*民族*/
+					var html = "";
+					var nationList = data.nationList;
+					for (var i = 0; i < nationList.length; i++) {
+						html+= "<option value=\""+nationList[i].id +"\">"+ nationList[i].name                                 +"</option>";
+					}
+					$("#nation").html(html);
+
+					/*用户*/
+					var html = "";
+					var userList = data.userList;
+					for (var i = 0; i < userList.length; i++) {
+						html+= "<option value=\""+userList[i].id +"\">"+ userList[i].username+"</option>";
+					}
+					$("#user").html(html);
+				}
+			});
+		}
+
+
+		$('#myModal').on('hidden.bs.modal', function (){
+			document.getElementById("myForm").reset();
+			$("#btn").text('保存');
+			$("#title").text('新增');
+		});
+
+
+		$("#myForm").submit(function () {
+			//todo 解决空格变成加号问题
+			var data = $('#myForm').serialize().replace(/\+/g," ");
+			data = decodeURIComponent(data,true);
+			//处理data 转成json格式
+			var dataArr = data.split("&");
+			var res = {};
+			for (var i = 0; i < dataArr.length; i++) {
+				var str = dataArr[i].split("=");
+				res[str[0]] = str[1];
+			}
+			console.log(res)
+
+			$.ajax({
+				type: "POST",   //提交的方法
+				dataType: "json",
+				contentType : 'application/json',//添加这句话
+				url:"${pageContext.request.contextPath}/athlete/save", //提交的地址
+				async: false,
+				data:JSON.stringify(res),
+				error: function() {  //失败的话
+					alert("执行失败!")
+				},
+				success: function() {  //成功
+					alert("执行成功!")
+				}
+			});
+		});
+
+
 
 		function deleteAthlete(id)
 		{

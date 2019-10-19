@@ -126,7 +126,7 @@
                     </div>
                     <div class="col-md-2 title">名族</div>
                     <div class="col-md-4 data text">
-                        ${athlete.nation}
+                        ${athlete.nationId}
                     </div>
                     <div class="col-md-2 title">身份证号码</div>
                     <div class="col-md-4 data text">

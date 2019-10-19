@@ -32,6 +32,10 @@ public class AthleteServiceImpl implements IAthleteService {
     private TeamMapper teamMapper;
     @Autowired
     private AthleteTeamMapper athleteTeamMapper;
+    @Autowired
+    private NationMapper nationMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Override
@@ -102,5 +106,42 @@ public class AthleteServiceImpl implements IAthleteService {
                 athleteMapper.deleteByPrimaryKey(id);
             }
         }
+    }
+
+    @Override
+    public Map<String, Object> getMessage(Integer type, Map<String, String> requestParam) {
+        Map<String,Object> map = new HashMap<>(4);
+        if(type == 0)
+        {
+            //获取民族一栏的下拉框
+            NationExample nationExample = new NationExample();
+            nationExample.createCriteria().andActiveEqualTo(true);
+            List<Nation> nationList = nationMapper.selectByExample(nationExample);
+
+            //获取所有未注册运动员的用户
+            List<UserInfo> userInfoList = userMapper.selectUserNotInAthlete();
+
+            //返回
+            map.put("nationList",nationList);
+            map.put("userList",userInfoList);
+            return map;
+
+        }else if(type == 1)
+        {
+            //获取运动员
+
+            //获取民族一栏的下拉框
+
+            //获取所有未注册运动员的用户
+
+            //返回
+            return map;
+        }
+        return null;
+    }
+
+    @Override
+    public void save(Athlete athlete) {
+        athleteMapper.insertSelective(athlete);
     }
 }

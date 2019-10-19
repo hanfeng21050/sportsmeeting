@@ -15,7 +15,7 @@ public class Athlete {
 
     private Double height;
 
-    private String nation;
+    private Integer nationId;
 
     private String idNum;
 
@@ -25,25 +25,6 @@ public class Athlete {
 
     private Boolean active;
 
-    private Double score;
-
-    private Integer rank;
-
-    public Double getScore() {
-        return score;
-    }
-
-    public void setScore(Double score) {
-        this.score = score;
-    }
-
-    public Integer getRank() {
-        return rank;
-    }
-
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
 
     public Integer getId() {
         return id;
@@ -101,12 +82,12 @@ public class Athlete {
         this.height = height;
     }
 
-    public String getNation() {
-        return nation;
+    public Integer getNationId() {
+        return nationId;
     }
 
-    public void setNation(String nation) {
-        this.nation = nation == null ? null : nation.trim();
+    public void setNationId(Integer nationId) {
+        this.nationId = nationId;
     }
 
     public String getIdNum() {
@@ -141,23 +122,4 @@ public class Athlete {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "Athlete{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", playerNum='" + playerNum + '\'' +
-                ", gender=" + gender +
-                ", age=" + age +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", nation='" + nation + '\'' +
-                ", idNum='" + idNum + '\'' +
-                ", userId=" + userId +
-                ", max=" + max +
-                ", active=" + active +
-                ", score=" + score +
-                ", rank=" + rank +
-                '}';
-    }
 }
