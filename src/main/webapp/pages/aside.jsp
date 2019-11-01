@@ -41,18 +41,18 @@
                                     class="fa fa-circle-o"></i> 比赛列表
                             </a>
                         </li>
-                        <li id="system-setting"><a
+                        <%--<li id="system-setting"><a
                                 href="${pageContext.request.contextPath}/role/findAll"> <i
                                 class="fa fa-circle-o"></i> 报名审核
-                        </a></li>
+                        </a></li>--%>
                         <li id="system-setting"><a
                                 href="${pageContext.request.contextPath}/equipment/findAll">
                             <i class="fa fa-circle-o"></i> 器材管理
                         </a></li>
-                        <li id="system-setting"><a
+                        <%--<li id="system-setting"><a
                                 href="${pageContext.request.contextPath}/sysLog/findAll"> <i
                                 class="fa fa-circle-o"></i> 成绩打印
-                        </a></li>
+                        </a></li>--%>
                     </ul>
                 </li>
             </security:authorize>
@@ -76,10 +76,10 @@
                             href="${pageContext.request.contextPath}/athlete/findByPage"> <i
                             class="fa fa-circle-o"></i> 运动员列表
                     </a></li>
-                    <li id="system-setting"><a
+                    <%--<li id="system-setting"><a
                             href=""> <i
                             class="fa fa-circle-o"></i> 运动员申请
-                    </a></li>
+                    </a></li>--%>
 
                 </ul>
             </li>
@@ -97,10 +97,10 @@
                             href="${pageContext.request.contextPath}/team/findAll">
                         <i class="fa fa-circle-o"></i> 团队列表
                     </a></li>
-                    <li id="system-setting"><a
+                    <%--<li id="system-setting"><a
                             href=""> <i
                             class="fa fa-circle-o"></i> XXX
-                    </a></li>
+                    </a></li>--%>
 
                 </ul>
             </li>

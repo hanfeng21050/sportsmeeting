@@ -3,6 +3,7 @@ package cn.hf.sportmeeting.service.impl;
 import cn.hf.sportmeeting.dao.*;
 import cn.hf.sportmeeting.domain.*;
 import cn.hf.sportmeeting.service.IProjectService;
+import cn.hf.sportmeeting.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -243,6 +244,50 @@ public class ProjectServiceImpl implements IProjectService {
                 grade.setScore(ext.getScore());
                 gradeMapper.updateByExampleSelective(grade,gradeExample);
             }
+        }
+    }
+
+    @Override
+    public Object findAthlete(Integer id, Boolean type)
+    {
+        if(type)
+        {
+            //团体
+            TeamExample teamExample = new TeamExample();
+            teamExample.createCriteria().andProjectIdIsNull().andActiveEqualTo(true);
+            return teamMapper.selectByExample(teamExample);
+        }else
+        {
+            //运动员
+            GradeExample gradeExample = new GradeExample();
+            gradeExample.createCriteria().andProjectIdEqualTo(id).andActiveEqualTo(true);
+            List<Grade> gradeList = gradeMapper.selectByExample(gradeExample);
+
+            List<Integer> ids = Utils.getIds(gradeList, "getAthleteId");
+
+            AthleteExample athleteExample = new AthleteExample();
+            athleteExample.createCriteria().andIdNotIn(ids).andActiveEqualTo(true);
+            return athleteMapper.selectByExample(athleteExample);
+        }
+    }
+
+    @Override
+    public void addMember(Integer projectId, Boolean type, Integer memberId) {
+        if(type)
+        {
+            //添加团队
+            Team team = new Team();
+            team.setId(memberId);
+            team.setProjectId(projectId);
+            teamMapper.updateByPrimaryKeySelective(team);
+        }else
+        {
+            //添加运动员
+            Grade grade = new Grade();
+            grade.setProjectId(projectId);
+            grade.setAthleteId(memberId);
+
+            gradeMapper.insertSelective(grade);
         }
     }
 }

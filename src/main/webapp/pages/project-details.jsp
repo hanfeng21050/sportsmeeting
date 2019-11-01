@@ -60,9 +60,22 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
 
+
     <style type="text/css">
         input{
             border-radius: 6px !important;
+        }
+        select{
+            border:1px solid #c9c9c9;
+            background-color:#fff;
+            color:#666;
+            height:34px;
+            line-height:28px;
+            padding:4px 6px;
+            font-size:14px;
+            border-radius:6px;
+            cursor:pointer;
+            outline:none;
         }
     </style>
 </head>
@@ -159,7 +172,7 @@
                         <div>
                             <div class="form-group form-inline">
                                 <div class="btn-group">
-                                    <button type="button" class="btn bg-yellow btn-default" title="新增"><i class="fa fa-trash-o"></i> 新增</button>
+                                    <button type="button" class="btn bg-yellow btn-default" data-toggle="modal" data-target="#myModal" title="新增" onclick="getAthlete(${project.id})"><i class="fa fa-trash-o"></i> 新增</button>
                                     <button type="button" class="btn bg-red btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
                                     <button type="button" class="btn bg-green btn-default" title="成绩录入" onclick='location.href="${pageContext.request.contextPath}/project/findMemberById?id=${project.id}&type=${project.type}"'><i class="fa fa-pencil"></i> 成绩录入</button>
                                 </div>
@@ -235,6 +248,46 @@
 
             </div>
 
+            <%--保存弹出窗--%>
+            <div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form id="myForm" method="post">
+                        <div class="modal-content" style="border-radius: 6px">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="title">新建</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+
+                                    <input type="hidden" name="id" id="id" value="${project.id}">
+                                    <input type="hidden" name="type" id="type" value="${project.type}">
+
+                                    <label for="name" class="col-sm-3 control-label">比赛名称</label>
+                                    <div class="col-sm-9">
+                                        <input id="name" readonly="readonly" type="text" class="form-control rounded" placeholder="比赛名称" value="${project.name}" name="name" >
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <label for="member" class="col-sm-3 control-label">运动员/团队</label>
+                                    <div class="col-md-9 data">
+                                        <select id="member" style="width: 100%;" name="member">
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button id="btn" type="submit" class="btn bg-maroon">保存</button>
+                                <button type="button" class="btn bg-blue" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
 
         </section>
         <!-- 正文区域 /-->
@@ -334,6 +387,76 @@
         src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
 <script>
 
+    function getAthlete(id) {
+        //请求角色列表
+        console.log(id)
+        var url = "${pageContext.request.contextPath}/project/findAthlete?id="+id;
+        var id = $("#id").val();
+        var type = $("#type").val();
+        var res = {};
+        res["id"] = id;
+        res["type"] = type;
+        console.log(res)
+        $.ajax({
+            type: "POST",   //提交的方法
+            dataType: "json",
+            contentType : 'application/json',//添加这句话
+            url:url, //提交的地址
+            async: false,
+            data:JSON.stringify(res),
+            success: function(data) {  //成功
+                console.log(data);
+                var  html = "";
+                if(${project.type == false})
+                {
+                    for(var i = 0; i< data.athleteList.length; i++)
+                    {
+                        html += "<option value=\""+data.athleteList[i].id +"\" >"+ data.athleteList[i].name+"</option>";
+                    }
+                }else
+                {
+                    for(var i = 0; i< data.teamList.length; i++)
+                    {
+                        html += "<option value=\""+data.teamList[i].id +"\" >"+ data.teamList[i].name+"</option>";
+                    }
+                }
+
+                console.log(html);
+                $("#member").html(html);
+            }
+        });
+    };
+
+
+    /*提交表单*/
+
+    $("#myForm").submit(function () {
+        //todo 解决空格变成加号问题
+        var data = $('#myForm').serialize().replace(/\+/g," ");
+        data = decodeURIComponent(data,true);
+        //处理data 转成json格式
+        var dataArr = data.split("&");
+        var res = {};
+        for (var i = 0; i < dataArr.length; i++) {
+            var str = dataArr[i].split("=");
+            res[str[0]] = str[1];
+        }
+        console.log(res);
+
+        $.ajax({
+            type: "POST",   //提交的方法
+            dataType: "json",
+            contentType : 'application/json',//添加这句话
+            url:"${pageContext.request.contextPath}/project/addMember", //提交的地址
+            async: false,
+            data:JSON.stringify(res),
+            error: function() {  //失败的话
+                alert("执行失败!")
+            },
+            success: function() {  //成功
+            }
+        });
+    });
 
     $(function() {
         $('#dataList').DataTable({

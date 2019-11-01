@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,71 @@ import java.util.Map;
 public class ProjectController {
     @Autowired
     private IProjectService projectService;
+
+    /**
+     * 给比赛添加团队或者运动员
+     * @param map
+     * projectId:比赛id
+     * type：比赛类型
+     * memberId:添加的运动员或者团队id
+     * @return
+     */
+    @RequestMapping(value = "/addMember",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String addMember(@RequestBody Map<String,Object> map)
+    {
+        String idStr = (String) map.get("id");
+        Integer projectId = Integer.valueOf(idStr);
+        String typeStr = (String) map.get("type");
+        Boolean type = null;
+        if("true".equals(typeStr))
+        {
+            type = true;
+        }else
+        {
+            type = false;
+        }
+        String memberIdStr = (String) map.get("member");
+        Integer memberId = Integer.valueOf(memberIdStr);
+
+        projectService.addMember(projectId,type,memberId);
+        return "200";
+    }
+
+
+    /**
+     * 获取非当前比赛下的运动员或者团队
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/findAthlete",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Map<String,Object> findAthlete(@RequestBody Map<String,Object> map)
+    {
+        String idStr = (String) map.get("id");
+        Integer id = Integer.valueOf(idStr);
+        String typeStr = (String) map.get("type");
+
+        Boolean type = null;
+        if("true".equals(typeStr))
+        {
+            type = true;
+        }else
+        {
+            type = false;
+        }
+        Map<String,Object> res = new HashMap<>(4);
+        if(type)
+        {
+            List<Team> teamList = (List<Team>) projectService.findAthlete(id,type);
+            res.put("teamList",teamList);
+        }else
+        {
+            List<Athlete> athleteList = (List<Athlete>) projectService.findAthlete(id,type);
+            res.put("athleteList",athleteList);
+        }
+        return res;
+    }
 
     /**
      * 查询所有项目

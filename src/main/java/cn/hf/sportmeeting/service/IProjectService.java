@@ -1,6 +1,5 @@
 package cn.hf.sportmeeting.service;
 
-import cn.hf.sportmeeting.domain.Athlete;
 import cn.hf.sportmeeting.domain.Project;
 import cn.hf.sportmeeting.domain.ScoreExt;
 
@@ -71,4 +70,21 @@ public interface IProjectService {
      * @param type
      * */
     public void scoreEntry(List<ScoreExt> exts, Boolean type);
+
+
+    /**
+     * 查询非当前目录下的运动员或者团队
+     * @param id
+     * @param type 1 团体 0 个人
+     * @return
+     */
+    Object findAthlete(Integer id, Boolean type);
+
+    /**
+     *
+     * @param projectId
+     * @param type 比赛类型
+     * @param memberId 添加的团队或者运动员id
+     */
+    public void addMember(Integer projectId, Boolean type, Integer memberId);
 }
