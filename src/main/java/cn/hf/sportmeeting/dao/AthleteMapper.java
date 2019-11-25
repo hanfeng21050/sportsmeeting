@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * athlete
+ */
 public interface AthleteMapper {
     long countByExample(AthleteExample example);
 
